@@ -9,7 +9,7 @@ from django.db.models import Count
 from .models import Book, CartItem, Review, ChatInteraction, Order, OrderItem
 from .serializers import (
     UserSerializer, BookSerializer, CartItemSerializer, 
-    ReviewSerializer, CustomTokenObtainPairSerializer, ChatInteractionSerializer
+    ReviewSerializer, CustomTokenObtainPairSerializer, ChatInteractionSerializer, OrderSerializer
 )
 
 class IsAdminUserOrReadOnly(permissions.BasePermission):
@@ -134,6 +134,12 @@ class CheckoutView(APIView):
                 quantity=item.quantity,
                 price_at_purchase=item.book.price
             )
+            # Drain inventory stock
+            if hasattr(item.book, 'stock') and item.book.stock >= item.quantity:
+                item.book.stock -= item.quantity
+            else:
+                item.book.stock = 0
+            item.book.save()
             
         cart_items.delete()
         return Response({"message": "Checkout successful", "order_id": order.id}, status=status.HTTP_201_CREATED)
@@ -158,7 +164,7 @@ class AdminAnalyticsView(APIView):
         
         # Calculate KPIs
         total_revenue = Order.objects.aggregate(total=Sum('total_amount'))['total'] or 0
-        total_users = User.objects.count()
+        total_users = User.objects.filter(is_staff=False, store_owner_profile__isnull=True).count()
         total_books_sold = OrderItem.objects.aggregate(total=Sum('quantity'))['total'] or 0
         total_chats = ChatInteraction.objects.count()
 
@@ -208,3 +214,147 @@ class AdminAnalyticsView(APIView):
             'kpis': kpis,
             'timeseries': timeseries
         })
+
+class OrderViewSet(viewsets.ReadOnlyModelViewSet):
+    serializer_class = OrderSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        return Order.objects.filter(user=self.request.user).order_by('-created_at')
+
+
+# ==========================================
+# STORE OWNER / SUPPLIER MODULE
+# ==========================================
+
+from rest_framework.permissions import AllowAny, IsAuthenticated
+from .models import StoreOwnerProfile, SupplierBook, BulkOrder, BulkOrderItem
+from .serializers import StoreOwnerProfileSerializer, SupplierBookSerializer, BulkOrderSerializer
+
+class RegisterSupplierView(generics.CreateAPIView):
+    permission_classes = [AllowAny]
+    serializer_class = UserSerializer
+
+    @transaction.atomic
+    def post(self, request, *args, **kwargs):
+        # Register core user
+        user_data = request.data
+        store_name = request.data.get('store_name', 'Store-' + user_data.get('username'))
+        serializer = self.get_serializer(data=user_data)
+        if serializer.is_valid():
+            user = serializer.save()
+            # Assign store profile
+            StoreOwnerProfile.objects.create(user=user, store_name=store_name, contact_email=user.email)
+            return Response({"user": serializer.data, "message": "Store Owner created successfully."}, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class StoreOwnerProfileViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = StoreOwnerProfile.objects.all()
+    serializer_class = StoreOwnerProfileSerializer
+    permission_classes = [IsAuthenticated]
+
+
+class SupplierBookViewSet(viewsets.ModelViewSet):
+    serializer_class = SupplierBookSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        if hasattr(user, 'store_owner_profile'):
+            return SupplierBook.objects.filter(owner=user.store_owner_profile)
+        # Admin can view catalog of all suppliers
+        if user.is_staff or user.is_superuser:
+            return SupplierBook.objects.all()
+        return SupplierBook.objects.none()
+
+    def perform_create(self, serializer):
+        if hasattr(self.request.user, 'store_owner_profile'):
+            serializer.save(owner=self.request.user.store_owner_profile)
+
+
+class BulkOrderViewSet(viewsets.ModelViewSet):
+    serializer_class = BulkOrderSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        if hasattr(user, 'store_owner_profile'):
+            return BulkOrder.objects.filter(store_owner=user.store_owner_profile).order_by('-created_at')
+        if user.is_staff or user.is_superuser:
+            return BulkOrder.objects.filter(admin=user).order_by('-created_at')
+        return BulkOrder.objects.none()
+
+    @action(detail=True, methods=['patch'])
+    def status(self, request, pk=None):
+        order = self.get_object()
+        new_status = request.data.get('status')
+        if new_status:
+            order.status = new_status
+            order.save()
+            
+            # INVENTORY SYNC: Add to Retail Catalog natively upon supplier shipping delivery
+            if new_status == 'Delivered' and hasattr(request.user, 'store_owner_profile'):
+                for item in order.items.all():
+                    # Deduct supplier internal
+                    if item.supplier_book.stock_quantity >= item.quantity:
+                        item.supplier_book.stock_quantity -= item.quantity
+                        item.supplier_book.save()
+                    
+                    # Merge immediately into retail catalog (Book)
+                    retail_book, created = Book.objects.get_or_create(
+                        title=item.supplier_book.title,
+                        author=item.supplier_book.author,
+                        defaults={
+                            # Mark up retail price by 50%
+                            'price': float(item.price_at_purchase) * 1.5,
+                            'description': item.supplier_book.description,
+                            'image_url': item.supplier_book.image_url,
+                            'stock': 0
+                        }
+                    )
+                    retail_book.stock += item.quantity
+                    retail_book.save()
+                    
+            return Response(self.get_serializer(order).data)
+        return Response({'error': 'No status provided'}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class BulkCheckoutView(APIView):
+    permission_classes = [permissions.IsAdminUser]
+
+    @transaction.atomic
+    def post(self, request):
+        items_data = request.data.get('items', [])
+        store_owner_id = request.data.get('store_owner_id')
+        
+        if not items_data or not store_owner_id:
+            return Response({'error': 'Missing items or store owner id.'}, status=status.HTTP_400_BAD_REQUEST)
+            
+        try:
+            store_owner = StoreOwnerProfile.objects.get(id=store_owner_id)
+        except StoreOwnerProfile.DoesNotExist:
+            return Response({'error': 'Invalid store supplier.'}, status=status.HTTP_404_NOT_FOUND)
+        
+        # Calculate B2B invoice total strictly
+        total_amount = sum(float(item['wholesale_price']) * int(item['quantity']) for item in items_data)
+        
+        order = BulkOrder.objects.create(
+            admin=request.user,
+            store_owner=store_owner,
+            total_amount=total_amount,
+            status='Pending'
+        )
+        
+        for item_data in items_data:
+            try:
+                sb = SupplierBook.objects.get(id=item_data['id'])
+                BulkOrderItem.objects.create(
+                    bulk_order=order,
+                    supplier_book=sb,
+                    quantity=item_data['quantity'],
+                    price_at_purchase=sb.wholesale_price
+                )
+            except SupplierBook.DoesNotExist:
+                continue
+            
+        return Response({"message": "Successfully dispatched bulk order.", "order_id": order.id}, status=status.HTTP_201_CREATED)

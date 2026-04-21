@@ -25,23 +25,31 @@ export default function Navbar() {
     <nav className="navbar">
       <div className="container navbar-container">
         <Link to="/" className="nav-brand">
-          <BookOpen color="var(--color-accent-primary)" size={28} />
-          Nyeras<span className="text-gradient">Books</span>
+          <BookOpen className="text-gradient" size={28} />
+          <span style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>Nyeras <span className="text-gradient">Books</span></span>
         </Link>
         
-        <div className="nav-links">
-          <Link to="/" className={`nav-link ${location.pathname === '/' ? 'active' : ''}`}>
-            Home
-          </Link>
+        <div className="nav-links" style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
+          {!user?.isAdmin && (
+            <Link to="/" className={`nav-link ${location.pathname === '/' ? 'active' : ''}`}>
+              Home
+            </Link>
+          )}
           {user?.isAdmin && (
             <Link to="/admin" className={`nav-link ${location.pathname.startsWith('/admin') ? 'active' : ''}`}>
               Admin Panel
             </Link>
           )}
           
+          {user?.isStoreOwner && (
+            <Link to="/supplier" className={`nav-link ${location.pathname.startsWith('/supplier') ? 'active' : ''}`}>
+              Supplier Portal
+            </Link>
+          )}
+          
           {user ? (
             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-              {!user.isAdmin && (
+              {!user.isAdmin && !user.isStoreOwner && (
                 <>
                   <Link to="/catalog" className={`nav-link ${location.pathname === '/catalog' ? 'active' : ''}`}>
                     Catalog
@@ -92,31 +100,54 @@ export default function Navbar() {
 
                 {/* Dropdown Menu */}
                 {isProfileOpen && (
-                  <div style={{
-                    position: 'absolute',
-                    top: '120%',
-                    right: 0,
-                    width: '140px',
-                    backgroundColor: 'rgba(24, 24, 27, 0.95)',
-                    backdropFilter: 'blur(10px)',
-                    border: '1px solid rgba(255,255,255,0.1)',
-                    borderRadius: '8px',
-                    overflow: 'hidden',
-                    boxShadow: '0 10px 25px rgba(0,0,0,0.5)',
-                    zIndex: 50,
-                  }}>
-                    <button 
-                      onClick={(e) => {
+                  <div style={{ position: 'relative' }}>
+                    <div style={{ 
+                      position: 'absolute', 
+                      top: '100%', 
+                      right: 0, 
+                      marginTop: '0.5rem', 
+                      background: 'rgba(30, 30, 35, 0.95)', 
+                      backdropFilter: 'blur(10px)',
+                      border: '1px solid rgba(255,255,255,0.1)', 
+                      borderRadius: '8px', 
+                      overflow: 'hidden',
+                      minWidth: '150px',
+                      boxShadow: '0 10px 25px rgba(0,0,0,0.5)',
+                      zIndex: 50,
+                    }}>
+                      {!user.isAdmin && !user.isStoreOwner && (
+                        <Link 
+                          to="/profile"
+                          style={{ 
+                            width: '100%', 
+                            padding: '0.8rem 1rem', 
+                            fontSize: '0.9rem', 
+                            display: 'flex', 
+                            alignItems: 'center', 
+                            gap: '0.5rem', 
+                            color: 'white',
+                            textDecoration: 'none',
+                            borderBottom: '1px solid rgba(255,255,255,0.05)',
+                            fontWeight: '500'
+                          }}
+                          onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.05)'}
+                          onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+                          onClick={() => setIsProfileOpen(false)}
+                        >
+                          My Profile
+                        </Link>
+                      )}
+                      <button 
+                        onClick={(e) => {
                           e.stopPropagation();
                           logout();
-                      }}
-                      style={{ 
-                        width: '100%', 
-                        padding: '0.8rem 1rem', 
-                        fontSize: '0.9rem', 
-                        display: 'flex', 
-                        alignItems: 'center', 
-                        justifyContent: 'center',
+                        }}
+                        style={{
+                          width: '100%', 
+                          padding: '0.8rem 1rem', 
+                          fontSize: '0.9rem', 
+                          display: 'flex', 
+                          alignItems: 'center', 
                         gap: '0.5rem', 
                         background: 'transparent',
                         color: '#ef4444',
@@ -131,6 +162,7 @@ export default function Navbar() {
                       <LogOut size={16} /> Logout
                     </button>
                   </div>
+                 </div>
                 )}
               </div>
             </div>

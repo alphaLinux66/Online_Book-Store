@@ -75,6 +75,10 @@ export const fetchCart = async () => {
   return response.json();
 };
 
+export const fetchMyOrders = async () => {
+    return await fetchWithAuth('/my-orders/');
+}
+
 export const addToCart = async (bookId, quantity = 1) => {
   const response = await fetch(`${API_BASE_URL}/cart/`, {
     method: 'POST',
@@ -122,6 +126,52 @@ export const logChatInteraction = async (data) => {
 
 export const getAdminAnalytics = async (days = 90) => {
     return await fetchWithAuth(`/admin/analytics/?days=${days}`);
+};
+
+// ==============================
+// STORE OWNER & B2B MODULE APIs
+// ==============================
+
+// Suppliers listing books
+export const fetchSupplierBooks = async () => {
+    return await fetchWithAuth('/supplier-books/');
+};
+
+export const createSupplierBook = async (bookData) => {
+    return await fetchWithAuth('/supplier-books/', {
+        method: 'POST',
+        body: JSON.stringify(bookData)
+    });
+};
+
+export const updateSupplierBook = async (id, bookData) => {
+    return await fetchWithAuth(`/supplier-books/${id}/`, {
+        method: 'PUT',
+        body: JSON.stringify(bookData)
+    });
+};
+
+export const fetchStoreOrders = async () => {
+    return await fetchWithAuth('/bulk-orders/');
+};
+
+export const updateStoreOrderStatus = async (orderId, status) => {
+    return await fetchWithAuth(`/bulk-orders/${orderId}/status/`, {
+        method: 'PATCH',
+        body: JSON.stringify({ status })
+    });
+};
+
+// Admin browsing and B2B checkout
+export const fetchSuppliers = async () => {
+    return await fetchWithAuth('/suppliers/');
+};
+
+export const placeBulkCheckout = async (storeOwnerId, items) => {
+    return await fetchWithAuth('/bulk-checkout/', {
+        method: 'POST',
+        body: JSON.stringify({ store_owner_id: storeOwnerId, items: items })
+    });
 };
 
 // Admin Book Actions

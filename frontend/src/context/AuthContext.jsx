@@ -10,9 +10,9 @@ export const AuthProvider = ({ children }) => {
     if (token) {
       try {
         const payload = JSON.parse(atob(token.split('.')[1]));
-        setUser({ isLoggedIn: true, isAdmin: payload.is_admin || false, ...payload });
+        setUser({ isLoggedIn: true, isAdmin: payload.is_admin || false, isStoreOwner: payload.is_store_owner || false, ...payload });
       } catch (e) {
-        setUser({ isLoggedIn: true, isAdmin: false });
+        setUser({ isLoggedIn: true, isAdmin: false, isStoreOwner: false });
       }
     } else {
       setUser(null);
@@ -27,9 +27,9 @@ export const AuthProvider = ({ children }) => {
     setToken(data.access);
     try {
         const payload = JSON.parse(atob(data.access.split('.')[1]));
-        setUser({ isLoggedIn: true, isAdmin: payload.is_admin || false, ...payload });
+        setUser({ isLoggedIn: true, isAdmin: payload.is_admin || false, isStoreOwner: payload.is_store_owner || false, ...payload });
     } catch (e) {
-        setUser({ isLoggedIn: true, isAdmin: false });
+        setUser({ isLoggedIn: true, isAdmin: false, isStoreOwner: false });
     }
   };
 

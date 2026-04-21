@@ -11,6 +11,8 @@ export default function Register() {
   const navigate = useNavigate();
   const { login } = useAuth();
 
+  const [isSupplier, setIsSupplier] = useState(false);
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -21,7 +23,18 @@ export default function Register() {
     setError('');
     
     try {
-      await registerUser(formData);
+      if (isSupplier) {
+          // Custom fetch for supplier
+          const response = await fetch('http://localhost:8000/api/auth/register-supplier/', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({...formData, store_name: formData.storeName || undefined })
+          });
+          if (!response.ok) throw new Error("Failed to register as Supplier");
+      } else {
+          await registerUser(formData);
+      }
+      
       // Auto login after registration
       const data = await loginUser({ username: formData.username, password: formData.password });
       login(data);
@@ -121,6 +134,27 @@ export default function Register() {
               />
               <Lock size={18} style={{ position: 'absolute', left: '1rem', top: '14px', color: 'var(--color-text-secondary)' }} />
             </div>
+          </div>
+
+          <div style={{ padding: '1rem', background: 'rgba(99, 102, 241, 0.05)', borderRadius: '8px', border: '1px solid rgba(99, 102, 241, 0.2)', marginBottom: '1rem' }}>
+             <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer', color: '#e4e4e7', fontSize: '0.9rem' }}>
+               <input type="checkbox" checked={isSupplier} onChange={() => setIsSupplier(!isSupplier)} />
+               I want to register as a Wholesale Supplier
+             </label>
+             {isSupplier && (
+                <div className="input-group" style={{ marginTop: '1rem', animation: 'fadeIn 0.3s' }}>
+                  <label className="input-label">Store / Company Name</label>
+                  <input 
+                    type="text" 
+                    name="storeName" 
+                    className="input-field" 
+                    placeholder="Enter your registered business name"
+                    value={formData.storeName || ''}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+             )}
           </div>
           
           <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '1rem' }} disabled={loading}>

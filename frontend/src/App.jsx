@@ -18,12 +18,15 @@ import Navbar from './components/Navbar';
 import Chatbot from './components/Chatbot';
 
 import AdminDashboard from './pages/AdminDashboard';
+import StoreOwnerDashboard from './pages/StoreOwnerDashboard';
+import UserProfile from './pages/UserProfile';
 
 import './App.css';
 
 const ProtectedRoute = ({ children }) => {
   const { user } = useAuth();
   if (!user) return <Navigate to="/login" replace />;
+  if (user.isStoreOwner) return <Navigate to="/supplier" replace />;
   return children;
 };
 
@@ -33,11 +36,17 @@ const AdminRoute = ({ children }) => {
   return children;
 };
 
+const SupplierRoute = ({ children }) => {
+  const { user } = useAuth();
+  if (!user || !user.isStoreOwner) return <Navigate to="/" replace />;
+  return children;
+};
+
 const AppLayout = () => {
   const { user } = useAuth();
   const location = useLocation();
-  const hideChatbotPaths = ['/checkout', '/login', '/register', '/admin'];
-  const showChatbot = !hideChatbotPaths.includes(location.pathname) && !location.pathname.startsWith('/admin') && !(user?.isAdmin);
+  const hideChatbotPaths = ['/checkout', '/login', '/register', '/admin', '/supplier'];
+  const showChatbot = !hideChatbotPaths.includes(location.pathname) && !location.pathname.startsWith('/admin') && !location.pathname.startsWith('/supplier') && !(user?.isAdmin) && !(user?.isStoreOwner);
 
   return (
     <div className="app-container">
@@ -54,8 +63,10 @@ const AppLayout = () => {
           <Route path="/cart" element={<ProtectedRoute><Cart /></ProtectedRoute>} />
           <Route path="/checkout" element={<ProtectedRoute><Checkout /></ProtectedRoute>} />
           <Route path="/tracking" element={<ProtectedRoute><OrderTracking /></ProtectedRoute>} />
+          <Route path="/profile" element={<ProtectedRoute><UserProfile /></ProtectedRoute>} />
           
           <Route path="/admin/*" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
+          <Route path="/supplier/*" element={<SupplierRoute><StoreOwnerDashboard /></SupplierRoute>} />
         </Routes>
       </main>
       {showChatbot && <Chatbot />}

@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from django.contrib.auth.models import User
-from .models import Book, CartItem, Review, ChatInteraction
+from .models import Book, CartItem, Review, ChatInteraction, StoreOwnerProfile, SupplierBook, BulkOrder, BulkOrderItem, Order, OrderItem
 
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
@@ -10,6 +10,7 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
         # Add custom claims
         token['is_admin'] = user.is_staff or user.is_superuser
         token['username'] = user.username
+        token['is_store_owner'] = hasattr(user, 'store_owner_profile')
         return token
 
 
@@ -59,3 +60,48 @@ class ChatInteractionSerializer(serializers.ModelSerializer):
     class Meta:
         model = ChatInteraction
         fields = '__all__'
+
+class OrderItemSerializer(serializers.ModelSerializer):
+    book = BookSerializer(read_only=True)
+    
+    class Meta:
+        model = OrderItem
+        fields = ('id', 'book', 'quantity', 'price_at_purchase')
+
+class OrderSerializer(serializers.ModelSerializer):
+    items = OrderItemSerializer(many=True, read_only=True)
+    
+    class Meta:
+        model = Order
+        fields = ('id', 'total_amount', 'status', 'created_at', 'items')
+
+class StoreOwnerProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = StoreOwnerProfile
+        fields = '__all__'
+
+class SupplierBookSerializer(serializers.ModelSerializer):
+    store_name = serializers.CharField(source='owner.store_name', read_only=True)
+    
+    class Meta:
+        model = SupplierBook
+        fields = '__all__'
+        read_only_fields = ('owner',)
+
+class BulkOrderItemSerializer(serializers.ModelSerializer):
+    supplier_book_details = SupplierBookSerializer(source='supplier_book', read_only=True)
+    
+    class Meta:
+        model = BulkOrderItem
+        fields = '__all__'
+        read_only_fields = ('bulk_order',)
+
+class BulkOrderSerializer(serializers.ModelSerializer):
+    items = BulkOrderItemSerializer(many=True, read_only=True)
+    store_name = serializers.CharField(source='store_owner.store_name', read_only=True)
+    admin_name = serializers.CharField(source='admin.username', read_only=True)
+
+    class Meta:
+        model = BulkOrder
+        fields = '__all__'
+        read_only_fields = ('admin', 'created_at', 'total_amount')

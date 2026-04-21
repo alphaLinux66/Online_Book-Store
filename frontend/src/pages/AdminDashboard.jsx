@@ -3,8 +3,8 @@ import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell,
   AreaChart, Area
 } from 'recharts';
-import { fetchBooks, fetchUsers, getAdminAnalytics, createBook, updateBook, deleteBook, deleteUser, deleteReview } from '../services/api';
-import { Edit2, Trash2, Plus, X, Users, BookOpen, MessageSquare, BarChart2, TrendingUp, TrendingDown } from 'lucide-react';
+import { fetchBooks, fetchUsers, getAdminAnalytics, createBook, updateBook, deleteBook, deleteUser, deleteReview, fetchSuppliers, fetchSupplierBooks, placeBulkCheckout } from '../services/api';
+import { Edit2, Trash2, Plus, X, Users, BookOpen, MessageSquare, BarChart2, TrendingUp, TrendingDown, ShoppingBag } from 'lucide-react';
 
 const COLORS = ['#8b5cf6', '#a855f7', '#d946ef', '#ec4899', '#f43f5e'];
 
@@ -16,6 +16,9 @@ export default function AdminDashboard() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingBook, setEditingBook] = useState(null);
   const [timeRange, setTimeRange] = useState(90);
+  
+  const [wholesaleBooks, setWholesaleBooks] = useState([]);
+  const [b2bCart, setB2bCart] = useState({});
   
   const [formData, setFormData] = useState({
     title: '', author: '', price: '', description: '', image_url: ''
@@ -32,6 +35,9 @@ export default function AdminDashboard() {
       } else if (activeTab === 'analytics') {
         const a = await getAdminAnalytics(timeRange);
         setAnalytics(a);
+      } else if (activeTab === 'wholesale') {
+        const wb = await fetchSupplierBooks();
+        setWholesaleBooks(wb);
       }
     } catch (e) {
       console.error(e);
@@ -83,6 +89,39 @@ export default function AdminDashboard() {
     }
   };
 
+  const handleB2bAddToCart = (book) => {
+    setB2bCart(prev => ({
+      ...prev,
+      [book.id]: { book, quantity: (prev[book.id]?.quantity || 0) + 1 }
+    }));
+  };
+
+  const handleB2bCheckout = async (storeOwnerId) => {
+    const itemsToBuy = Object.values(b2bCart).filter(item => item.book.owner === storeOwnerId).map(i => ({
+      id: i.book.id,
+      quantity: i.quantity,
+      wholesale_price: i.book.wholesale_price
+    }));
+    
+    if (itemsToBuy.length === 0) return;
+    
+    try {
+        await placeBulkCheckout(storeOwnerId, itemsToBuy);
+        alert("Bulk Order Placed Successfully! Suppliers will be notified.");
+        
+        // Remove bought items from cart UI
+        const newCart = {...b2bCart};
+        Object.keys(newCart).forEach(id => {
+            if(newCart[id].book.owner === storeOwnerId) delete newCart[id];
+        });
+        setB2bCart(newCart);
+        
+        loadData();
+    } catch (e) {
+        alert("Checkout failed");
+    }
+  };
+
   return (
     <div className="container" style={{ padding: '2rem 1rem' }}>
       <h1 className="text-gradient">Admin Dashboard</h1>
@@ -96,6 +135,9 @@ export default function AdminDashboard() {
         </button>
         <button className={`btn ${activeTab === 'users' ? 'btn-primary' : 'btn-secondary'}`} onClick={() => setActiveTab('users')}>
           <Users size={16} /> Manage Users
+        </button>
+        <button className={`btn ${activeTab === 'wholesale' ? 'btn-primary' : 'btn-secondary'}`} onClick={() => setActiveTab('wholesale')}>
+          <ShoppingBag size={16} /> Wholesale Desk
         </button>
       </div>
 
@@ -273,6 +315,67 @@ export default function AdminDashboard() {
                   ))}
                 </tbody>
               </table>
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'wholesale' && (
+          <div>
+            <div style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap' }}>
+              <div style={{ flex: '2', minWidth: '400px' }}>
+                <h2 style={{ marginBottom: '1rem' }}>Supplier Catalog</h2>
+                <div style={{ display: 'grid', gap: '1rem' }}>
+                    {wholesaleBooks.length === 0 ? (
+                       <p style={{ color: 'var(--color-text-secondary)' }}>No wholesalers are currently listing books.</p>
+                    ) : wholesaleBooks.map(book => (
+                        <div key={book.id} className="glass-panel" style={{ padding: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                            <div>
+                                <h3 style={{ margin: '0 0 0.5rem 0' }}>{book.title}</h3>
+                                <p style={{ margin: '0 0 0.5rem 0', color: 'var(--color-text-secondary)', fontSize: '0.9rem' }}>By {book.author} | Supplier: <span style={{ color: 'white' }}>{book.store_name}</span></p>
+                                <p style={{ margin: 0, fontWeight: 'bold', color: '#10b981' }}>Wholesale Price: ₹{book.wholesale_price} <span style={{ color: 'var(--color-text-secondary)', fontSize: '0.8.5rem', fontWeight: 'normal' }}>({book.stock_quantity} available in warehouse)</span></p>
+                            </div>
+                            <button className="btn-icon" style={{ background: 'rgba(139, 92, 246, 0.2)', color: 'var(--color-accent-primary)', height: '40px', width: '40px' }} onClick={() => handleB2bAddToCart(book)}>
+                                <Plus size={20} />
+                            </button>
+                        </div>
+                    ))}
+                </div>
+              </div>
+              
+              <div style={{ flex: '1', minWidth: '300px' }}>
+                  <div className="glass-panel sticky" style={{ top: '100px', padding: '1.5rem' }}>
+                      <h2 style={{ marginBottom: '1.5rem', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '0.5rem' }}>B2B Purchase Cart</h2>
+                      
+                      {Object.keys(b2bCart).length === 0 ? (
+                          <div style={{ color: 'var(--color-text-secondary)', textAlign: 'center', padding: '2rem 0' }}>Cart is empty</div>
+                      ) : (
+                          <div>
+                              {Object.entries(
+                                  Object.values(b2bCart).reduce((acc, item) => {
+                                      acc[item.book.owner] = acc[item.book.owner] || { store_name: item.book.store_name, items: [] };
+                                      acc[item.book.owner].items.push(item);
+                                      return acc;
+                                  }, {})
+                              ).map(([ownerId, group]) => (
+                                  <div key={ownerId} style={{ marginBottom: '1.5rem', background: 'rgba(0,0,0,0.2)', padding: '1rem', borderRadius: '8px' }}>
+                                      <h4 style={{ margin: '0 0 1rem 0' }}>Ordering from: <span style={{ color: 'var(--color-accent-primary)' }}>{group.store_name}</span></h4>
+                                      {group.items.map(item => (
+                                          <div key={item.book.id} style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem', fontSize: '0.9rem' }}>
+                                              <span>{item.quantity}x {item.book.title}</span>
+                                              <span>₹{(item.book.wholesale_price * item.quantity).toFixed(2)}</span>
+                                          </div>
+                                      ))}
+                                      <div style={{ borderTop: '1px solid rgba(255,255,255,0.1)', marginTop: '1rem', paddingTop: '1rem', textAlign: 'right' }}>
+                                          <strong>Total Invoice: ₹{group.items.reduce((sum, item) => sum + (item.book.wholesale_price * item.quantity), 0).toFixed(2)}</strong>
+                                          <br/>
+                                          <button className="btn btn-primary" style={{ marginTop: '1rem', width: '100%' }} onClick={() => handleB2bCheckout(Number(ownerId))}>Dispatch Bulk Order</button>
+                                      </div>
+                                  </div>
+                              ))}
+                          </div>
+                      )}
+                  </div>
+              </div>
             </div>
           </div>
         )}
