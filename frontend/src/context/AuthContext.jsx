@@ -7,9 +7,13 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem('accessToken') || null);
 
   useEffect(() => {
-    // If token exists, we could decode it or fetch user profile here
     if (token) {
-      setUser({ isLoggedIn: true });
+      try {
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        setUser({ isLoggedIn: true, isAdmin: payload.is_admin || false, ...payload });
+      } catch (e) {
+        setUser({ isLoggedIn: true, isAdmin: false });
+      }
     } else {
       setUser(null);
     }
@@ -21,7 +25,12 @@ export const AuthProvider = ({ children }) => {
       localStorage.setItem('refreshToken', data.refresh);
     }
     setToken(data.access);
-    setUser({ isLoggedIn: true });
+    try {
+        const payload = JSON.parse(atob(data.access.split('.')[1]));
+        setUser({ isLoggedIn: true, isAdmin: payload.is_admin || false, ...payload });
+    } catch (e) {
+        setUser({ isLoggedIn: true, isAdmin: false });
+    }
   };
 
   const logout = () => {

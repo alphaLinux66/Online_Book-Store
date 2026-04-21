@@ -8,6 +8,23 @@ const getHeaders = () => {
   };
 };
 
+export const fetchWithAuth = async (endpoint, options = {}) => {
+  const url = endpoint.startsWith('http') ? endpoint : `${API_BASE_URL}${endpoint}`;
+  const response = await fetch(url, {
+    ...options,
+    headers: {
+      ...getHeaders(),
+      ...(options.headers || {})
+    }
+  });
+  if (!response.ok) {
+     const errorText = await response.text();
+     throw new Error(`API Error: ${response.status} ${errorText}`);
+  }
+  if (response.status === 204) return null;
+  return response.json();
+};
+
 export const registerUser = async (userData) => {
   const response = await fetch(`${API_BASE_URL}/auth/register/`, {
     method: 'POST',
@@ -32,6 +49,12 @@ export const loginUser = async (credentials) => {
     throw new Error(errorData.detail || 'Login failed - Invalid credentials');
   }
   return response.json();
+};
+
+export const checkoutOrder = async () => {
+    return await fetchWithAuth('/checkout/', {
+        method: 'POST'
+    });
 };
 
 export const fetchBooks = async () => {
@@ -79,6 +102,39 @@ export const updateCartItemQuantity = async (cartItemId, quantity) => {
   if (!response.ok) throw new Error('Failed to update quantity');
   return response.json();
 };
+
+export const createReview = async (data) => {
+  return await fetchWithAuth('/reviews/', {
+    method: 'POST',
+    body: JSON.stringify(data),
+  });
+};
+
+export const logChatInteraction = async (data) => {
+  const response = await fetch(`${API_BASE_URL}/chat/log/`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  });
+  if (!response.ok) throw new Error('Failed to log chat stat');
+  return response.json();
+};
+
+export const getAdminAnalytics = async (days = 90) => {
+    return await fetchWithAuth(`/admin/analytics/?days=${days}`);
+};
+
+// Admin Book Actions
+export const createBook = async (data) => fetchWithAuth('/books/', { method: 'POST', body: JSON.stringify(data) });
+export const updateBook = async (id, data) => fetchWithAuth(`/books/${id}/`, { method: 'PUT', body: JSON.stringify(data) });
+export const deleteBook = async (id) => fetchWithAuth(`/books/${id}/`, { method: 'DELETE' });
+
+// Admin User Actions
+export const fetchUsers = async () => fetchWithAuth('/users/');
+export const deleteUser = async (id) => fetchWithAuth(`/users/${id}/`, { method: 'DELETE' });
+
+// Admin Review Actions
+export const deleteReview = async (id) => fetchWithAuth(`/reviews/${id}/`, { method: 'DELETE' });
 
 export const clearCart = async () => {
   const response = await fetch(`${API_BASE_URL}/cart/clear/`, {

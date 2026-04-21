@@ -11,10 +11,13 @@ import Catalog from './pages/Catalog';
 import Cart from './pages/Cart';
 import Checkout from './pages/Checkout';
 import BookDetail from './pages/BookDetail';
+import OrderTracking from './pages/OrderTracking';
 
 // Components
 import Navbar from './components/Navbar';
 import Chatbot from './components/Chatbot';
+
+import AdminDashboard from './pages/AdminDashboard';
 
 import './App.css';
 
@@ -24,10 +27,17 @@ const ProtectedRoute = ({ children }) => {
   return children;
 };
 
+const AdminRoute = ({ children }) => {
+  const { user } = useAuth();
+  if (!user || !user.isAdmin) return <Navigate to="/" replace />;
+  return children;
+};
+
 const AppLayout = () => {
+  const { user } = useAuth();
   const location = useLocation();
-  const hideChatbotPaths = ['/checkout', '/login', '/register'];
-  const showChatbot = !hideChatbotPaths.includes(location.pathname);
+  const hideChatbotPaths = ['/checkout', '/login', '/register', '/admin'];
+  const showChatbot = !hideChatbotPaths.includes(location.pathname) && !location.pathname.startsWith('/admin') && !(user?.isAdmin);
 
   return (
     <div className="app-container">
@@ -43,6 +53,9 @@ const AppLayout = () => {
           <Route path="/book/:id" element={<ProtectedRoute><BookDetail /></ProtectedRoute>} />
           <Route path="/cart" element={<ProtectedRoute><Cart /></ProtectedRoute>} />
           <Route path="/checkout" element={<ProtectedRoute><Checkout /></ProtectedRoute>} />
+          <Route path="/tracking" element={<ProtectedRoute><OrderTracking /></ProtectedRoute>} />
+          
+          <Route path="/admin/*" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
         </Routes>
       </main>
       {showChatbot && <Chatbot />}

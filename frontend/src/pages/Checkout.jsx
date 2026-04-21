@@ -1,29 +1,72 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
+import { useAuth } from '../context/AuthContext';
 import { CreditCard, CheckCircle, ShieldCheck } from 'lucide-react';
+import { checkoutOrder } from '../services/api';
 
 export default function Checkout() {
+  const { user } = useAuth();
   const [processing, setProcessing] = useState(false);
   const [success, setSuccess] = useState(false);
+  
+  // Controlled Inputs for formatting
+  const [cardName, setCardName] = useState('');
+  const [cardNumber, setCardNumber] = useState('');
+  const [expiry, setExpiry] = useState('');
+  const [cvc, setCvc] = useState('');
+
   const navigate = useNavigate();
   const { clearCart } = useCart();
+
+  // Auto-fill username when component mounts
+  useEffect(() => {
+    if (user) {
+      const displayName = user.username || 'User';
+      const name = displayName.charAt(0).toUpperCase() + displayName.slice(1);
+      setCardName(name);
+    }
+  }, [user]);
+
+  const handleCardNumberChange = (e) => {
+    // Remove all non-digits
+    let val = e.target.value.replace(/\D/g, ''); 
+    // Chunk by 4 and add spaces
+    let formatted = val.match(/.{1,4}/g)?.join(' ') || val;
+    setCardNumber(formatted.substring(0, 19)); // Max 16 digits + 3 spaces = 19
+  };
+
+  const handleExpiryChange = (e) => {
+    // Handling backspace cleanly over the slash
+    if (e.target.value.length < expiry.length && expiry.endsWith('/')) {
+      setExpiry(e.target.value.replace('/', ''));
+      return;
+    }
+    let val = e.target.value.replace(/\D/g, '');
+    if (val.length >= 3) {
+      val = val.substring(0, 2) + '/' + val.substring(2, 4);
+    }
+    setExpiry(val.substring(0, 5)); // Max 5 chars MM/YY
+  };
+
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handlePayment = async (e) => {
     e.preventDefault();
     setProcessing(true);
+    setErrorMessage('');
     
-    // Simulate payment API delay
-    setTimeout(async () => {
-      try {
-        await clearCart();
-        setProcessing(false);
-        setSuccess(true);
-      } catch (err) {
-        console.error("Payment failed or cart clear failed", err);
-        setProcessing(false);
-      }
-    }, 2500);
+    try {
+      await checkoutOrder();
+      await clearCart();
+      setProcessing(false);
+      setSuccess(true);
+    } catch (err) {
+      console.error("Payment failed", err);
+      // The most common backend rejection is attempting to checkout an empty cart
+      setErrorMessage('Transaction declined! Please make sure you have books in your cart before processing a payment.');
+      setProcessing(false);
+    }
   };
 
   if (success) {
@@ -35,9 +78,14 @@ export default function Checkout() {
           <p style={{ color: 'var(--color-text-secondary)', marginTop: '1rem', marginBottom: '2rem' }}>
             Thank you for your order. We are preparing it for shipment.
           </p>
-          <button onClick={() => navigate('/catalog')} className="btn btn-primary">
-            Continue Shopping
-          </button>
+          <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
+            <button onClick={() => navigate('/catalog')} className="btn btn-secondary">
+              Continue Shopping
+            </button>
+            <button onClick={() => navigate('/tracking')} className="btn btn-primary" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              Track Order
+            </button>
+          </div>
         </div>
       </div>
     );
@@ -54,24 +102,58 @@ export default function Checkout() {
         </p>
 
         <form onSubmit={handlePayment}>
+          {errorMessage && (
+            <div style={{ background: 'rgba(239, 68, 68, 0.1)', color: '#ef4444', border: '1px solid rgba(239, 68, 68, 0.3)', padding: '1rem', borderRadius: '8px', marginBottom: '1.5rem', fontSize: '0.9rem', textAlign: 'center' }}>
+              {errorMessage}
+            </div>
+          )}
+
           <div className="input-group">
             <label className="input-label">Cardholder Name</label>
-            <input type="text" className="input-field" placeholder="John Doe" required />
+            <input 
+              type="text" 
+              className="input-field" 
+              placeholder="John Doe" 
+              value={cardName}
+              onChange={(e) => setCardName(e.target.value)}
+              required 
+            />
           </div>
 
           <div className="input-group">
             <label className="input-label">Card Number</label>
-            <input type="text" className="input-field" placeholder="0000 0000 0000 0000" required maxLength="19" />
+            <input 
+              type="text" 
+              className="input-field" 
+              placeholder="0000 0000 0000 0000" 
+              value={cardNumber}
+              onChange={handleCardNumberChange}
+              required 
+            />
           </div>
 
           <div style={{ display: 'flex', gap: '1rem' }}>
             <div className="input-group" style={{ flex: 1 }}>
               <label className="input-label">Expiry Date</label>
-              <input type="text" className="input-field" placeholder="MM/YY" required maxLength="5" />
+              <input 
+                type="text" 
+                className="input-field" 
+                placeholder="MM/YY" 
+                value={expiry}
+                onChange={handleExpiryChange}
+                required 
+              />
             </div>
             <div className="input-group" style={{ flex: 1 }}>
               <label className="input-label">CVC</label>
-              <input type="text" className="input-field" placeholder="123" required maxLength="3" />
+              <input 
+                type="text" 
+                className="input-field" 
+                placeholder="123" 
+                value={cvc}
+                onChange={(e) => setCvc(e.target.value.replace(/\D/g, '').substring(0, 4))}
+                required 
+              />
             </div>
           </div>
 

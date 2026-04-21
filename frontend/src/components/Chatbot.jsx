@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { MessageSquare, X, Send, ArrowRight } from 'lucide-react';
-import { fetchBooks } from '../services/api';
+import { fetchBooks, logChatInteraction } from '../services/api';
 import { useNavigate } from 'react-router-dom';
 
 export default function Chatbot() {
@@ -51,6 +51,7 @@ export default function Chatbot() {
     );
 
     if (matchingBook && lowerQuery.length > 3) {
+        logChatInteraction({ user_query: query, detected_intent: 'search_book', matched_book: matchingBook.id }).catch(console.error);
         return {
             text: `Ah, "${matchingBook.title}"! ${matchingBook.description} Available in our catalog for ₹${matchingBook.price}.`,
             isBot: true,
@@ -60,12 +61,16 @@ export default function Chatbot() {
     
     // Fallbacks
     if (lowerQuery.includes("best seller") || lowerQuery.includes("popular")) {
+      logChatInteraction({ user_query: query, detected_intent: 'recommendations' }).catch(console.error);
       return { text: "Our best sellers feature Orwell, Austen, and many more. Please check the catalog to see them all!", isBot: true, action: { label: "Browse Catalog", path: "/catalog" } };
     } else if (lowerQuery.includes("shipping") || lowerQuery.includes("delivery")) {
+      logChatInteraction({ user_query: query, detected_intent: 'shipping' }).catch(console.error);
       return { text: "We offer free standard shipping on orders over ₹500! Standard delivery takes 3-5 business days.", isBot: true };
     } else if (lowerQuery.includes("hello") || lowerQuery.includes("hi") || lowerQuery.includes("hey")) {
+      logChatInteraction({ user_query: query, detected_intent: 'greeting' }).catch(console.error);
       return { text: "Hi there! Feel free to ask me for a summary of any book in our collection.", isBot: true };
     } else {
+      logChatInteraction({ user_query: query, detected_intent: 'fallback' }).catch(console.error);
       return { text: "I'm your assistant! Try asking me about a specific book by its title to get a brief summary.", isBot: true };
     }
   };

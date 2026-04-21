@@ -34,6 +34,10 @@ export default function Home() {
                   Sign In
                 </Link>
               </>
+            ) : user.isAdmin ? (
+              <Link to="/admin" className="btn btn-primary" style={{ padding: '1rem 2rem', fontSize: '1.1rem' }}>
+                Admin Dashboard <ArrowRight size={20} />
+              </Link>
             ) : (
               <Link to="/catalog" className="btn btn-primary" style={{ padding: '1rem 2rem', fontSize: '1.1rem' }}>
                 Browse Catalog <BookOpen size={20} />
