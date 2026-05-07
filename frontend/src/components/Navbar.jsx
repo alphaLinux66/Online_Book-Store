@@ -49,13 +49,10 @@ export default function Navbar() {
           
           {user ? (
             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-              {!user.isAdmin && !user.isStoreOwner && (
+              {!user.isAdmin && !user.isStoreOwner && !user.isWriter && (
                 <>
                   <Link to="/catalog" className={`nav-link ${location.pathname === '/catalog' ? 'active' : ''}`}>
                     Catalog
-                  </Link>
-                  <Link to="/writer" className={`nav-link ${location.pathname === '/writer' ? 'active' : ''}`}>
-                    Writer Journal
                   </Link>
                   <Link to="/cart" className="btn-icon" style={{ textDecoration: 'none', position: 'relative' }}>
                     <ShoppingCart size={20} />
@@ -80,6 +77,11 @@ export default function Navbar() {
                     )}
                   </Link>
                 </>
+              )}
+              {user.isWriter && (
+                <Link to="/writer" className={`nav-link ${location.pathname === '/writer' ? 'active' : ''}`}>
+                  Writer Journal
+                </Link>
               )}
 
               {/* Profile Badge Dropdown Area */}

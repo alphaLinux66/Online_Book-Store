@@ -58,15 +58,14 @@ export default function Home() {
               <Link to="/supplier" className="btn btn-primary" style={{ padding: '1rem 2rem', fontSize: '1.1rem' }}>
                 Supplier Dashboard <ArrowRight size={20} />
               </Link>
+            ) : user.isWriter ? (
+              <Link to="/writer" className="btn btn-primary" style={{ padding: '1rem 2rem', fontSize: '1.1rem' }}>
+                Writer Journal <ArrowRight size={20} />
+              </Link>
             ) : (
-              <>
-                <Link to="/catalog" className="btn btn-primary" style={{ padding: '1rem 2rem', fontSize: '1.1rem' }}>
-                  Browse Catalog <BookOpen size={20} />
-                </Link>
-                <Link to="/writer" className="btn btn-secondary" style={{ padding: '1rem 2rem', fontSize: '1.1rem' }}>
-                  Writer Journal
-                </Link>
-              </>
+              <Link to="/catalog" className="btn btn-primary" style={{ padding: '1rem 2rem', fontSize: '1.1rem' }}>
+                Browse Catalog <BookOpen size={20} />
+              </Link>
             )}
           </div>
           
