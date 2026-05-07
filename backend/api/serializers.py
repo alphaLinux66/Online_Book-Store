@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from django.contrib.auth.models import User
-from .models import Book, CartItem, Review, ChatInteraction, StoreOwnerProfile, SupplierBook, BulkOrder, BulkOrderItem, Order, OrderItem
+from .models import Book, CartItem, Review, ChatInteraction, StoreOwnerProfile, SupplierBook, BulkOrder, BulkOrderItem, Order, OrderItem, WriterProfile
 
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
@@ -11,6 +11,7 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
         token['is_admin'] = user.is_staff or user.is_superuser
         token['username'] = user.username
         token['is_store_owner'] = hasattr(user, 'store_owner_profile')
+        token['is_writer'] = hasattr(user, 'writer_profile')
         return token
 
 
@@ -38,8 +39,17 @@ class ReviewSerializer(serializers.ModelSerializer):
         fields = ('id', 'user', 'username', 'book', 'rating', 'comment', 'created_at')
         read_only_fields = ('user',)
 
+class WriterProfileSerializer(serializers.ModelSerializer):
+    username = serializers.CharField(source='user.username', read_only=True)
+    
+    class Meta:
+        model = WriterProfile
+        fields = '__all__'
+        read_only_fields = ('user',)
+
 class BookSerializer(serializers.ModelSerializer):
     reviews = ReviewSerializer(many=True, read_only=True)
+    writer_name = serializers.CharField(source='writer.pen_name', read_only=True)
 
     class Meta:
         model = Book

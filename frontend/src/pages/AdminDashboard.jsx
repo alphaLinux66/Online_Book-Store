@@ -21,7 +21,7 @@ export default function AdminDashboard() {
   const [b2bCart, setB2bCart] = useState({});
   
   const [formData, setFormData] = useState({
-    title: '', author: '', price: '', description: '', image_url: ''
+    title: '', author: '', price: '', description: '', image_url: '', stock: 0
   });
 
   const loadData = async () => {
@@ -51,10 +51,12 @@ export default function AdminDashboard() {
   const handleOpenModal = (book = null) => {
     if (book) {
       setEditingBook(book);
-      setFormData(book);
+      setFormData({
+        title: book.title, author: book.author, price: book.price, description: book.description, image_url: book.image_url, stock: book.stock || 0
+      });
     } else {
       setEditingBook(null);
-      setFormData({ title: '', author: '', price: '', description: '', image_url: '' });
+      setFormData({ title: '', author: '', price: '', description: '', image_url: '', stock: 0 });
     }
     setIsModalOpen(true);
   };
@@ -262,6 +264,7 @@ export default function AdminDashboard() {
                     <th style={{ padding: '1rem' }}>Title</th>
                     <th style={{ padding: '1rem' }}>Author</th>
                     <th style={{ padding: '1rem' }}>Price</th>
+                    <th style={{ padding: '1rem' }}>Stock</th>
                     <th style={{ padding: '1rem' }}>Actions</th>
                   </tr>
                 </thead>
@@ -271,6 +274,13 @@ export default function AdminDashboard() {
                       <td style={{ padding: '1rem' }}>{b.title}</td>
                       <td style={{ padding: '1rem' }}>{b.author}</td>
                       <td style={{ padding: '1rem' }}>₹{b.price}</td>
+                      <td style={{ padding: '1rem' }}>
+                        {b.stock > 0 ? (
+                            <span>{b.stock}</span>
+                        ) : (
+                            <span style={{ color: '#ef4444', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '4px' }}>0 <span style={{fontSize: '0.7rem', padding: '2px 4px', background: 'rgba(239, 68, 68, 0.2)', borderRadius: '4px'}}>Empty!</span></span>
+                        )}
+                      </td>
                       <td style={{ padding: '1rem', display: 'flex', gap: '0.5rem' }}>
                         <button className="btn-icon" onClick={() => handleOpenModal(b)} style={{ background: 'var(--color-bg-secondary)' }}><Edit2 size={16} /></button>
                         <button className="btn-icon" onClick={() => handleDeleteBook(b.id)} style={{ background: '#fee2e2', color: '#ef4444' }}><Trash2 size={16} /></button>
@@ -393,6 +403,7 @@ export default function AdminDashboard() {
               <input type="text" className="form-input" placeholder="Title" value={formData.title} onChange={e => setFormData({...formData, title: e.target.value})} required/>
               <input type="text" className="form-input" placeholder="Author" value={formData.author} onChange={e => setFormData({...formData, author: e.target.value})} required/>
               <input type="number" step="0.01" className="form-input" placeholder="Price" value={formData.price} onChange={e => setFormData({...formData, price: e.target.value})} required/>
+              <input type="number" className="form-input" placeholder="Stock Quantity" value={formData.stock} onChange={e => setFormData({...formData, stock: parseInt(e.target.value) || 0})} required/>
               <input type="url" className="form-input" placeholder="Image URL (Optional)" value={formData.image_url} onChange={e => setFormData({...formData, image_url: e.target.value})} />
               <textarea className="form-input" placeholder="Description" rows="4" value={formData.description} onChange={e => setFormData({...formData, description: e.target.value})}></textarea>
               <button type="submit" className="btn btn-primary" style={{ marginTop: '1rem' }}>Save Details</button>

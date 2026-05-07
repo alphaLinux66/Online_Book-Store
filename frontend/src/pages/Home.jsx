@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import { BookOpen, TrendingUp, Star, ArrowRight } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import NewWriterSpotlight from '../components/NewWriterSpotlight';
 
 export default function Home() {
   const { user } = useAuth();
@@ -12,16 +13,20 @@ export default function Home() {
 
   return (
     <div className="container animate-fade-in">
+      {user && !user.isStoreOwner && <NewWriterSpotlight />}
+      
       <div className="hero-section">
         <div className="hero-content">
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', background: 'rgba(99, 102, 241, 0.1)', padding: '0.5rem 1rem', borderRadius: 'var(--radius-full)', color: 'var(--color-accent-primary)', fontWeight: '600', marginBottom: '1.5rem' }}>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', background: 'rgba(255, 153, 0, 0.1)', padding: '0.5rem 1rem', borderRadius: 'var(--radius-full)', color: 'var(--color-accent-primary)', fontWeight: '600', marginBottom: '1.5rem' }}>
             <Star size={16} fill="currentColor" />
-            <span>{user?.isStoreOwner ? 'Supplier Partner Network' : 'Premium Reading Experience'}</span>
+            <span>{user?.isStoreOwner ? 'Supplier Partner Network' : user?.isWriter ? 'Digital Publishing Platform' : 'Premium Reading Experience'}</span>
           </div>
           
           <h1 className="hero-title">
             {user?.isStoreOwner ? (
                 <>Manage Your Wholesale <br /><span className="text-gradient">Business Pipeline</span></>
+            ) : user?.isWriter ? (
+                <>Publish Your Next <br /><span className="text-gradient">Bestselling Story</span></>
             ) : (
                 <>Discover Your Next <br /><span className="text-gradient">Favorite Story</span></>
             )}
@@ -30,6 +35,8 @@ export default function Home() {
           <p className="hero-subtitle">
             {user?.isStoreOwner 
               ? "Track active bulk invoices, update your warehouse inventory stock, and dispatch seamless B2B shipments directly to the retail district."
+              : user?.isWriter 
+              ? "Upload manuscripts, track real-time reader engagement, and manage your digital publishing portfolio all in one place."
               : "Immerse yourself in our curated collection of bestselling novels, rare finds, and inspiring non-fiction. Your literary journey begins here."}
           </p>
           
@@ -52,24 +59,29 @@ export default function Home() {
                 Supplier Dashboard <ArrowRight size={20} />
               </Link>
             ) : (
-              <Link to="/catalog" className="btn btn-primary" style={{ padding: '1rem 2rem', fontSize: '1.1rem' }}>
-                Browse Catalog <BookOpen size={20} />
-              </Link>
+              <>
+                <Link to="/catalog" className="btn btn-primary" style={{ padding: '1rem 2rem', fontSize: '1.1rem' }}>
+                  Browse Catalog <BookOpen size={20} />
+                </Link>
+                <Link to="/writer" className="btn btn-secondary" style={{ padding: '1rem 2rem', fontSize: '1.1rem' }}>
+                  Writer Journal
+                </Link>
+              </>
             )}
           </div>
           
           <div style={{ display: 'flex', gap: '3rem', marginTop: '4rem', color: 'var(--color-text-secondary)' }}>
             <div>
-              <h3 style={{ color: 'var(--color-text-primary)' }}>{user?.isStoreOwner ? '100+' : '10k+'}</h3>
-              <p>{user?.isStoreOwner ? 'Retail Partners' : 'Books Available'}</p>
+              <h3 style={{ color: 'var(--color-text-primary)' }}>{user?.isStoreOwner ? '100+' : user?.isWriter ? 'Global' : '10k+'}</h3>
+              <p>{user?.isStoreOwner ? 'Retail Partners' : user?.isWriter ? 'Reach' : 'Books Available'}</p>
             </div>
             <div>
-              <h3 style={{ color: 'var(--color-text-primary)' }}>{user?.isStoreOwner ? 'Express' : '50k+'}</h3>
-              <p>{user?.isStoreOwner ? 'Fulfillment' : 'Active Readers'}</p>
+              <h3 style={{ color: 'var(--color-text-primary)' }}>{user?.isStoreOwner ? 'Express' : user?.isWriter ? 'Direct' : '50k+'}</h3>
+              <p>{user?.isStoreOwner ? 'Fulfillment' : user?.isWriter ? 'Royalties' : 'Active Readers'}</p>
             </div>
             <div>
-              <h3 style={{ color: 'var(--color-text-primary)' }}>{user?.isStoreOwner ? 'B2B' : '4.9/5'}</h3>
-              <p>{user?.isStoreOwner ? 'Wholesale Scale' : 'User Ratings'}</p>
+              <h3 style={{ color: 'var(--color-text-primary)' }}>{user?.isStoreOwner ? 'B2B' : user?.isWriter ? 'Full' : '4.9/5'}</h3>
+              <p>{user?.isStoreOwner ? 'Wholesale Scale' : user?.isWriter ? 'Ownership' : 'User Ratings'}</p>
             </div>
           </div>
         </div>

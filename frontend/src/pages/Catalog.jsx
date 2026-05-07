@@ -3,6 +3,7 @@ import { fetchBooks } from '../services/api';
 import { ShoppingCart, Plus, Minus, Star } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
+import { useAuth } from '../context/AuthContext';
 
 export const StarDisplay = ({ rating, size = 14 }) => {
   return (
@@ -19,6 +20,7 @@ export default function Catalog() {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const { cartItems, addToCart, updateQuantity } = useCart();
+  const { user } = useAuth();
 
   useEffect(() => {
     fetchBooks()
@@ -34,6 +36,10 @@ export default function Catalog() {
 
   const handleIncrement = (bookId, cartItem, e) => {
     e.stopPropagation();
+    if (!user) {
+      navigate('/login');
+      return;
+    }
     if (cartItem) {
       updateQuantity(cartItem.id, cartItem.quantity + 1);
     } else {
@@ -98,17 +104,21 @@ export default function Catalog() {
                   {book.title}
                 </h3>
                 
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
                     <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.9rem' }}>by {book.author}</p>
                     {averageRating > 0 ? <StarDisplay rating={averageRating} /> : <span style={{fontSize: '0.8rem', color: 'var(--color-text-secondary)'}}>No Rating</span>}
                 </div>
+
                 
                 <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.9rem', marginBottom: '1.5rem', flex: 1, display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
                   {book.description}
                 </p>
                 
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <span style={{ fontSize: '1.25rem', fontWeight: '600', color: 'var(--color-text-primary)' }}>₹{parseFloat(book.price).toFixed(2)}</span>
+                  <div>
+                    <span style={{ fontSize: '1.25rem', fontWeight: '600', color: 'var(--color-text-primary)' }}>₹{parseFloat(book.price).toFixed(2)}</span>
+                    <span style={{ fontSize: '0.8rem', color: 'var(--color-text-secondary)', marginLeft: '0.5rem' }}>({book.stock || 0} available in warehouse)</span>
+                  </div>
                   
                   {qty > 0 ? (
                     <div style={{ display: 'flex', alignItems: 'center', background: 'rgba(255, 255, 255, 0.05)', borderRadius: 'var(--radius-full)', border: '1px solid var(--color-glass-border)', overflow: 'hidden' }}>

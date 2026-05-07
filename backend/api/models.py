@@ -1,6 +1,15 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+class WriterProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='writer_profile')
+    pen_name = models.CharField(max_length=255, blank=True, null=True)
+    bio = models.TextField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.pen_name or self.user.username
+
 class Book(models.Model):
     title = models.CharField(max_length=255)
     author = models.CharField(max_length=255)
@@ -8,6 +17,12 @@ class Book(models.Model):
     stock = models.PositiveIntegerField(default=10) # default retail stock
     description = models.TextField(blank=True, null=True)
     image_url = models.URLField(max_length=1000, blank=True, null=True)
+    
+    # Digital Publishing Fields
+    writer = models.ForeignKey(WriterProfile, on_delete=models.CASCADE, related_name='published_books', null=True, blank=True)
+    is_digital = models.BooleanField(default=False)
+    pdf_file = models.FileField(upload_to='books/full/', null=True, blank=True)
+    demo_file = models.FileField(upload_to='books/demo/', null=True, blank=True)
 
     def __str__(self):
         return self.title

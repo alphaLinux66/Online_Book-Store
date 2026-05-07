@@ -51,6 +51,19 @@ export const loginUser = async (credentials) => {
   return response.json();
 };
 
+export const resetPassword = async (username, newPassword) => {
+  const response = await fetch(`${API_BASE_URL}/auth/reset-password/`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ username, new_password: newPassword })
+  });
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({}));
+    throw new Error(errorData.error || 'Password reset failed');
+  }
+  return response.json();
+};
+
 export const checkoutOrder = async () => {
     return await fetchWithAuth('/checkout/', {
         method: 'POST'
@@ -137,6 +150,10 @@ export const fetchSupplierBooks = async () => {
     return await fetchWithAuth('/supplier-books/');
 };
 
+export const getWriterAnalytics = async () => {
+    return await fetchWithAuth('/writer-analytics/');
+};
+
 export const createSupplierBook = async (bookData) => {
     return await fetchWithAuth('/supplier-books/', {
         method: 'POST',
@@ -201,5 +218,15 @@ export const submitReview = async (bookId, rating, comment) => {
     body: JSON.stringify({ book: bookId, rating, comment }),
   });
   if (!response.ok) throw new Error('Failed to submit review');
+  return response.json();
+};
+
+export const askChatbot = async (query) => {
+  const response = await fetch(`${API_BASE_URL}/chatbot/ask/`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ query }),
+  });
+  if (!response.ok) throw new Error('Failed to get answer from assistant');
   return response.json();
 };

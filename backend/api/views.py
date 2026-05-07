@@ -6,11 +6,13 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 from django.contrib.auth.models import User
 from django.db import transaction
 from django.db.models import Count
-from .models import Book, CartItem, Review, ChatInteraction, Order, OrderItem
+from .models import Book, CartItem, Review, ChatInteraction, Order, OrderItem, WriterProfile
 from .serializers import (
     UserSerializer, BookSerializer, CartItemSerializer, 
-    ReviewSerializer, CustomTokenObtainPairSerializer, ChatInteractionSerializer, OrderSerializer
+    ReviewSerializer, CustomTokenObtainPairSerializer, ChatInteractionSerializer, OrderSerializer,
+    WriterProfileSerializer
 )
+from .rag_service import generate_rag_response
 
 class IsAdminUserOrReadOnly(permissions.BasePermission):
     def has_permission(self, request, view):
@@ -30,6 +32,25 @@ class RegisterView(generics.CreateAPIView):
     queryset = User.objects.all()
     permission_classes = (permissions.AllowAny,)
     serializer_class = UserSerializer
+
+class ResetPasswordView(APIView):
+    permission_classes = (permissions.AllowAny,)
+
+    def post(self, request):
+        username = request.data.get('username')
+        new_password = request.data.get('new_password')
+        
+        if not username or not new_password:
+            return Response({'error': 'Username and new password are required.'}, status=status.HTTP_400_BAD_REQUEST)
+            
+        try:
+            user = User.objects.get(username=username)
+            user.set_password(new_password)
+            user.save()
+            return Response({'message': 'Password has been reset successfully.'}, status=status.HTTP_200_OK)
+        except User.DoesNotExist:
+            # We return a generic error or a specific one for local testing
+            return Response({'error': 'User not found.'}, status=status.HTTP_404_NOT_FOUND)
 
 class BookViewSet(viewsets.ModelViewSet):
     queryset = Book.objects.all()
@@ -358,3 +379,96 @@ class BulkCheckoutView(APIView):
                 continue
             
         return Response({"message": "Successfully dispatched bulk order.", "order_id": order.id}, status=status.HTTP_201_CREATED)
+
+# ==========================================
+# WRITER MODULE
+# ==========================================
+from rest_framework.parsers import MultiPartParser, FormParser
+
+class RegisterWriterView(generics.CreateAPIView):
+    permission_classes = [AllowAny]
+    serializer_class = UserSerializer
+
+    @transaction.atomic
+    def post(self, request, *args, **kwargs):
+        user_data = request.data
+        pen_name = request.data.get('pen_name', user_data.get('username'))
+        serializer = self.get_serializer(data=user_data)
+        if serializer.is_valid():
+            user = serializer.save()
+            WriterProfile.objects.create(user=user, pen_name=pen_name)
+            return Response({"user": serializer.data, "message": "Writer profile created successfully."}, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class WriterBookViewSet(viewsets.ModelViewSet):
+    serializer_class = BookSerializer
+    permission_classes = [IsAuthenticated]
+    parser_classes = (MultiPartParser, FormParser)
+
+    def get_queryset(self):
+        user = self.request.user
+        if hasattr(user, 'writer_profile'):
+            return Book.objects.filter(writer=user.writer_profile).order_by('-id')
+        return Book.objects.none()
+
+    def perform_create(self, serializer):
+        if hasattr(self.request.user, 'writer_profile'):
+            serializer.save(
+                writer=self.request.user.writer_profile,
+                is_digital=True
+            )
+
+from django.db.models import Avg
+
+class WriterAnalyticsView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request):
+        if not hasattr(request.user, 'writer_profile'):
+            return Response({'error': 'Not a writer'}, status=status.HTTP_403_FORBIDDEN)
+        
+        writer = request.user.writer_profile
+        books = Book.objects.filter(writer=writer)
+        
+        order_items = OrderItem.objects.filter(book__writer=writer)
+        total_reads = order_items.aggregate(total=Sum('quantity'))['total'] or 0
+        unique_readers = order_items.values('order__user').distinct().count()
+        
+        reviews = Review.objects.filter(book__writer=writer)
+        avg_rating = reviews.aggregate(avg=Avg('rating'))['avg'] or 0
+        
+        book_stats_qs = books.annotate(
+            sales=Sum('orderitem__quantity'),
+            avg_rating=Avg('reviews__rating')
+        ).values('title', 'sales', 'avg_rating')
+        
+        book_stats = []
+        for b in book_stats_qs:
+            book_stats.append({
+                'title': b['title'],
+                'sales': b['sales'] or 0,
+                'avg_rating': round(b['avg_rating'], 1) if b['avg_rating'] else 0
+            })
+
+        return Response({
+            'total_reads': total_reads,
+            'subscribers': unique_readers,
+            'avg_rating': round(avg_rating, 1),
+            'book_stats': book_stats
+        })
+
+class ChatbotQueryView(APIView):
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        user_query = request.data.get('query')
+        if not user_query:
+            return Response({'error': 'No query provided'}, status=status.HTTP_400_BAD_REQUEST)
+        
+        ChatInteraction.objects.create(
+            user_query=user_query,
+            detected_intent='rag_query'
+        )
+
+        bot_response = generate_rag_response(user_query)
+        return Response({'response': bot_response}, status=status.HTTP_200_OK)

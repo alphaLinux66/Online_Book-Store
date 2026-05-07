@@ -46,15 +46,18 @@ export default function BookDetail() {
     : 0;
 
   const handleIncrement = () => {
+    if (!user) { navigate('/login'); return; }
     if (cartItem) updateQuantity(cartItem.id, qty + 1);
     else addToCart(book.id, 1);
   };
 
   const handleDecrement = () => {
+    if (!user) { navigate('/login'); return; }
     if (cartItem) updateQuantity(cartItem.id, qty - 1);
   };
 
   const handleBuyNow = async () => {
+    if (!user) { navigate('/login'); return; }
     if (!cartItem) await addToCart(book.id, 1);
     navigate('/checkout');
   };
@@ -106,12 +109,22 @@ export default function BookDetail() {
           </div>
           
           <div style={{ padding: '1.5rem', background: 'rgba(255,255,255,0.02)', border: '1px solid var(--color-glass-border)', borderRadius: 'var(--radius-lg)', marginBottom: '2rem' }}>
-            <span style={{ fontSize: '2.5rem', fontWeight: '700', color: 'var(--color-text-primary)', display: 'block', marginBottom: '1rem' }}>
-                ₹{parseFloat(book.price).toFixed(2)}
-            </span>
+            <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.5rem', marginBottom: '1rem' }}>
+                <span style={{ fontSize: '2.5rem', fontWeight: '700', color: 'var(--color-text-primary)' }}>
+                    ₹{parseFloat(book.price).toFixed(2)}
+                </span>
+                <span style={{ fontSize: '1rem', color: 'var(--color-text-secondary)' }}>
+                    ({book.stock || 0} available in warehouse)
+                </span>
+            </div>
             <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.9rem', marginBottom: '1.5rem' }}>Inclusive of all taxes.</p>
             
             <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+                {book.is_digital && book.demo_file && (
+                    <a href={book.demo_file} target="_blank" rel="noreferrer" className="btn btn-secondary" style={{ padding: '0.75rem 2rem', flex: '1 1 100%', textAlign: 'center', textDecoration: 'none', background: 'rgba(255, 153, 0, 0.1)', color: 'var(--color-accent-primary)', border: '1px solid var(--color-accent-primary)' }}>
+                        📖 Read Free Demo
+                    </a>
+                )}
                 {qty > 0 ? (
                     <div style={{ display: 'flex', alignItems: 'center', background: 'rgba(255, 255, 255, 0.05)', borderRadius: 'var(--radius-full)', border: '1px solid var(--color-glass-border)', overflow: 'hidden' }}>
                       <button onClick={handleDecrement} style={{ background: 'transparent', border: 'none', color: 'white', padding: '0.75rem 1.2rem', cursor: 'pointer', transition: 'background 0.2s' }} onMouseOver={e=>e.target.style.background='rgba(255,255,255,0.1)'} onMouseOut={e=>e.target.style.background='transparent'}>

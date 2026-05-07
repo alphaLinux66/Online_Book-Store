@@ -26,7 +26,7 @@ export default function Navbar() {
       <div className="container navbar-container">
         <Link to="/" className="nav-brand">
           <BookOpen className="text-gradient" size={28} />
-          <span style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>Nyeras <span className="text-gradient">Books</span></span>
+          <span style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>Papyrus <span className="text-gradient">Plaza</span></span>
         </Link>
         
         <div className="nav-links" style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
@@ -53,6 +53,9 @@ export default function Navbar() {
                 <>
                   <Link to="/catalog" className={`nav-link ${location.pathname === '/catalog' ? 'active' : ''}`}>
                     Catalog
+                  </Link>
+                  <Link to="/writer" className={`nav-link ${location.pathname === '/writer' ? 'active' : ''}`}>
+                    Writer Journal
                   </Link>
                   <Link to="/cart" className="btn-icon" style={{ textDecoration: 'none', position: 'relative' }}>
                     <ShoppingCart size={20} />

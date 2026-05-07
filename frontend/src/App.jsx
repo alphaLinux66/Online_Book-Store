@@ -12,6 +12,7 @@ import Cart from './pages/Cart';
 import Checkout from './pages/Checkout';
 import BookDetail from './pages/BookDetail';
 import OrderTracking from './pages/OrderTracking';
+import ResetPassword from './pages/ResetPassword';
 
 // Components
 import Navbar from './components/Navbar';
@@ -27,8 +28,11 @@ const ProtectedRoute = ({ children }) => {
   const { user } = useAuth();
   if (!user) return <Navigate to="/login" replace />;
   if (user.isStoreOwner) return <Navigate to="/supplier" replace />;
+  if (user.isWriter) return <Navigate to="/writer" replace />;
   return children;
 };
+
+import WriterJournal from './pages/WriterJournal';
 
 const AdminRoute = ({ children }) => {
   const { user } = useAuth();
@@ -42,11 +46,17 @@ const SupplierRoute = ({ children }) => {
   return children;
 };
 
+const WriterRoute = ({ children }) => {
+  const { user } = useAuth();
+  if (!user || !user.isWriter) return <Navigate to="/" replace />;
+  return children;
+};
+
 const AppLayout = () => {
   const { user } = useAuth();
   const location = useLocation();
-  const hideChatbotPaths = ['/checkout', '/login', '/register', '/admin', '/supplier'];
-  const showChatbot = !hideChatbotPaths.includes(location.pathname) && !location.pathname.startsWith('/admin') && !location.pathname.startsWith('/supplier') && !(user?.isAdmin) && !(user?.isStoreOwner);
+  const hideChatbotPaths = ['/checkout', '/login', '/register', '/admin', '/supplier', '/writer', '/reset-password'];
+  const showChatbot = user && !hideChatbotPaths.includes(location.pathname) && !location.pathname.startsWith('/admin') && !location.pathname.startsWith('/supplier') && !(user?.isAdmin) && !(user?.isStoreOwner) && !(user?.isWriter);
 
   return (
     <div className="app-container">
@@ -57,13 +67,15 @@ const AppLayout = () => {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
           
-          <Route path="/catalog" element={<ProtectedRoute><Catalog /></ProtectedRoute>} />
-          <Route path="/book/:id" element={<ProtectedRoute><BookDetail /></ProtectedRoute>} />
+          <Route path="/catalog" element={<Catalog />} />
+          <Route path="/book/:id" element={<BookDetail />} />
           <Route path="/cart" element={<ProtectedRoute><Cart /></ProtectedRoute>} />
           <Route path="/checkout" element={<ProtectedRoute><Checkout /></ProtectedRoute>} />
           <Route path="/tracking" element={<ProtectedRoute><OrderTracking /></ProtectedRoute>} />
           <Route path="/profile" element={<ProtectedRoute><UserProfile /></ProtectedRoute>} />
+          <Route path="/writer" element={<WriterRoute><WriterJournal /></WriterRoute>} />
           
           <Route path="/admin/*" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
           <Route path="/supplier/*" element={<SupplierRoute><StoreOwnerDashboard /></SupplierRoute>} />

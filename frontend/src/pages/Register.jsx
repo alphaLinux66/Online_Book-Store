@@ -12,6 +12,10 @@ export default function Register() {
   const { login } = useAuth();
 
   const [isSupplier, setIsSupplier] = useState(false);
+  const [isWriter, setIsWriter] = useState(false);
+
+  const handleSupplierToggle = () => { setIsSupplier(!isSupplier); setIsWriter(false); };
+  const handleWriterToggle = () => { setIsWriter(!isWriter); setIsSupplier(false); };
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -30,7 +34,24 @@ export default function Register() {
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({...formData, store_name: formData.storeName || undefined })
           });
-          if (!response.ok) throw new Error("Failed to register as Supplier");
+          if (!response.ok) {
+              const errData = await response.json();
+              const errorMsg = Object.values(errData).flat()[0] || "Failed to register as Supplier";
+              throw new Error(errorMsg);
+          }
+      } else if (isWriter) {
+          // Custom fetch for writer
+          const response = await fetch('http://localhost:8000/api/auth/register-writer/', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({...formData, pen_name: formData.penName || undefined })
+          });
+          if (!response.ok) {
+              const errData = await response.json();
+              // Extract the first error message from the object
+              const errorMsg = Object.values(errData).flat()[0] || "Failed to register as Writer";
+              throw new Error(errorMsg);
+          }
       } else {
           await registerUser(formData);
       }
@@ -51,7 +72,7 @@ export default function Register() {
       <div className="auth-card glass-panel" style={{ maxWidth: '540px' }}>
         <div className="auth-header">
           <h2 className="text-gradient">Create Account</h2>
-          <p>Join Nyeras Book Store today</p>
+          <p>Join Papyrus Plaza today</p>
         </div>
         
         {error && <div className="error-message">{error}</div>}
@@ -136,13 +157,13 @@ export default function Register() {
             </div>
           </div>
 
-          <div style={{ padding: '1rem', background: 'rgba(99, 102, 241, 0.05)', borderRadius: '8px', border: '1px solid rgba(99, 102, 241, 0.2)', marginBottom: '1rem' }}>
+          <div style={{ padding: '1rem', background: 'rgba(255, 153, 0, 0.05)', borderRadius: '8px', border: '1px solid rgba(255, 153, 0, 0.2)', marginBottom: '1rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
              <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer', color: '#e4e4e7', fontSize: '0.9rem' }}>
-               <input type="checkbox" checked={isSupplier} onChange={() => setIsSupplier(!isSupplier)} />
+               <input type="checkbox" checked={isSupplier} onChange={handleSupplierToggle} />
                I want to register as a Wholesale Supplier
              </label>
              {isSupplier && (
-                <div className="input-group" style={{ marginTop: '1rem', animation: 'fadeIn 0.3s' }}>
+                <div className="input-group" style={{ animation: 'fadeIn 0.3s' }}>
                   <label className="input-label">Store / Company Name</label>
                   <input 
                     type="text" 
@@ -152,6 +173,24 @@ export default function Register() {
                     value={formData.storeName || ''}
                     onChange={handleChange}
                     required
+                  />
+                </div>
+             )}
+
+             <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer', color: '#e4e4e7', fontSize: '0.9rem' }}>
+               <input type="checkbox" checked={isWriter} onChange={handleWriterToggle} />
+               I want to publish as a Writer
+             </label>
+             {isWriter && (
+                <div className="input-group" style={{ animation: 'fadeIn 0.3s' }}>
+                  <label className="input-label">Pen Name</label>
+                  <input 
+                    type="text" 
+                    name="penName" 
+                    className="input-field" 
+                    placeholder="Enter your public pen name"
+                    value={formData.penName || ''}
+                    onChange={handleChange}
                   />
                 </div>
              )}

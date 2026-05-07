@@ -14,8 +14,8 @@
   width: 100vw;
   height: 100vh;
   z-index: -1;
-  background: radial-gradient(circle at 15% 50%, rgba(99, 102, 241, 0.15), transparent 25%),
-              radial-gradient(circle at 85% 30%, rgba(139, 92, 246, 0.15), transparent 25%);
+  background: radial-gradient(circle at 15% 50%, rgba(255, 153, 0, 0.08), transparent 25%),
+              radial-gradient(circle at 85% 30%, rgba(0, 113, 133, 0.1), transparent 25%);
 }
 
 .main-content {
@@ -237,4 +237,142 @@
   margin-bottom: 1.5rem;
   font-size: 0.875rem;
   text-align: center;
+}
+
+/* New Writer Spotlight */
+.spotlight-section {
+  padding: 1rem 0 3rem 0;
+  width: 100%;
+}
+
+.spotlight-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 1.5rem;
+}
+
+.spotlight-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.spotlight-subtitle {
+  color: var(--color-text-secondary);
+  font-size: 0.95rem;
+}
+
+.spotlight-controls {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.spotlight-arrow {
+  background: rgba(255, 255, 255, 0.08);
+  border: none;
+  color: white;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.spotlight-arrow:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.spotlight-scroll-container {
+  display: flex;
+  gap: 1.25rem;
+  overflow-x: auto;
+  padding-bottom: 1rem;
+  scroll-snap-type: x mandatory;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.spotlight-scroll-container::-webkit-scrollbar {
+  display: none; /* Chrome, Safari and Opera */
+}
+
+.spotlight-item {
+  flex: 0 0 auto;
+  width: 200px;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.spotlight-image-container {
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  position: relative;
+  margin-bottom: 0.75rem;
+  background: rgba(255, 255, 255, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.spotlight-item:hover .spotlight-image-container {
+  transform: scale(1.03);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.spotlight-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.spotlight-badge {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  background: #6366f1; /* Kept blue/purple to match reference badge */
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--radius-full);
+  z-index: 10;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+}
+
+.spotlight-book-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .spotlight-item {
+    width: 180px;
+  }
+}
+
+@media (max-width: 768px) {
+  .spotlight-item {
+    width: 160px;
+  }
+}
+
+@media (max-width: 480px) {
+  .spotlight-item {
+    width: 140px;
+  }
 }
