@@ -7,9 +7,9 @@ import { useAuth } from '../context/AuthContext';
 
 export const StarDisplay = ({ rating, size = 14 }) => {
   return (
-    <div style={{ display: 'flex', gap: '2px', color: '#fbbf24', alignItems: 'center' }}>
+    <div style={{ display: 'flex', gap: '2px', color: '#f59e0b', alignItems: 'center' }}>
       {[1, 2, 3, 4, 5].map(i => (
-        <Star key={i} size={size} fill={i <= rating ? '#fbbf24' : 'transparent'} strokeWidth={i <= rating ? 0 : 2} />
+        <Star key={i} size={size} fill={i <= rating ? '#f59e0b' : 'transparent'} strokeWidth={i <= rating ? 0 : 2} />
       ))}
     </div>
   );
@@ -54,14 +54,14 @@ export default function Catalog() {
     }
   };
   
-  if (loading) return <div className="container" style={{ padding: '4rem 0', textAlign: 'center' }}>Loading Collection...</div>;
+  if (loading) return <div className="container" style={{ padding: '4rem 0', textAlign: 'center', color: 'var(--color-text-secondary)' }}>Loading Collection...</div>;
 
   return (
     <div className="container animate-fade-in" style={{ padding: '2rem 1.5rem' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '3rem' }}>
-        <h2>Our Collection</h2>
-        <button onClick={() => navigate('/cart')} className="btn btn-secondary">
-          <ShoppingCart size={20} /> View Cart
+        <h2 style={{ fontFamily: 'var(--font-serif)' }}>New Arrivals</h2>
+        <button onClick={() => navigate('/cart')} className="btn btn-secondary" style={{ fontSize: '0.8rem' }}>
+          <ShoppingCart size={18} /> View Cart
         </button>
       </div>
 
@@ -78,18 +78,18 @@ export default function Catalog() {
             <div 
               key={book.id} 
               className="glass-panel" 
-              style={{ display: 'flex', flexDirection: 'column', overflow: 'hidden', cursor: 'pointer', transition: 'all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)' }}
-              onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-5px) scale(1.02)'; e.currentTarget.style.boxShadow = 'var(--shadow-glow)'; }}
-              onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0) scale(1)'; e.currentTarget.style.boxShadow = 'var(--shadow-md)'; }}
+              style={{ display: 'flex', flexDirection: 'column', overflow: 'hidden', cursor: 'pointer', transition: 'all 0.3s ease' }}
+              onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = '0 12px 40px rgba(0,0,0,0.1)'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'var(--shadow-md)'; }}
             >
               <div 
-                style={{ height: '280px', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}
+                style={{ height: '280px', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', background: 'var(--color-bg-secondary)' }}
                 onClick={() => navigate(`/book/${book.id}`)}
               >
                 {book.image_url ? (
-                  <img src={book.image_url} alt={book.title} style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.4s', ':hover': { transform: 'scale(1.05)' } }} />
+                  <img src={book.image_url} alt={book.title} style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.4s' }} />
                 ) : (
-                  <div style={{ width: '100%', height: '100%', background: 'var(--color-accent-gradient)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontWeight: 'bold' }}>
+                  <div style={{ width: '100%', height: '100%', background: 'var(--color-bg-tertiary)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--color-text-secondary)', fontWeight: 'bold', fontFamily: 'var(--font-serif)' }}>
                       {book.title}
                   </div>
                 )}
@@ -98,7 +98,7 @@ export default function Catalog() {
               <div style={{ padding: '1.5rem', flex: 1, display: 'flex', flexDirection: 'column' }}>
                 <h3 
                   onClick={() => navigate(`/book/${book.id}`)}
-                  style={{ fontSize: '1.25rem', marginBottom: '0.25rem', cursor: 'pointer' }}
+                  style={{ fontSize: '1.15rem', marginBottom: '0.25rem', cursor: 'pointer', fontFamily: 'var(--font-serif)' }}
                   className="hover-underline"
                 >
                   {book.title}
@@ -117,16 +117,16 @@ export default function Catalog() {
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <div>
                     <span style={{ fontSize: '1.25rem', fontWeight: '600', color: 'var(--color-text-primary)' }}>₹{parseFloat(book.price).toFixed(2)}</span>
-                    <span style={{ fontSize: '0.8rem', color: 'var(--color-text-secondary)', marginLeft: '0.5rem' }}>({book.stock || 0} available in warehouse)</span>
+                    <span style={{ fontSize: '0.8rem', color: 'var(--color-text-secondary)', marginLeft: '0.5rem' }}>({book.stock || 0} in stock)</span>
                   </div>
                   
                   {qty > 0 ? (
-                    <div style={{ display: 'flex', alignItems: 'center', background: 'rgba(255, 255, 255, 0.05)', borderRadius: 'var(--radius-full)', border: '1px solid var(--color-glass-border)', overflow: 'hidden' }}>
-                      <button onClick={(e) => handleDecrement(cartItem, e)} style={{ background: 'transparent', border: 'none', color: 'white', padding: '0.5rem', cursor: 'pointer' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', background: 'var(--color-bg-secondary)', borderRadius: 'var(--radius-full)', border: '1px solid var(--color-glass-border)', overflow: 'hidden' }}>
+                      <button onClick={(e) => handleDecrement(cartItem, e)} style={{ background: 'transparent', border: 'none', color: 'var(--color-text-primary)', padding: '0.5rem', cursor: 'pointer' }}>
                         <Minus size={16} />
                       </button>
                       <span style={{ padding: '0 0.5rem', fontWeight: '600', minWidth: '30px', textAlign: 'center' }}>{qty}</span>
-                      <button onClick={(e) => handleIncrement(book.id, cartItem, e)} style={{ background: 'transparent', border: 'none', color: 'white', padding: '0.5rem', cursor: 'pointer' }}>
+                      <button onClick={(e) => handleIncrement(book.id, cartItem, e)} style={{ background: 'transparent', border: 'none', color: 'var(--color-text-primary)', padding: '0.5rem', cursor: 'pointer' }}>
                         <Plus size={16} />
                       </button>
                     </div>
@@ -134,9 +134,9 @@ export default function Catalog() {
                     <button 
                       onClick={(e) => handleIncrement(book.id, null, e)} 
                       className="btn btn-primary"
-                      style={{ padding: '0.5rem 1rem' }}
+                      style={{ padding: '0.5rem 1rem', fontSize: '0.75rem' }}
                     >
-                      <Plus size={16}/> Add
+                      <Plus size={14}/> Add
                     </button>
                   )}
                 </div>

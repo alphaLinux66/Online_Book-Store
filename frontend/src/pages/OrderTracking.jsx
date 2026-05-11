@@ -14,52 +14,45 @@ export default function OrderTracking() {
   const [currentStep, setCurrentStep] = useState(0);
   const navigate = useNavigate();
 
-  // Simulate tracking progression every 5 seconds
   useEffect(() => {
     if (currentStep >= STEPS.length - 1) return;
-
     const timer = setTimeout(() => {
       setCurrentStep(prev => prev + 1);
     }, 5000);
-
     return () => clearTimeout(timer);
   }, [currentStep]);
 
   return (
     <div className="container" style={{ padding: '2rem 1rem', maxWidth: '800px', margin: '0 auto' }}>
-      
-      <button onClick={() => navigate('/catalog')} style={{ background: 'transparent', border: 'none', color: '#a1a1aa', display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer', marginBottom: '2rem' }}>
-        <ArrowLeft size={16} /> Back to Catalog
+      <button onClick={() => navigate('/catalog')} style={{ background: 'transparent', border: 'none', color: 'var(--color-text-secondary)', display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer', marginBottom: '2rem' }}>
+        <ArrowLeft size={16} /> Back to Collection
       </button>
 
       <div className="glass-panel" style={{ padding: '2.5rem' }}>
-        
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '1.5rem', marginBottom: '2rem' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid var(--color-glass-border)', paddingBottom: '1.5rem', marginBottom: '2rem' }}>
           <div>
-            <h2 className="text-gradient" style={{ margin: 0 }}>Track Your Order</h2>
-            <p style={{ color: '#a1a1aa', margin: '0.5rem 0 0 0', fontSize: '0.9rem' }}>
+            <h2 style={{ margin: 0, color: 'var(--color-accent-primary)', fontFamily: 'var(--font-serif)' }}>Track Your Order</h2>
+            <p style={{ color: 'var(--color-text-secondary)', margin: '0.5rem 0 0 0', fontSize: '0.9rem' }}>
               Order ID: #{Math.floor(100000 + Math.random() * 900000)}
             </p>
           </div>
           <div style={{ textAlign: 'right' }}>
-            <span style={{ fontSize: '0.85rem', color: '#a1a1aa', display: 'block' }}>Estimated Delivery</span>
-            <span style={{ fontWeight: 'bold', color: 'white', fontSize: '1.1rem' }}>Today</span>
+            <span style={{ fontSize: '0.85rem', color: 'var(--color-text-secondary)', display: 'block' }}>Estimated Delivery</span>
+            <span style={{ fontWeight: 'bold', color: 'var(--color-text-primary)', fontSize: '1.1rem' }}>Today</span>
           </div>
         </div>
 
         <div style={{ position: 'relative', marginTop: '3rem' }}>
-          {/* Tracking Pipeline line */}
-          <div style={{ position: 'absolute', top: '24px', left: '40px', right: '40px', height: '4px', background: 'rgba(255,255,255,0.1)', zIndex: 0, borderRadius: '2px' }}>
+          <div style={{ position: 'absolute', top: '24px', left: '40px', right: '40px', height: '4px', background: '#E5E7EB', zIndex: 0, borderRadius: '2px' }}>
             <div style={{ 
               height: '100%', 
-              background: 'linear-gradient(90deg, #8b5cf6, #c084fc)', 
+              background: 'linear-gradient(90deg, #0A2463, #1E3A8A)', 
               borderRadius: '2px',
               width: `${(currentStep / (STEPS.length - 1)) * 100}%`,
               transition: 'width 1s ease-in-out'
             }} />
           </div>
 
-          {/* Steps */}
           <div style={{ display: 'flex', justifyContent: 'space-between', position: 'relative', zIndex: 1 }}>
             {STEPS.map((step, index) => {
               const Icon = step.icon;
@@ -68,41 +61,23 @@ export default function OrderTracking() {
 
               return (
                 <div key={step.id} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '120px', textAlign: 'center' }}>
-                  
-                  {/* Icon Circle */}
                   <div style={{ 
-                    width: '48px', 
-                    height: '48px', 
-                    borderRadius: '50%', 
-                    display: 'flex', 
-                    alignItems: 'center', 
-                    justifyContent: 'center',
-                    background: isActive ? 'linear-gradient(135deg, #8b5cf6, #c084fc)' : '#18181b', // Using dark grey for inactive to fit the glass
-                    border: `2px solid ${isActive ? 'transparent' : 'rgba(255,255,255,0.2)'}`,
-                    boxShadow: isActive ? '0 0 15px rgba(139, 92, 246, 0.5)' : 'none',
-                    color: isActive ? 'white' : '#71717a',
+                    width: '48px', height: '48px', borderRadius: '50%', 
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    background: isActive ? 'var(--color-accent-primary)' : 'white',
+                    border: `2px solid ${isActive ? 'var(--color-accent-primary)' : '#D4D4D8'}`,
+                    boxShadow: isActive ? 'var(--shadow-glow)' : 'none',
+                    color: isActive ? 'white' : '#A1A1AA',
                     transition: 'all 0.5s ease-in-out',
                     marginBottom: '1rem'
                   }}>
-                    <Icon size={24} className={isCurrent ? "pulse-anim" : ""} />
+                    <Icon size={24} />
                   </div>
 
-                  {/* Text Details */}
-                  <h4 style={{ 
-                    margin: 0, 
-                    fontSize: '0.9rem', 
-                    color: isActive ? 'white' : '#a1a1aa',
-                    fontWeight: isActive ? 'bold' : 'normal',
-                    transition: 'color 0.5s'
-                  }}>
+                  <h4 style={{ margin: 0, fontSize: '0.9rem', color: isActive ? 'var(--color-text-primary)' : 'var(--color-text-secondary)', fontWeight: isActive ? 'bold' : 'normal', transition: 'color 0.5s' }}>
                     {step.label}
                   </h4>
-                  <p style={{ 
-                    margin: '0.5rem 0 0 0', 
-                    fontSize: '0.75rem', 
-                    color: '#71717a',
-                    opacity: isActive ? 1 : 0.5
-                  }}>
+                  <p style={{ margin: '0.5rem 0 0 0', fontSize: '0.75rem', color: 'var(--color-text-secondary)', opacity: isActive ? 1 : 0.5 }}>
                     {step.desc}
                   </p>
                 </div>
@@ -111,14 +86,13 @@ export default function OrderTracking() {
           </div>
         </div>
 
-        <div style={{ marginTop: '4rem', padding: '1.5rem', background: 'rgba(139, 92, 246, 0.1)', border: '1px solid rgba(139, 92, 246, 0.2)', borderRadius: '8px', textAlign: 'center' }}>
-          <p style={{ color: '#e4e4e7', margin: 0, fontSize: '0.9rem' }}>
+        <div style={{ marginTop: '4rem', padding: '1.5rem', background: 'rgba(10, 36, 99, 0.04)', border: '1px solid rgba(10, 36, 99, 0.1)', borderRadius: '8px', textAlign: 'center' }}>
+          <p style={{ color: 'var(--color-text-primary)', margin: 0, fontSize: '0.9rem' }}>
             {currentStep === 4 ? 
               "Your order has been delivered! Enjoy your books." : 
               "We are processing your order and simulating its movement. Updates will appear every 5 seconds automatically."}
           </p>
         </div>
-
       </div>
     </div>
   );

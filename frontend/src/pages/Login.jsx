@@ -40,7 +40,7 @@ export default function Login() {
     <div className="auth-page animate-fade-in">
       <div className="auth-card glass-panel">
         <div className="auth-header">
-          <h2 className="text-gradient">Welcome Back</h2>
+          <h2 style={{ color: 'var(--color-accent-primary)', fontFamily: 'var(--font-serif)' }}>Welcome Back</h2>
           <p>Enter your credentials to access your account</p>
         </div>
         

@@ -26,17 +26,17 @@ export default function UserProfile() {
 
   return (
     <div className="container" style={{ padding: '2rem 1rem' }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '2rem', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '1rem' }}>
-         <div style={{ background: 'linear-gradient(135deg, #6366f1, #a855f7)', width: '60px', height: '60px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontWeight: 'bold', fontSize: '1.5rem' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '2rem', borderBottom: '1px solid var(--color-glass-border)', paddingBottom: '1rem' }}>
+         <div style={{ background: 'var(--color-accent-primary)', width: '60px', height: '60px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontWeight: 'bold', fontSize: '1.5rem' }}>
              {user?.username?.charAt(0).toUpperCase()}
          </div>
          <div>
-             <h1 className="text-gradient" style={{ margin: 0 }}>My Profile</h1>
+             <h1 style={{ margin: 0, color: 'var(--color-accent-primary)', fontFamily: 'var(--font-serif)' }}>My Profile</h1>
              <p style={{ color: 'var(--color-text-secondary)', margin: '0.2rem 0 0 0' }}>{user?.email} | Customer Account</p>
          </div>
       </div>
 
-      <h2 style={{ marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+      <h2 style={{ marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem', fontFamily: 'var(--font-serif)' }}>
           <Package size={24} /> Order History
       </h2>
 
@@ -45,17 +45,17 @@ export default function UserProfile() {
       ) : orders.length === 0 ? (
         <div className="glass-panel" style={{ padding: '3rem', textAlign: 'center' }}>
             <p style={{ color: 'var(--color-text-secondary)', marginBottom: '1rem' }}>You haven't placed any orders yet.</p>
-            <button className="btn btn-primary" onClick={() => navigate('/catalog')}>Browse Catalog</button>
+            <button className="btn btn-primary" onClick={() => navigate('/catalog')}>Browse Collection</button>
         </div>
       ) : (
         <div style={{ display: 'grid', gap: '1.5rem' }}>
           {orders.map((order) => (
-            <div key={order.id} className="glass-panel" style={{ padding: '1.5rem', borderLeft: order.status.toLowerCase() === 'delivered' ? '4px solid #10b981' : '4px solid #f59e0b' }}>
+            <div key={order.id} className="glass-panel" style={{ padding: '1.5rem', borderLeft: order.status.toLowerCase() === 'delivered' ? '4px solid #16a34a' : '4px solid #f59e0b' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1rem' }}>
                  <div>
-                     <h3 style={{ margin: '0 0 0.5rem 0', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                     <h3 style={{ margin: '0 0 0.5rem 0', display: 'flex', alignItems: 'center', gap: '0.5rem', fontFamily: 'var(--font-serif)' }}>
                          Order #{order.id}
-                         <span style={{ fontSize: '0.8rem', padding: '0.2rem 0.6rem', borderRadius: '12px', background: 'rgba(255,255,255,0.1)', color: order.status.toLowerCase() === 'delivered' ? '#10b981' : '#f59e0b', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                         <span style={{ fontSize: '0.8rem', padding: '0.2rem 0.6rem', borderRadius: '12px', background: 'var(--color-bg-secondary)', color: order.status.toLowerCase() === 'delivered' ? '#16a34a' : '#f59e0b', display: 'flex', alignItems: 'center', gap: '4px' }}>
                              {order.status.toLowerCase() === 'delivered' ? <CheckCircle size={12}/> : <Clock size={12}/>} {order.status}
                          </span>
                      </h3>
@@ -63,11 +63,11 @@ export default function UserProfile() {
                  </div>
                  <div style={{ textAlign: 'right' }}>
                      <p style={{ margin: 0, fontSize: '0.9rem', color: 'var(--color-text-secondary)' }}>Total Amount</p>
-                     <p style={{ margin: 0, fontSize: '1.2rem', fontWeight: 'bold', color: 'white' }}>₹{order.total_amount}</p>
+                     <p style={{ margin: 0, fontSize: '1.2rem', fontWeight: 'bold', color: 'var(--color-text-primary)' }}>₹{order.total_amount}</p>
                  </div>
               </div>
 
-              <div style={{ marginTop: '1.5rem', paddingTop: '1rem', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
+              <div style={{ marginTop: '1.5rem', paddingTop: '1rem', borderTop: '1px solid var(--color-glass-border)' }}>
                   {order.items.map(item => (
                       <div key={item.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0.5rem 0' }}>
                           <span style={{ fontSize: '0.9rem' }}>

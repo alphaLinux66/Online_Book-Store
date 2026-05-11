@@ -35,8 +35,8 @@ export default function BookDetail() {
     loadBook();
   }, [id]);
 
-  if (loading) return <div className="container" style={{ padding: '4rem 0', textAlign: 'center' }}>Loading Details...</div>;
-  if (!book) return <div className="container" style={{ padding: '4rem 0', textAlign: 'center' }}>Book Not Found</div>;
+  if (loading) return <div className="container" style={{ padding: '4rem 0', textAlign: 'center', color: 'var(--color-text-secondary)' }}>Loading Details...</div>;
+  if (!book) return <div className="container" style={{ padding: '4rem 0', textAlign: 'center', color: 'var(--color-text-secondary)' }}>Book Not Found</div>;
 
   const cartItem = cartItems.find(item => item.book.id === book.id);
   const qty = cartItem ? cartItem.quantity : 0;
@@ -82,17 +82,17 @@ export default function BookDetail() {
 
   return (
     <div className="container animate-fade-in" style={{ padding: '2rem 1.5rem', maxWidth: '1200px' }}>
-      <Link to="/catalog" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', color: 'var(--color-text-secondary)', textDecoration: 'none', marginBottom: '2rem', transition: 'color 0.2s' }} onMouseOver={e=>e.target.style.color='white'} onMouseOut={e=>e.target.style.color='var(--color-text-secondary)'}>
-        <ArrowLeft size={16} /> Back to Catalog
+      <Link to="/catalog" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', color: 'var(--color-text-secondary)', textDecoration: 'none', marginBottom: '2rem', transition: 'color 0.2s' }} onMouseOver={e=>e.target.style.color='var(--color-text-primary)'} onMouseOut={e=>e.target.style.color='var(--color-text-secondary)'}>
+        <ArrowLeft size={16} /> Back to Collection
       </Link>
 
       <div className="glass-panel" style={{ display: 'flex', flexWrap: 'wrap', overflow: 'hidden', padding: 0 }}>
         {/* Left Col: Image */}
-        <div style={{ flex: '1 1 400px', background: 'rgba(255, 255, 255, 0.02)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '3rem' }}>
+        <div style={{ flex: '1 1 400px', background: 'var(--color-bg-secondary)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '3rem' }}>
           {book.image_url ? (
             <img src={book.image_url} alt={book.title} style={{ width: '100%', maxWidth: '350px', height: 'auto', borderRadius: '4px', boxShadow: 'var(--shadow-lg)' }} />
           ) : (
-            <div style={{ width: '300px', height: '400px', background: 'var(--color-accent-gradient)', borderRadius: '4px', boxShadow: 'var(--shadow-lg)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontWeight: 'bold', fontSize: '1.5rem', textAlign: 'center', padding: '1.5rem' }}>
+            <div style={{ width: '300px', height: '400px', background: 'var(--color-bg-tertiary)', borderRadius: '4px', boxShadow: 'var(--shadow-lg)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--color-text-secondary)', fontWeight: 'bold', fontSize: '1.5rem', textAlign: 'center', padding: '1.5rem', fontFamily: 'var(--font-serif)' }}>
               {book.title}
             </div>
           )}
@@ -100,7 +100,7 @@ export default function BookDetail() {
 
         {/* Right Col: Details */}
         <div style={{ flex: '1 1 500px', padding: '3rem', display: 'flex', flexDirection: 'column' }}>
-          <h1 style={{ fontSize: '2.5rem', marginBottom: '0.5rem', lineHeight: '1.2' }}>{book.title}</h1>
+          <h1 style={{ fontSize: '2.5rem', marginBottom: '0.5rem', lineHeight: '1.2', fontFamily: 'var(--font-serif)' }}>{book.title}</h1>
           <p style={{ color: 'var(--color-accent-primary)', fontSize: '1.1rem', fontWeight: '500', marginBottom: '1rem' }}>by {book.author}</p>
           
           <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '2rem' }}>
@@ -108,30 +108,30 @@ export default function BookDetail() {
             <span style={{ color: 'var(--color-text-secondary)', fontSize: '0.9rem' }}>| {book.reviews?.length || 0} customer reviews</span>
           </div>
           
-          <div style={{ padding: '1.5rem', background: 'rgba(255,255,255,0.02)', border: '1px solid var(--color-glass-border)', borderRadius: 'var(--radius-lg)', marginBottom: '2rem' }}>
+          <div style={{ padding: '1.5rem', background: 'var(--color-bg-secondary)', border: '1px solid var(--color-glass-border)', borderRadius: 'var(--radius-lg)', marginBottom: '2rem' }}>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.5rem', marginBottom: '1rem' }}>
-                <span style={{ fontSize: '2.5rem', fontWeight: '700', color: 'var(--color-text-primary)' }}>
+                <span style={{ fontSize: '2.5rem', fontWeight: '700', color: 'var(--color-text-primary)', fontFamily: 'var(--font-serif)' }}>
                     ₹{parseFloat(book.price).toFixed(2)}
                 </span>
                 <span style={{ fontSize: '1rem', color: 'var(--color-text-secondary)' }}>
-                    ({book.stock || 0} available in warehouse)
+                    ({book.stock || 0} in stock)
                 </span>
             </div>
             <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.9rem', marginBottom: '1.5rem' }}>Inclusive of all taxes.</p>
             
             <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
                 {book.is_digital && book.demo_file && (
-                    <a href={book.demo_file} target="_blank" rel="noreferrer" className="btn btn-secondary" style={{ padding: '0.75rem 2rem', flex: '1 1 100%', textAlign: 'center', textDecoration: 'none', background: 'rgba(255, 153, 0, 0.1)', color: 'var(--color-accent-primary)', border: '1px solid var(--color-accent-primary)' }}>
+                    <a href={book.demo_file} target="_blank" rel="noreferrer" className="btn btn-secondary" style={{ padding: '0.75rem 2rem', flex: '1 1 100%', textAlign: 'center', textDecoration: 'none', background: 'rgba(10, 36, 99, 0.04)', color: 'var(--color-accent-primary)', border: '1px solid var(--color-accent-primary)' }}>
                         📖 Read Free Demo
                     </a>
                 )}
                 {qty > 0 ? (
-                    <div style={{ display: 'flex', alignItems: 'center', background: 'rgba(255, 255, 255, 0.05)', borderRadius: 'var(--radius-full)', border: '1px solid var(--color-glass-border)', overflow: 'hidden' }}>
-                      <button onClick={handleDecrement} style={{ background: 'transparent', border: 'none', color: 'white', padding: '0.75rem 1.2rem', cursor: 'pointer', transition: 'background 0.2s' }} onMouseOver={e=>e.target.style.background='rgba(255,255,255,0.1)'} onMouseOut={e=>e.target.style.background='transparent'}>
+                    <div style={{ display: 'flex', alignItems: 'center', background: 'var(--color-bg-primary)', borderRadius: 'var(--radius-full)', border: '1px solid var(--color-glass-border)', overflow: 'hidden' }}>
+                      <button onClick={handleDecrement} style={{ background: 'transparent', border: 'none', color: 'var(--color-text-primary)', padding: '0.75rem 1.2rem', cursor: 'pointer', transition: 'background 0.2s' }} onMouseOver={e=>e.target.style.background='var(--color-bg-secondary)'} onMouseOut={e=>e.target.style.background='transparent'}>
                         <Minus size={18} />
                       </button>
                       <span style={{ padding: '0 1rem', fontWeight: '600', minWidth: '40px', textAlign: 'center', fontSize: '1.2rem' }}>{qty}</span>
-                      <button onClick={handleIncrement} style={{ background: 'transparent', border: 'none', color: 'white', padding: '0.75rem 1.2rem', cursor: 'pointer', transition: 'background 0.2s' }} onMouseOver={e=>e.target.style.background='rgba(255,255,255,0.1)'} onMouseOut={e=>e.target.style.background='transparent'}>
+                      <button onClick={handleIncrement} style={{ background: 'transparent', border: 'none', color: 'var(--color-text-primary)', padding: '0.75rem 1.2rem', cursor: 'pointer', transition: 'background 0.2s' }} onMouseOver={e=>e.target.style.background='var(--color-bg-secondary)'} onMouseOut={e=>e.target.style.background='transparent'}>
                         <Plus size={18} />
                       </button>
                     </div>
@@ -146,7 +146,7 @@ export default function BookDetail() {
             </div>
           </div>
 
-          <h3 style={{ marginBottom: '1rem', fontSize: '1.25rem' }}>About the book</h3>
+          <h3 style={{ marginBottom: '1rem', fontSize: '1.25rem', fontFamily: 'var(--font-serif)' }}>About the book</h3>
           <p style={{ color: 'var(--color-text-secondary)', fontSize: '1.05rem', lineHeight: '1.8', marginBottom: '2rem' }}>
             {book.description}
           </p>
@@ -155,13 +155,13 @@ export default function BookDetail() {
       </div>
 
       {/* Reviews Section */}
-      <h3 style={{ fontSize: '1.8rem', marginTop: '4rem', marginBottom: '2rem' }}>Customer Reviews</h3>
+      <h3 style={{ fontSize: '1.8rem', marginTop: '4rem', marginBottom: '2rem', fontFamily: 'var(--font-serif)' }}>Customer Reviews</h3>
       
       <div style={{ display: 'flex', gap: '3rem', flexWrap: 'wrap' }}>
         <div style={{ flex: '1 1 300px' }}>
             {user ? (
                 <div className="glass-panel" style={{ padding: '2.5rem 2rem', borderTop: '4px solid var(--color-accent-primary)' }}>
-                    <h4 style={{ marginBottom: '2rem', fontSize: '1.4rem' }}>Write a Review</h4>
+                    <h4 style={{ marginBottom: '2rem', fontSize: '1.4rem', fontFamily: 'var(--font-serif)' }}>Write a Review</h4>
                     <form onSubmit={handleReviewSubmit}>
                         <div style={{ marginBottom: '2rem' }}>
                             <label style={{ display: 'block', marginBottom: '0.75rem', color: 'var(--color-text-secondary)', fontWeight: '500' }}>Overall Rating</label>
@@ -170,22 +170,21 @@ export default function BookDetail() {
                                 <Star 
                                   key={star} 
                                   size={32} 
-                                  fill={star <= reviewRating ? '#fbbf24' : 'transparent'} 
+                                  fill={star <= reviewRating ? '#f59e0b' : 'transparent'} 
                                   strokeWidth={star <= reviewRating ? 0 : 1.5}
-                                  color={star <= reviewRating ? '#fbbf24' : 'var(--color-text-secondary)'}
+                                  color={star <= reviewRating ? '#f59e0b' : 'var(--color-text-secondary)'}
                                   style={{ transition: 'all 0.2s', transform: star <= reviewRating ? 'scale(1.1)' : 'scale(1)' }}
                                   onMouseEnter={(e) => {
-                                    // simple hover effect without complex state
                                     const stars = e.currentTarget.parentElement.children;
                                     for(let i=0; i<stars.length; i++) {
-                                      if(i < star) stars[i].style.fill = '#fcd34d';
+                                      if(i < star) stars[i].style.fill = '#fbbf24';
                                       else stars[i].style.fill = 'transparent';
                                     }
                                   }}
                                   onMouseLeave={(e) => {
                                     const stars = e.currentTarget.parentElement.children;
                                     for(let i=0; i<stars.length; i++) {
-                                      if(i < reviewRating) stars[i].style.fill = '#fbbf24';
+                                      if(i < reviewRating) stars[i].style.fill = '#f59e0b';
                                       else stars[i].style.fill = 'transparent';
                                     }
                                   }}
@@ -204,28 +203,29 @@ export default function BookDetail() {
                                 style={{ 
                                   width: '100%', 
                                   minHeight: '150px', 
-                                  background: 'rgba(0,0,0,0.2)', 
-                                  border: '1px solid rgba(255,255,255,0.1)', 
+                                  background: '#FAFAFA', 
+                                  border: '1px solid #D4D4D8', 
                                   borderRadius: '8px', 
-                                  color: 'white', 
+                                  color: 'var(--color-text-primary)', 
                                   padding: '1.25rem', 
                                   resize: 'vertical',
                                   fontSize: '1rem',
                                   lineHeight: '1.5',
-                                  transition: 'border-color 0.3s'
+                                  transition: 'border-color 0.3s',
+                                  fontFamily: 'var(--font-sans)'
                                 }}
                                 onFocus={e => e.target.style.borderColor = 'var(--color-accent-primary)'}
-                                onBlur={e => e.target.style.borderColor = 'rgba(255,255,255,0.1)'}
+                                onBlur={e => e.target.style.borderColor = '#D4D4D8'}
                             />
                         </div>
-                        <button type="submit" disabled={submittingReview} className="btn btn-primary" style={{ width: '100%', padding: '1rem', fontSize: '1rem', fontWeight: 'bold' }}>
+                        <button type="submit" disabled={submittingReview} className="btn btn-primary" style={{ width: '100%', padding: '1rem', fontSize: '0.85rem', fontWeight: 'bold' }}>
                             {submittingReview ? 'Submitting...' : 'Post Review'}
                         </button>
                     </form>
                 </div>
             ) : (
                 <div className="glass-panel" style={{ padding: '3rem 2rem', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-                    <h4 style={{ marginBottom: '1rem', fontSize: '1.3rem' }}>Review this product</h4>
+                    <h4 style={{ marginBottom: '1rem', fontSize: '1.3rem', fontFamily: 'var(--font-serif)' }}>Review this product</h4>
                     <p style={{ color: 'var(--color-text-secondary)', marginBottom: '2rem', lineHeight: '1.6' }}>Share your thoughts with other customers and help them make an informed decision.</p>
                     <button onClick={() => navigate('/login')} className="btn btn-secondary" style={{ padding: '0.8rem 2rem' }}>Sign in to review</button>
                 </div>
@@ -237,7 +237,7 @@ export default function BookDetail() {
                 book.reviews.map(rev => (
                     <div key={rev.id} className="glass-panel" style={{ padding: '1.5rem' }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '0.5rem' }}>
-                            <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: 'var(--color-accent-gradient)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold' }}>
+                            <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: 'var(--color-accent-primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', color: 'white', fontSize: '0.85rem' }}>
                                 {rev.username.charAt(0).toUpperCase()}
                             </div>
                             <span style={{ fontWeight: '600' }}>{rev.username}</span>
@@ -248,13 +248,13 @@ export default function BookDetail() {
                                 Verified Purchase
                             </span>
                         </div>
-                        <p style={{ lineHeight: '1.6', color: 'rgba(255,255,255,0.9)' }}>
+                        <p style={{ lineHeight: '1.6', color: 'var(--color-text-primary)' }}>
                             {rev.comment}
                         </p>
                     </div>
                 ))
             ) : (
-                <div style={{ padding: '3rem', textAlign: 'center', color: 'var(--color-text-secondary)', background: 'rgba(255,255,255,0.02)', borderRadius: 'var(--radius-lg)' }}>
+                <div style={{ padding: '3rem', textAlign: 'center', color: 'var(--color-text-secondary)', background: 'var(--color-bg-secondary)', borderRadius: 'var(--radius-lg)' }}>
                     No reviews yet. Be the first to share your thoughts!
                 </div>
             )}

@@ -19,7 +19,6 @@ export default function ResetPassword() {
     setLoading(true);
     setError('');
     setSuccess('');
-    
     try {
       await resetPassword(formData.username, formData.newPassword);
       setSuccess('Password has been reset successfully!');
@@ -35,27 +34,18 @@ export default function ResetPassword() {
     <div className="auth-page animate-fade-in">
       <div className="auth-card glass-panel">
         <div className="auth-header">
-          <h2 className="text-gradient">Reset Password</h2>
+          <h2 style={{ color: 'var(--color-accent-primary)', fontFamily: 'var(--font-serif)' }}>Reset Password</h2>
           <p>Create a new password for your account</p>
         </div>
         
         {error && <div className="error-message">{error}</div>}
-        {success && <div style={{ background: 'rgba(16, 185, 129, 0.1)', color: '#10b981', padding: '1rem', borderRadius: '8px', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: '500' }}><CheckCircle size={18} /> {success}</div>}
+        {success && <div style={{ background: 'rgba(22, 163, 74, 0.06)', color: '#16a34a', padding: '1rem', borderRadius: '8px', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: '500', border: '1px solid rgba(22, 163, 74, 0.15)' }}><CheckCircle size={18} /> {success}</div>}
         
         <form onSubmit={handleSubmit}>
           <div className="input-group">
             <label className="input-label">Username</label>
             <div style={{ position: 'relative' }}>
-              <input 
-                type="text" 
-                name="username" 
-                className="input-field" 
-                placeholder="Enter your username"
-                style={{ paddingLeft: '2.5rem' }}
-                value={formData.username}
-                onChange={handleChange}
-                required
-              />
+              <input type="text" name="username" className="input-field" placeholder="Enter your username" style={{ paddingLeft: '2.5rem' }} value={formData.username} onChange={handleChange} required />
               <Mail size={18} style={{ position: 'absolute', left: '1rem', top: '14px', color: 'var(--color-text-secondary)' }} />
             </div>
           </div>
@@ -63,17 +53,7 @@ export default function ResetPassword() {
           <div className="input-group">
             <label className="input-label">New Password</label>
             <div style={{ position: 'relative' }}>
-              <input 
-                type="password" 
-                name="newPassword" 
-                className="input-field" 
-                placeholder="••••••••"
-                style={{ paddingLeft: '2.5rem' }}
-                value={formData.newPassword}
-                onChange={handleChange}
-                required
-                minLength="6"
-              />
+              <input type="password" name="newPassword" className="input-field" placeholder="••••••••" style={{ paddingLeft: '2.5rem' }} value={formData.newPassword} onChange={handleChange} required minLength="6" />
               <Lock size={18} style={{ position: 'absolute', left: '1rem', top: '14px', color: 'var(--color-text-secondary)' }} />
             </div>
           </div>

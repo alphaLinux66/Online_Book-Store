@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
-import { BookOpen, LogOut, ShoppingCart } from 'lucide-react';
+import { LogOut, ShoppingCart, Search, User } from 'lucide-react';
 
 export default function Navbar() {
   const { user, logout } = useAuth();
@@ -24,9 +24,8 @@ export default function Navbar() {
   return (
     <nav className="navbar">
       <div className="container navbar-container">
-        <Link to="/" className="nav-brand">
-          <BookOpen className="text-gradient" size={28} />
-          <span style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>Papyrus <span className="text-gradient">Plaza</span></span>
+        <Link to="/" className="nav-brand" style={{ textDecoration: 'none' }}>
+          <span style={{ fontFamily: 'var(--font-serif)', fontSize: '1.4rem', fontWeight: 700, letterSpacing: '0.1em', color: 'var(--color-text-primary)' }}>PAPYRUS PLAZA</span>
         </Link>
         
         <div className="nav-links" style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
@@ -52,16 +51,16 @@ export default function Navbar() {
               {!user.isAdmin && !user.isStoreOwner && !user.isWriter && (
                 <>
                   <Link to="/catalog" className={`nav-link ${location.pathname === '/catalog' ? 'active' : ''}`}>
-                    Catalog
+                    Browse
                   </Link>
-                  <Link to="/cart" className="btn-icon" style={{ textDecoration: 'none', position: 'relative' }}>
-                    <ShoppingCart size={20} />
+                  <Link to="/cart" style={{ textDecoration: 'none', position: 'relative', color: 'var(--color-text-primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '36px', height: '36px', borderRadius: '50%', border: '1px solid var(--color-glass-border)', transition: 'all 0.2s' }}>
+                    <ShoppingCart size={18} />
                     {cartCount > 0 && (
                       <span style={{
                         position: 'absolute',
-                        top: '-5px',
-                        right: '-5px',
-                        background: '#ef4444',
+                        top: '-4px',
+                        right: '-4px',
+                        background: '#dc2626',
                         color: 'white',
                         fontSize: '0.7rem',
                         fontWeight: 'bold',
@@ -92,11 +91,11 @@ export default function Navbar() {
                   const fullName = displayName.charAt(0).toUpperCase() + displayName.slice(1);
                   
                   return (
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.3rem', paddingRight: '1rem', background: 'rgba(255,255,255,0.05)', borderRadius: '30px', border: '1px solid rgba(255,255,255,0.1)' }}>
-                      <div style={{ background: 'linear-gradient(135deg, #6366f1, #a855f7)', width: '32px', height: '32px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontWeight: 'bold' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.3rem', paddingRight: '1rem', background: 'var(--color-bg-secondary)', borderRadius: '30px', border: '1px solid var(--color-glass-border)' }}>
+                      <div style={{ background: 'var(--color-accent-primary)', width: '32px', height: '32px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontWeight: 'bold', fontSize: '0.85rem' }}>
                         {initial}
                       </div>
-                      <span style={{ fontSize: '0.9rem', color: '#e4e4e7', fontWeight: '500' }}>
+                      <span style={{ fontSize: '0.9rem', color: 'var(--color-text-primary)', fontWeight: '500' }}>
                         {fullName}
                       </span>
                     </div>
@@ -111,13 +110,12 @@ export default function Navbar() {
                       top: '100%', 
                       right: 0, 
                       marginTop: '0.5rem', 
-                      background: 'rgba(30, 30, 35, 0.95)', 
-                      backdropFilter: 'blur(10px)',
-                      border: '1px solid rgba(255,255,255,0.1)', 
+                      background: 'white', 
+                      border: '1px solid var(--color-glass-border)', 
                       borderRadius: '8px', 
                       overflow: 'hidden',
                       minWidth: '150px',
-                      boxShadow: '0 10px 25px rgba(0,0,0,0.5)',
+                      boxShadow: '0 10px 30px rgba(0,0,0,0.1)',
                       zIndex: 50,
                     }}>
                       {!user.isAdmin && !user.isStoreOwner && (
@@ -130,12 +128,12 @@ export default function Navbar() {
                             display: 'flex', 
                             alignItems: 'center', 
                             gap: '0.5rem', 
-                            color: 'white',
+                            color: 'var(--color-text-primary)',
                             textDecoration: 'none',
-                            borderBottom: '1px solid rgba(255,255,255,0.05)',
+                            borderBottom: '1px solid var(--color-glass-border)',
                             fontWeight: '500'
                           }}
-                          onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.05)'}
+                          onMouseEnter={(e) => e.currentTarget.style.background = 'var(--color-bg-secondary)'}
                           onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
                           onClick={() => setIsProfileOpen(false)}
                         >
@@ -155,13 +153,13 @@ export default function Navbar() {
                           alignItems: 'center', 
                         gap: '0.5rem', 
                         background: 'transparent',
-                        color: '#ef4444',
+                        color: '#dc2626',
                         border: 'none',
                         cursor: 'pointer',
                         textAlign: 'left',
                         fontWeight: '500'
                       }}
-                      onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.05)'}
+                      onMouseEnter={(e) => e.currentTarget.style.background = 'var(--color-bg-secondary)'}
                       onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
                     >
                       <LogOut size={16} /> Logout
@@ -173,10 +171,10 @@ export default function Navbar() {
             </div>
           ) : (
             <>
-              <Link to="/login" className="btn btn-secondary" style={{ padding: '0.5rem 1rem', fontSize: '0.9rem' }}>
+              <Link to="/login" className="btn btn-secondary" style={{ padding: '0.5rem 1rem', fontSize: '0.8rem' }}>
                 Sign In
               </Link>
-              <Link to="/register" className="btn btn-primary" style={{ padding: '0.5rem 1rem', fontSize: '0.9rem' }}>
+              <Link to="/register" className="btn btn-primary" style={{ padding: '0.5rem 1rem', fontSize: '0.8rem' }}>
                 Sign Up
               </Link>
             </>

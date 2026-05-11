@@ -13,7 +13,6 @@ export default function WriterJournal() {
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
 
-  // Form State
   const [formData, setFormData] = useState({
     title: '',
     description: '',
@@ -112,7 +111,7 @@ export default function WriterJournal() {
     <div className="container animate-fade-in" style={{ padding: '2rem 0' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
         <div>
-          <h1 style={{ fontSize: '2.5rem', marginBottom: '0.5rem' }}>Writer Journal</h1>
+          <h1 style={{ fontSize: '2.5rem', marginBottom: '0.5rem', fontFamily: 'var(--font-serif)' }}>Writer Journal</h1>
           <p style={{ color: 'var(--color-text-secondary)', fontSize: '1.1rem' }}>Manage your manuscripts, track earnings, and connect with readers.</p>
         </div>
         <button className="btn btn-primary" onClick={() => setShowModal(true)}>
@@ -124,48 +123,48 @@ export default function WriterJournal() {
         <div className="glass-panel" style={{ padding: '1.5rem' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem', color: 'var(--color-accent-primary)' }}>
             <BookOpen size={24} />
-            <h3 style={{ margin: 0, color: 'white' }}>Published Works</h3>
+            <h3 style={{ margin: 0, color: 'var(--color-text-primary)', fontFamily: 'var(--font-serif)' }}>Published Works</h3>
           </div>
-          <p style={{ fontSize: '2.5rem', fontWeight: 'bold' }}>{books.length}</p>
+          <p style={{ fontSize: '2.5rem', fontWeight: 'bold', fontFamily: 'var(--font-serif)' }}>{books.length}</p>
         </div>
         
         <div className="glass-panel" style={{ padding: '1.5rem' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem', color: '#10b981' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem', color: '#16a34a' }}>
             <TrendingUp size={24} />
-            <h3 style={{ margin: 0, color: 'white' }}>Total Purchases</h3>
+            <h3 style={{ margin: 0, color: 'var(--color-text-primary)', fontFamily: 'var(--font-serif)' }}>Total Purchases</h3>
           </div>
-          <p style={{ fontSize: '2.5rem', fontWeight: 'bold' }}>{analytics?.total_reads || 0}</p>
+          <p style={{ fontSize: '2.5rem', fontWeight: 'bold', fontFamily: 'var(--font-serif)' }}>{analytics?.total_reads || 0}</p>
         </div>
 
         <div className="glass-panel" style={{ padding: '1.5rem' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem', color: '#8b5cf6' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem', color: '#0A2463' }}>
             <Users size={24} />
-            <h3 style={{ margin: 0, color: 'white' }}>Unique Readers</h3>
+            <h3 style={{ margin: 0, color: 'var(--color-text-primary)', fontFamily: 'var(--font-serif)' }}>Unique Readers</h3>
           </div>
-          <p style={{ fontSize: '2.5rem', fontWeight: 'bold' }}>{analytics?.subscribers || 0}</p>
+          <p style={{ fontSize: '2.5rem', fontWeight: 'bold', fontFamily: 'var(--font-serif)' }}>{analytics?.subscribers || 0}</p>
         </div>
         
         <div className="glass-panel" style={{ padding: '1.5rem' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem', color: '#f59e0b' }}>
             <span style={{ fontSize: '24px' }}>⭐</span>
-            <h3 style={{ margin: 0, color: 'white' }}>Avg. Rating</h3>
+            <h3 style={{ margin: 0, color: 'var(--color-text-primary)', fontFamily: 'var(--font-serif)' }}>Avg. Rating</h3>
           </div>
-          <p style={{ fontSize: '2.5rem', fontWeight: 'bold' }}>{analytics?.avg_rating || '0.0'}<span style={{fontSize: '1rem', color: 'var(--color-text-secondary)'}}>/5</span></p>
+          <p style={{ fontSize: '2.5rem', fontWeight: 'bold', fontFamily: 'var(--font-serif)' }}>{analytics?.avg_rating || '0.0'}<span style={{fontSize: '1rem', color: 'var(--color-text-secondary)'}}>/ 5</span></p>
         </div>
       </div>
       
       {analytics && analytics.book_stats && analytics.book_stats.length > 0 && (
         <div className="glass-panel" style={{ padding: '2rem', marginBottom: '3rem' }}>
-          <h2 style={{ marginBottom: '1.5rem' }}>Sales Performance by Book</h2>
+          <h2 style={{ marginBottom: '1.5rem', fontFamily: 'var(--font-serif)' }}>Sales Performance by Book</h2>
           <div style={{ height: '300px' }}>
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={analytics.book_stats}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#ffffff10" vertical={false} />
-                <XAxis dataKey="title" stroke="#888" tick={{fill: '#888'}} />
-                <YAxis stroke="#888" tick={{fill: '#888'}} />
+                <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" vertical={false} />
+                <XAxis dataKey="title" stroke="#6B6B6B" tick={{fill: '#6B6B6B'}} />
+                <YAxis stroke="#6B6B6B" tick={{fill: '#6B6B6B'}} />
                 <Tooltip 
-                  contentStyle={{ backgroundColor: 'rgba(15, 23, 42, 0.9)', border: '1px solid #ffffff20', borderRadius: '8px' }}
-                  itemStyle={{ color: '#fff' }}
+                  contentStyle={{ backgroundColor: 'white', border: '1px solid #E5E7EB', borderRadius: '8px', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}
+                  itemStyle={{ color: '#1A1A1A' }}
                 />
                 <Bar dataKey="sales" fill="var(--color-accent-primary)" radius={[4, 4, 0, 0]} name="Copies Sold" />
               </BarChart>
@@ -175,13 +174,13 @@ export default function WriterJournal() {
       )}
 
       <div className="glass-panel" style={{ padding: '2rem' }}>
-        <h2 style={{ marginBottom: '1.5rem' }}>Your Catalog</h2>
+        <h2 style={{ marginBottom: '1.5rem', fontFamily: 'var(--font-serif)' }}>Your Catalog</h2>
         {loading ? (
-          <p>Loading catalog...</p>
+          <p style={{ color: 'var(--color-text-secondary)' }}>Loading catalog...</p>
         ) : books.length === 0 ? (
           <div style={{ textAlign: 'center', padding: '3rem' }}>
             <PenTool size={48} style={{ color: 'var(--color-text-secondary)', marginBottom: '1rem', opacity: 0.5 }} />
-            <h3 style={{ marginBottom: '1rem' }}>Your Journey Begins Here</h3>
+            <h3 style={{ marginBottom: '1rem', fontFamily: 'var(--font-serif)' }}>Your Journey Begins Here</h3>
             <p style={{ color: 'var(--color-text-secondary)', maxWidth: '500px', margin: '0 auto' }}>
               You haven't published any books yet. Start writing your first masterpiece and share your unique voice with the world!
             </p>
@@ -192,9 +191,9 @@ export default function WriterJournal() {
               <div 
                 key={book.id} 
                 onClick={() => navigate('/book/' + book.id)}
-                style={{ background: 'rgba(255,255,255,0.05)', borderRadius: '8px', overflow: 'hidden', cursor: 'pointer', transition: 'transform 0.2s' }}
-                onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-4px)'}
-                onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
+                style={{ background: 'var(--color-bg-secondary)', borderRadius: '8px', overflow: 'hidden', cursor: 'pointer', transition: 'transform 0.2s, box-shadow 0.2s', border: '1px solid var(--color-glass-border)' }}
+                onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = 'var(--shadow-lg)'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; }}
               >
                 <img 
                   src={book.image_url || 'https://via.placeholder.com/200x300?text=No+Cover'} 
@@ -202,10 +201,10 @@ export default function WriterJournal() {
                   style={{ width: '100%', height: '280px', objectFit: 'cover' }} 
                 />
                 <div style={{ padding: '1rem' }}>
-                  <h4 style={{ margin: '0 0 0.5rem 0' }}>{book.title}</h4>
+                  <h4 style={{ margin: '0 0 0.5rem 0', fontFamily: 'var(--font-serif)' }}>{book.title}</h4>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', color: 'var(--color-text-secondary)', fontSize: '0.9rem' }}>
                     <span>₹{book.price}</span>
-                    {book.is_digital && <span style={{ background: 'var(--color-accent-primary)', color: '#000', padding: '2px 6px', borderRadius: '4px', fontSize: '0.75rem', fontWeight: 'bold' }}>DIGITAL</span>}
+                    {book.is_digital && <span style={{ background: 'var(--color-accent-primary)', color: 'white', padding: '2px 6px', borderRadius: '4px', fontSize: '0.75rem', fontWeight: 'bold' }}>DIGITAL</span>}
                   </div>
                 </div>
               </div>
@@ -215,18 +214,18 @@ export default function WriterJournal() {
       </div>
 
       {showModal && (
-        <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.85)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000, padding: '1rem', backdropFilter: 'blur(4px)' }}>
-          <div style={{ background: '#ffffff', width: '100%', maxWidth: '650px', maxHeight: '90vh', overflowY: 'auto', position: 'relative', borderRadius: '16px', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)' }}>
+        <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.4)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000, padding: '1rem', backdropFilter: 'blur(4px)' }}>
+          <div style={{ background: '#ffffff', width: '100%', maxWidth: '650px', maxHeight: '90vh', overflowY: 'auto', position: 'relative', borderRadius: '16px', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)' }}>
             
-            <div style={{ background: 'var(--color-bg-primary)', padding: '1.5rem 2rem', borderBottom: '1px solid #e5e7eb', display: 'flex', justifyContent: 'space-between', alignItems: 'center', position: 'sticky', top: 0, zIndex: 10 }}>
-              <h2 style={{ margin: 0, color: 'var(--color-accent-primary)', fontSize: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <div style={{ background: 'var(--color-accent-primary)', padding: '1.5rem 2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', position: 'sticky', top: 0, zIndex: 10, color: 'white' }}>
+              <h2 style={{ margin: 0, fontSize: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem', fontFamily: 'var(--font-serif)', color: 'white' }}>
                 <BookOpen size={24} /> Publish Digital Book
               </h2>
               <button 
                 onClick={() => setShowModal(false)}
-                style={{ background: '#f3f4f6', border: 'none', color: '#4b5563', cursor: 'pointer', borderRadius: '50%', padding: '0.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'background 0.2s' }}
-                onMouseOver={(e) => e.currentTarget.style.background = '#e5e7eb'}
-                onMouseOut={(e) => e.currentTarget.style.background = '#f3f4f6'}
+                style={{ background: 'rgba(255,255,255,0.2)', border: 'none', color: 'white', cursor: 'pointer', borderRadius: '50%', padding: '0.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'background 0.2s' }}
+                onMouseOver={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.3)'}
+                onMouseOut={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.2)'}
               >
                 <X size={20} />
               </button>
@@ -234,7 +233,7 @@ export default function WriterJournal() {
 
             <form onSubmit={handleSubmit} style={{ padding: '2rem', display: 'flex', flexDirection: 'column', gap: '1.5rem', color: '#1f2937' }}>
               <div>
-                <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '600', fontSize: '0.95rem' }}>Book Title <span style={{ color: '#ef4444' }}>*</span></label>
+                <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '600', fontSize: '0.95rem' }}>Book Title <span style={{ color: '#dc2626' }}>*</span></label>
                 <input type="text" name="title" required value={formData.title} onChange={handleInputChange} 
                   style={{ width: '100%', padding: '0.75rem 1rem', borderRadius: '8px', border: '1px solid #d1d5db', background: '#f9fafb', fontSize: '1rem', color: '#111827', outline: 'none', transition: 'border-color 0.2s' }} 
                   onFocus={(e) => e.target.style.borderColor = 'var(--color-accent-primary)'}
@@ -243,7 +242,7 @@ export default function WriterJournal() {
               </div>
               
               <div>
-                <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '600', fontSize: '0.95rem' }}>Synopsis / Description <span style={{ color: '#ef4444' }}>*</span></label>
+                <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '600', fontSize: '0.95rem' }}>Synopsis / Description <span style={{ color: '#dc2626' }}>*</span></label>
                 <textarea name="description" rows="4" required value={formData.description} onChange={handleInputChange} 
                   style={{ width: '100%', padding: '0.75rem 1rem', borderRadius: '8px', border: '1px solid #d1d5db', background: '#f9fafb', fontSize: '1rem', color: '#111827', outline: 'none', transition: 'border-color 0.2s', resize: 'vertical' }}
                   onFocus={(e) => e.target.style.borderColor = 'var(--color-accent-primary)'}
@@ -253,7 +252,7 @@ export default function WriterJournal() {
               
               <div style={{ display: 'flex', gap: '1.5rem' }}>
                 <div style={{ flex: 1 }}>
-                  <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '600', fontSize: '0.95rem' }}>Retail Price (₹) <span style={{ color: '#ef4444' }}>*</span></label>
+                  <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '600', fontSize: '0.95rem' }}>Retail Price (₹) <span style={{ color: '#dc2626' }}>*</span></label>
                   <input type="number" step="0.01" name="price" required value={formData.price} onChange={handleInputChange} 
                     style={{ width: '100%', padding: '0.75rem 1rem', borderRadius: '8px', border: '1px solid #d1d5db', background: '#f9fafb', fontSize: '1rem', color: '#111827', outline: 'none', transition: 'border-color 0.2s' }}
                     onFocus={(e) => e.target.style.borderColor = 'var(--color-accent-primary)'}
@@ -274,14 +273,14 @@ export default function WriterJournal() {
                 <h4 style={{ margin: '0 0 1rem 0', color: '#374151', fontSize: '1.1rem' }}>Digital Assets (PDF Upload)</h4>
                 
                 <div style={{ marginBottom: '1.5rem' }}>
-                  <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '600', fontSize: '0.9rem', color: '#4b5563' }}>Full Book PDF (Paid Access) <span style={{ color: '#ef4444' }}>*</span></label>
+                  <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '600', fontSize: '0.9rem', color: '#4b5563' }}>Full Book PDF (Paid Access) <span style={{ color: '#dc2626' }}>*</span></label>
                   <input type="file" accept=".pdf" required onChange={(e) => handleFileChange(e, setPdfFile)} 
                     style={{ width: '100%', padding: '0.75rem', background: 'white', borderRadius: '6px', border: '1px solid #d1d5db', fontSize: '0.9rem' }} 
                   />
                 </div>
                 
                 <div>
-                  <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '600', fontSize: '0.9rem', color: '#4b5563' }}>Free Demo / Sample PDF <span style={{ color: '#ef4444' }}>*</span></label>
+                  <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '600', fontSize: '0.9rem', color: '#4b5563' }}>Free Demo / Sample PDF <span style={{ color: '#dc2626' }}>*</span></label>
                   <input type="file" accept=".pdf" required onChange={(e) => handleFileChange(e, setDemoFile)} 
                     style={{ width: '100%', padding: '0.75rem', background: 'white', borderRadius: '6px', border: '1px solid #d1d5db', fontSize: '0.9rem' }} 
                   />

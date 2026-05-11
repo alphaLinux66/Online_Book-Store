@@ -50,13 +50,13 @@ export default function Chatbot() {
 
   return (
     <div className="chatbot-widget">
-      <div className={`glass-panel chatbot-window ${!isOpen ? 'hidden' : ''}`}>
+      <div className={`chatbot-window ${!isOpen ? 'hidden' : ''}`}>
         <div className="chatbot-header">
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#4ade80' }}></div>
             Store Assistant
           </div>
-          <button onClick={toggleChat} className="btn-icon" style={{ background: 'transparent', border: 'none' }}>
+          <button onClick={toggleChat} style={{ background: 'transparent', border: 'none', color: 'white', cursor: 'pointer', padding: '0.25rem' }}>
             <X size={20} />
           </button>
         </div>
@@ -73,7 +73,7 @@ export default function Chatbot() {
                             navigate(msg.action.path);
                             setIsOpen(false);
                         }}
-                        style={{ marginTop: '0.5rem', background: 'var(--color-accent-secondary)', color: 'white', border: 'none', padding: '0.5rem 1rem', borderRadius: 'var(--radius-md)', fontSize: '0.8rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.5rem' }}
+                        style={{ marginTop: '0.5rem', background: 'var(--color-accent-primary)', color: 'white', border: 'none', padding: '0.5rem 1rem', borderRadius: 'var(--radius-md)', fontSize: '0.8rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.5rem' }}
                     >
                         {msg.action.label} <ArrowRight size={14} />
                     </button>
@@ -90,7 +90,7 @@ export default function Chatbot() {
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
           />
-          <button type="submit" className="btn-icon" disabled={!inputValue.trim()} style={{ background: inputValue.trim() ? 'var(--color-accent-primary)' : 'transparent' }}>
+          <button type="submit" disabled={!inputValue.trim()} style={{ background: inputValue.trim() ? 'var(--color-accent-primary)' : 'var(--color-bg-secondary)', color: inputValue.trim() ? 'white' : 'var(--color-text-secondary)', border: 'none', borderRadius: 'var(--radius-full)', padding: '0.5rem', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <Send size={18} />
           </button>
         </form>
@@ -99,8 +99,8 @@ export default function Chatbot() {
       {!isOpen && (
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', position: 'relative' }}>
           <div className="animate-float" style={{ 
-              background: 'white', 
-              color: 'var(--color-bg-primary)', 
+              background: 'var(--color-accent-primary)', 
+              color: 'white', 
               padding: '0.75rem 1rem', 
               borderRadius: 'var(--radius-lg)',
               borderBottomRightRadius: '0px',
@@ -114,8 +114,7 @@ export default function Chatbot() {
           </div>
           <button 
             onClick={toggleChat} 
-            className="btn-primary animate-float"
-            style={{ width: '60px', height: '60px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', border: 'none', boxShadow: 'var(--shadow-lg)' }}
+            style={{ width: '60px', height: '60px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', border: 'none', boxShadow: 'var(--shadow-lg)', background: 'var(--color-accent-primary)', color: 'white' }}
           >
             <MessageSquare size={28} />
           </button>

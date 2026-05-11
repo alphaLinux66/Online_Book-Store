@@ -9,35 +9,27 @@ export default function Checkout() {
   const { user } = useAuth();
   const [processing, setProcessing] = useState(false);
   const [success, setSuccess] = useState(false);
-  
-  // Controlled Inputs for formatting
   const [cardName, setCardName] = useState('');
   const [cardNumber, setCardNumber] = useState('');
   const [expiry, setExpiry] = useState('');
   const [cvc, setCvc] = useState('');
-
   const navigate = useNavigate();
   const { clearCart } = useCart();
 
-  // Auto-fill username when component mounts
   useEffect(() => {
     if (user) {
       const displayName = user.username || 'User';
-      const name = displayName.charAt(0).toUpperCase() + displayName.slice(1);
-      setCardName(name);
+      setCardName(displayName.charAt(0).toUpperCase() + displayName.slice(1));
     }
   }, [user]);
 
   const handleCardNumberChange = (e) => {
-    // Remove all non-digits
     let val = e.target.value.replace(/\D/g, ''); 
-    // Chunk by 4 and add spaces
     let formatted = val.match(/.{1,4}/g)?.join(' ') || val;
-    setCardNumber(formatted.substring(0, 19)); // Max 16 digits + 3 spaces = 19
+    setCardNumber(formatted.substring(0, 19));
   };
 
   const handleExpiryChange = (e) => {
-    // Handling backspace cleanly over the slash
     if (e.target.value.length < expiry.length && expiry.endsWith('/')) {
       setExpiry(e.target.value.replace('/', ''));
       return;
@@ -46,7 +38,7 @@ export default function Checkout() {
     if (val.length >= 3) {
       val = val.substring(0, 2) + '/' + val.substring(2, 4);
     }
-    setExpiry(val.substring(0, 5)); // Max 5 chars MM/YY
+    setExpiry(val.substring(0, 5));
   };
 
   const [errorMessage, setErrorMessage] = useState('');
@@ -55,7 +47,6 @@ export default function Checkout() {
     e.preventDefault();
     setProcessing(true);
     setErrorMessage('');
-    
     try {
       await checkoutOrder();
       await clearCart();
@@ -63,7 +54,6 @@ export default function Checkout() {
       setSuccess(true);
     } catch (err) {
       console.error("Payment failed", err);
-      // The most common backend rejection is attempting to checkout an empty cart
       setErrorMessage('Transaction declined! Please make sure you have books in your cart before processing a payment.');
       setProcessing(false);
     }
@@ -73,8 +63,8 @@ export default function Checkout() {
     return (
       <div className="container auth-page">
         <div className="glass-panel" style={{ padding: '4rem 2rem', textAlign: 'center', maxWidth: '500px', width: '100%' }}>
-          <CheckCircle size={64} style={{ color: '#4ade80', marginBottom: '1.5rem', display: 'inline-block' }} className="animate-float" />
-          <h2 className="text-gradient">Payment Successful!</h2>
+          <CheckCircle size={64} style={{ color: '#16a34a', marginBottom: '1.5rem', display: 'inline-block' }} className="animate-float" />
+          <h2 style={{ color: 'var(--color-accent-primary)', fontFamily: 'var(--font-serif)' }}>Payment Successful!</h2>
           <p style={{ color: 'var(--color-text-secondary)', marginTop: '1rem', marginBottom: '2rem' }}>
             Thank you for your order. We are preparing it for shipment.
           </p>
@@ -94,8 +84,8 @@ export default function Checkout() {
   return (
     <div className="container" style={{ padding: '2rem 1.5rem', maxWidth: '600px', margin: '0 auto' }}>
       <div className="glass-panel" style={{ padding: '2.5rem' }}>
-        <h2 style={{ marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-          <CreditCard className="text-gradient" /> Secure Checkout
+        <h2 style={{ marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem', fontFamily: 'var(--font-serif)' }}>
+          <CreditCard style={{ color: 'var(--color-accent-primary)' }} /> Secure Checkout
         </h2>
         <p style={{ color: 'var(--color-text-secondary)', marginBottom: '2rem', display: 'flex', alignItems: 'center', gap: '0.25rem', fontSize: '0.85rem' }}>
           <ShieldCheck size={16} /> Data is secured via end-to-end encryption mock.
@@ -103,57 +93,29 @@ export default function Checkout() {
 
         <form onSubmit={handlePayment}>
           {errorMessage && (
-            <div style={{ background: 'rgba(239, 68, 68, 0.1)', color: '#ef4444', border: '1px solid rgba(239, 68, 68, 0.3)', padding: '1rem', borderRadius: '8px', marginBottom: '1.5rem', fontSize: '0.9rem', textAlign: 'center' }}>
+            <div style={{ background: 'rgba(220, 38, 38, 0.06)', color: '#dc2626', border: '1px solid rgba(220, 38, 38, 0.15)', padding: '1rem', borderRadius: '8px', marginBottom: '1.5rem', fontSize: '0.9rem', textAlign: 'center' }}>
               {errorMessage}
             </div>
           )}
 
           <div className="input-group">
             <label className="input-label">Cardholder Name</label>
-            <input 
-              type="text" 
-              className="input-field" 
-              placeholder="John Doe" 
-              value={cardName}
-              onChange={(e) => setCardName(e.target.value)}
-              required 
-            />
+            <input type="text" className="input-field" placeholder="John Doe" value={cardName} onChange={(e) => setCardName(e.target.value)} required />
           </div>
 
           <div className="input-group">
             <label className="input-label">Card Number</label>
-            <input 
-              type="text" 
-              className="input-field" 
-              placeholder="0000 0000 0000 0000" 
-              value={cardNumber}
-              onChange={handleCardNumberChange}
-              required 
-            />
+            <input type="text" className="input-field" placeholder="0000 0000 0000 0000" value={cardNumber} onChange={handleCardNumberChange} required />
           </div>
 
           <div style={{ display: 'flex', gap: '1rem' }}>
             <div className="input-group" style={{ flex: 1 }}>
               <label className="input-label">Expiry Date</label>
-              <input 
-                type="text" 
-                className="input-field" 
-                placeholder="MM/YY" 
-                value={expiry}
-                onChange={handleExpiryChange}
-                required 
-              />
+              <input type="text" className="input-field" placeholder="MM/YY" value={expiry} onChange={handleExpiryChange} required />
             </div>
             <div className="input-group" style={{ flex: 1 }}>
               <label className="input-label">CVC</label>
-              <input 
-                type="text" 
-                className="input-field" 
-                placeholder="123" 
-                value={cvc}
-                onChange={(e) => setCvc(e.target.value.replace(/\D/g, '').substring(0, 4))}
-                required 
-              />
+              <input type="text" className="input-field" placeholder="123" value={cvc} onChange={(e) => setCvc(e.target.value.replace(/\D/g, '').substring(0, 4))} required />
             </div>
           </div>
 

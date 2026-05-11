@@ -28,7 +28,6 @@ export default function Register() {
     
     try {
       if (isSupplier) {
-          // Custom fetch for supplier
           const response = await fetch('http://localhost:8000/api/auth/register-supplier/', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
@@ -40,7 +39,6 @@ export default function Register() {
               throw new Error(errorMsg);
           }
       } else if (isWriter) {
-          // Custom fetch for writer
           const response = await fetch('http://localhost:8000/api/auth/register-writer/', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
@@ -48,7 +46,6 @@ export default function Register() {
           });
           if (!response.ok) {
               const errData = await response.json();
-              // Extract the first error message from the object
               const errorMsg = Object.values(errData).flat()[0] || "Failed to register as Writer";
               throw new Error(errorMsg);
           }
@@ -56,7 +53,6 @@ export default function Register() {
           await registerUser(formData);
       }
       
-      // Auto login after registration
       const data = await loginUser({ username: formData.username, password: formData.password });
       login(data);
       navigate('/');
@@ -71,7 +67,7 @@ export default function Register() {
     <div className="auth-page animate-fade-in">
       <div className="auth-card glass-panel" style={{ maxWidth: '540px' }}>
         <div className="auth-header">
-          <h2 className="text-gradient">Create Account</h2>
+          <h2 style={{ color: 'var(--color-accent-primary)', fontFamily: 'var(--font-serif)' }}>Create Account</h2>
           <p>Join Papyrus Plaza today</p>
         </div>
         
@@ -82,33 +78,14 @@ export default function Register() {
             <div className="input-group" style={{ flex: 1 }}>
               <label className="input-label">Username</label>
               <div style={{ position: 'relative' }}>
-                <input 
-                  type="text" 
-                  name="username" 
-                  className="input-field" 
-                  placeholder="Username"
-                  style={{ paddingLeft: '2.5rem' }}
-                  value={formData.username}
-                  onChange={handleChange}
-                  required
-                />
+                <input type="text" name="username" className="input-field" placeholder="Username" style={{ paddingLeft: '2.5rem' }} value={formData.username} onChange={handleChange} required />
                 <User size={18} style={{ position: 'absolute', left: '1rem', top: '14px', color: 'var(--color-text-secondary)' }} />
               </div>
             </div>
-            
             <div className="input-group" style={{ flex: 1 }}>
               <label className="input-label">Email</label>
               <div style={{ position: 'relative' }}>
-                <input 
-                  type="email" 
-                  name="email" 
-                  className="input-field" 
-                  placeholder="Email address"
-                  style={{ paddingLeft: '2.5rem' }}
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                />
+                <input type="email" name="email" className="input-field" placeholder="Email address" style={{ paddingLeft: '2.5rem' }} value={formData.email} onChange={handleChange} required />
                 <Mail size={18} style={{ position: 'absolute', left: '1rem', top: '14px', color: 'var(--color-text-secondary)' }} />
               </div>
             </div>
@@ -117,81 +94,42 @@ export default function Register() {
           <div style={{ display: 'flex', gap: '1rem' }}>
             <div className="input-group" style={{ flex: 1 }}>
               <label className="input-label">First Name</label>
-              <input 
-                type="text" 
-                name="firstName" 
-                className="input-field" 
-                placeholder="First name"
-                value={formData.firstName}
-                onChange={handleChange}
-              />
+              <input type="text" name="firstName" className="input-field" placeholder="First name" value={formData.firstName} onChange={handleChange} />
             </div>
-            
             <div className="input-group" style={{ flex: 1 }}>
               <label className="input-label">Last Name</label>
-              <input 
-                type="text" 
-                name="lastName" 
-                className="input-field" 
-                placeholder="Last name"
-                value={formData.lastName}
-                onChange={handleChange}
-              />
+              <input type="text" name="lastName" className="input-field" placeholder="Last name" value={formData.lastName} onChange={handleChange} />
             </div>
           </div>
           
           <div className="input-group">
             <label className="input-label">Password</label>
             <div style={{ position: 'relative' }}>
-              <input 
-                type="password" 
-                name="password" 
-                className="input-field" 
-                placeholder="Create a strong password"
-                style={{ paddingLeft: '2.5rem' }}
-                value={formData.password}
-                onChange={handleChange}
-                required
-              />
+              <input type="password" name="password" className="input-field" placeholder="Create a strong password" style={{ paddingLeft: '2.5rem' }} value={formData.password} onChange={handleChange} required />
               <Lock size={18} style={{ position: 'absolute', left: '1rem', top: '14px', color: 'var(--color-text-secondary)' }} />
             </div>
           </div>
 
-          <div style={{ padding: '1rem', background: 'rgba(255, 153, 0, 0.05)', borderRadius: '8px', border: '1px solid rgba(255, 153, 0, 0.2)', marginBottom: '1rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-             <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer', color: '#e4e4e7', fontSize: '0.9rem' }}>
+          <div style={{ padding: '1rem', background: 'rgba(10, 36, 99, 0.04)', borderRadius: '8px', border: '1px solid rgba(10, 36, 99, 0.1)', marginBottom: '1rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+             <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer', color: 'var(--color-text-primary)', fontSize: '0.9rem' }}>
                <input type="checkbox" checked={isSupplier} onChange={handleSupplierToggle} />
                I want to register as a Wholesale Supplier
              </label>
              {isSupplier && (
                 <div className="input-group" style={{ animation: 'fadeIn 0.3s' }}>
                   <label className="input-label">Store / Company Name</label>
-                  <input 
-                    type="text" 
-                    name="storeName" 
-                    className="input-field" 
-                    placeholder="Enter your registered business name"
-                    value={formData.storeName || ''}
-                    onChange={handleChange}
-                    required
-                  />
+                  <input type="text" name="storeName" className="input-field" placeholder="Enter your registered business name" value={formData.storeName || ''} onChange={handleChange} required />
                 </div>
              )}
 
-             <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer', color: '#e4e4e7', fontSize: '0.9rem' }}>
+             <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer', color: 'var(--color-text-primary)', fontSize: '0.9rem' }}>
                <input type="checkbox" checked={isWriter} onChange={handleWriterToggle} />
                I want to publish as a Writer
              </label>
              {isWriter && (
                 <div className="input-group" style={{ animation: 'fadeIn 0.3s' }}>
                   <label className="input-label">Pen Name</label>
-                  <input 
-                    type="text" 
-                    name="penName" 
-                    className="input-field" 
-                    placeholder="Enter your public pen name"
-                    value={formData.penName || ''}
-                    onChange={handleChange}
-                  />
+                  <input type="text" name="penName" className="input-field" placeholder="Enter your public pen name" value={formData.penName || ''} onChange={handleChange} />
                 </div>
              )}
           </div>
