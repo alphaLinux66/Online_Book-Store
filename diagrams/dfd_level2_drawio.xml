@@ -1,0 +1,605 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mxfile host="app.diagrams.net" modified="2026-06-01T13:48:00.000Z" agent="Mozilla/5.0" version="21.0.0" type="device">
+  <diagram id="PapyrusPlazaDFDLevel2" name="DFD Level 2 - Detailed Processes">
+    <mxGraphModel dx="1600" dy="1100" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1300" pageHeight="2700" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Title -->
+        <mxCell id="title" value="Data Flow Diagram (Level 2 - Detailed Subsystem Breakdowns)" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=18;fontStyle=1;fontColor=#1E1E1C;" vertex="1" parent="1">
+          <mxGeometry x="320" y="20" width="660" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- ========================================== -->
+        <!-- SUBSECTION A: RETAIL CART & CHECKOUT (PROCESS 3.0) -->
+        <!-- ========================================== -->
+        <mxCell id="sub_checkout" value="Process 3.0 Detailed Breakdown: Retail Cart &amp; Checkout System" style="swimlane;whiteSpace=wrap;html=1;fontSize=14;fontStyle=1;fillColor=#F5F5F5;strokeColor=#CCCCCC;strokeWidth=2;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="30" y="80" width="1240" height="480" as="geometry" />
+        </mxCell>
+
+        <!-- Entities inside Checkout swimlane -->
+        <mxCell id="ent_c_checkout" value="Customer" style="html=1;whiteSpace=wrap;fillColor=#ECEFF1;strokeColor=#455A64;strokeWidth=2;fontStyle=1;fontSize=11;fontColor=#263238;align=center;" vertex="1" parent="sub_checkout">
+          <mxGeometry x="30" y="190" width="100" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Processes inside Checkout swimlane -->
+        <mxCell id="proc_3_1" value="3.1&#xa;Add / Update&#xa;Cart Item" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#E3F2FD;strokeColor=#1565C0;strokeWidth=2;fontStyle=1;fontSize=10;fontColor=#0D47A1;align=center;" vertex="1" parent="sub_checkout">
+          <mxGeometry x="240" y="60" width="80" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="proc_3_2" value="3.2&#xa;Retrieve &amp;&#xa;View Cart" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#E3F2FD;strokeColor=#1565C0;strokeWidth=2;fontStyle=1;fontSize=10;fontColor=#0D47A1;align=center;" vertex="1" parent="sub_checkout">
+          <mxGeometry x="240" y="180" width="80" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="proc_3_3" value="3.3&#xa;Execute Atomic&#xa;Checkout&#xa;&amp; Inventory Sync" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#E3F2FD;strokeColor=#1565C0;strokeWidth=2;fontStyle=1;fontSize=10;fontColor=#0D47A1;align=center;" vertex="1" parent="sub_checkout">
+          <mxGeometry x="540" y="320" width="90" height="90" as="geometry" />
+        </mxCell>
+
+        <mxCell id="proc_3_4" value="3.4&#xa;Process Payment&#xa;&amp; Finalize Order" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#E3F2FD;strokeColor=#1565C0;strokeWidth=2;fontStyle=1;fontSize=10;fontColor=#0D47A1;align=center;" vertex="1" parent="sub_checkout">
+          <mxGeometry x="930" y="325" width="80" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- Data Stores inside Checkout swimlane -->
+        <mxCell id="ds_books_chk" value="D3: Book Table" style="shape=partialRectangle;whiteSpace=wrap;left=0;right=0;fillColor=#F8F9FA;strokeColor=#343A40;strokeWidth=2;fontStyle=1;fontSize=10;fontColor=#212529;align=center;" vertex="1" parent="sub_checkout">
+          <mxGeometry x="510" y="85" width="150" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ds_cart_chk" value="D4: CartItem Table" style="shape=partialRectangle;whiteSpace=wrap;left=0;right=0;fillColor=#F8F9FA;strokeColor=#343A40;strokeWidth=2;fontStyle=1;fontSize=10;fontColor=#212529;align=center;" vertex="1" parent="sub_checkout">
+          <mxGeometry x="510" y="205" width="150" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ds_orders_chk" value="D7: Order &amp; Items Table" style="shape=partialRectangle;whiteSpace=wrap;left=0;right=0;fillColor=#F8F9FA;strokeColor=#343A40;strokeWidth=2;fontStyle=1;fontSize=10;fontColor=#212529;align=center;" vertex="1" parent="sub_checkout">
+          <mxGeometry x="900" y="205" width="150" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Flows inside Checkout swimlane -->
+        <mxCell id="flow_c_31" value="Item ID &amp; Qty" style="endArrow=block;html=1;strokeColor=#1565C0;strokeWidth=1.2;fontSize=9;fontColor=#0D47A1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="sub_checkout" source="ent_c_checkout" target="proc_3_1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="flow_31_b" value="Verify book exist/stock" style="endArrow=block;html=1;strokeColor=#1565C0;strokeWidth=1.2;fontSize=9;fontColor=#0D47A1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="sub_checkout" source="proc_3_1" target="ds_books_chk">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="flow_31_c" value="Write CartItem" style="endArrow=block;html=1;strokeColor=#1565C0;strokeWidth=1.2;fontSize=9;fontColor=#0D47A1;exitX=0.75;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.25;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="sub_checkout" source="proc_3_1" target="ds_cart_chk">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="300" y="160" />
+              <mxPoint x="430" y="160" />
+              <mxPoint x="430" y="212" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="flow_c_32" value="Request View Cart" style="endArrow=block;html=1;strokeColor=#1565C0;strokeWidth=1.2;fontSize=9;fontColor=#0D47A1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="sub_checkout" source="ent_c_checkout" target="proc_3_2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="flow_32_c" value="Read cart items" style="endArrow=block;html=1;strokeColor=#1565C0;strokeWidth=1.2;fontSize=9;fontColor=#0D47A1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="sub_checkout" source="proc_3_2" target="ds_cart_chk">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="flow_32_b" value="Join book price" style="endArrow=block;html=1;strokeColor=#1565C0;strokeWidth=1.2;fontSize=9;fontColor=#0D47A1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0;entryY=0.75;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="sub_checkout" source="proc_3_2" target="ds_books_chk">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="280" y="160" />
+              <mxPoint x="470" y="160" />
+              <mxPoint x="470" y="108" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="flow_32_r" value="Cart list with total" style="endArrow=block;html=1;strokeColor=#1565C0;strokeWidth=1.2;fontSize=9;fontColor=#0D47A1;exitX=0.25;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="sub_checkout" source="proc_3_2" target="ent_c_checkout">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="260" y="270" />
+              <mxPoint x="80" y="270" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="flow_c_33" value="Checkout Request" style="endArrow=block;html=1;strokeColor=#1565C0;strokeWidth=1.2;fontSize=9;fontColor=#0D47A1;exitX=0.25;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="sub_checkout" source="ent_c_checkout" target="proc_3_3">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="55" y="365" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="flow_33_read_cart" value="1. Read Cart items" style="endArrow=block;html=1;strokeColor=#1565C0;strokeWidth=1.2;fontSize=9;fontColor=#0D47A1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="sub_checkout" source="proc_3_3" target="ds_cart_chk">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="flow_33_check_stock" value="2. Verify &amp; deduct stock" style="endArrow=classic;html=1;strokeColor=#1565C0;strokeWidth=1.2;fontSize=9;fontColor=#0D47A1;exitX=0.25;exitY=0;exitDx=0;exitDy=0;entryX=0.75;entryY=1;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="sub_checkout" source="proc_3_3" target="ds_books_chk">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="562" y="160" />
+              <mxPoint x="622" y="160" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="flow_33_clear" value="4. Delete cart entries" style="endArrow=block;html=1;strokeColor=#1565C0;strokeWidth=1.2;fontSize=9;fontColor=#0D47A1;exitX=0.75;exitY=0;exitDx=0;exitDy=0;entryX=0.75;entryY=1;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="sub_checkout" source="proc_3_3" target="ds_cart_chk">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="608" y="270" />
+              <mxPoint x="623" y="270" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="flow_33_create" value="3. Create Order&#xa;(Pending Payment)" style="endArrow=block;html=1;strokeColor=#1565C0;strokeWidth=1.2;fontSize=9;fontColor=#0D47A1;exitX=1;exitY=0.25;exitDx=0;exitDy=0;entryX=0;entryY=0.75;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="sub_checkout" source="proc_3_3" target="ds_orders_chk">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="750" y="343" />
+              <mxPoint x="750" y="228" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="flow_33_pay" value="Order ID &amp; Invoice Info" style="endArrow=block;html=1;strokeColor=#1565C0;strokeWidth=1.2;fontSize=9;fontColor=#0D47A1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="sub_checkout" source="proc_3_3" target="proc_3_4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="flow_34_order_update" value="Update status to 'Placed'" style="endArrow=block;html=1;strokeColor=#1565C0;strokeWidth=1.2;fontSize=9;fontColor=#0D47A1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="sub_checkout" source="proc_3_4" target="ds_orders_chk">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="flow_34_cust" value="Order Invoice &amp;&#xa;Payment Receipt" style="endArrow=block;html=1;strokeColor=#1565C0;strokeWidth=1.2;fontSize=9;fontColor=#0D47A1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.75;entryY=1;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="sub_checkout" source="proc_3_4" target="ent_c_checkout">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="970" y="440" />
+              <mxPoint x="105" y="440" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- ========================================== -->
+        <!-- SUBSECTION B: AI RECOMMENDATION CHAT / RAG LOOP (PROCESS 6.0) -->
+        <!-- ========================================== -->
+        <mxCell id="sub_rag" value="Process 6.0 Detailed Breakdown: RAG Recommendation Chat Subsystem" style="swimlane;whiteSpace=wrap;html=1;fontSize=14;fontStyle=1;fillColor=#F5F5F5;strokeColor=#CCCCCC;strokeWidth=2;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="30" y="580" width="1240" height="480" as="geometry" />
+        </mxCell>
+
+        <!-- Entities inside RAG swimlane -->
+        <mxCell id="ent_c_rag" value="Customer" style="html=1;whiteSpace=wrap;fillColor=#ECEFF1;strokeColor=#455A64;strokeWidth=2;fontStyle=1;fontSize=11;fontColor=#263238;align=center;" vertex="1" parent="sub_rag">
+          <mxGeometry x="30" y="210" width="100" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ent_gemini_rag" value="Google Gemini AI" style="html=1;whiteSpace=wrap;fillColor=#E1F5FE;strokeColor=#0288D1;strokeWidth=2;fontStyle=1;fontSize=11;fontColor=#01579B;align=center;" vertex="1" parent="sub_rag">
+          <mxGeometry x="1100" y="210" width="110" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Processes inside RAG swimlane -->
+        <mxCell id="proc_6_1" value="6.1&#xa;Capture Query&#xa;&amp; Log Intent" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#E1F5FE;strokeColor=#0288D1;strokeWidth=2;fontStyle=1;fontSize=10;fontColor=#01579B;align=center;" vertex="1" parent="sub_rag">
+          <mxGeometry x="220" y="195" width="80" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="proc_6_2" value="6.2&#xa;Retrieve Catalog&#xa;Context (DB)" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#E1F5FE;strokeColor=#0288D1;strokeWidth=2;fontStyle=1;fontSize=10;fontColor=#01579B;align=center;" vertex="1" parent="sub_rag">
+          <mxGeometry x="460" y="195" width="80" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="proc_6_3" value="6.3&#xa;Augment Context&#xa;&amp; System Prompt" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#E1F5FE;strokeColor=#0288D1;strokeWidth=2;fontStyle=1;fontSize=10;fontColor=#01579B;align=center;" vertex="1" parent="sub_rag">
+          <mxGeometry x="680" y="195" width="80" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="proc_6_4" value="6.4&#xa;Execute LLM&#xa;Inference (Gemini)" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#E1F5FE;strokeColor=#0288D1;strokeWidth=2;fontStyle=1;fontSize=10;fontColor=#01579B;align=center;" vertex="1" parent="sub_rag">
+          <mxGeometry x="900" y="195" width="80" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- Data Stores inside RAG swimlane -->
+        <mxCell id="ds_chat_rag" value="D6: ChatInteraction Logs" style="shape=partialRectangle;whiteSpace=wrap;left=0;right=0;fillColor=#E1F5FE;strokeColor=#0288D1;strokeWidth=2;fontStyle=1;fontSize=10;fontColor=#01579B;align=center;" vertex="1" parent="sub_rag">
+          <mxGeometry x="175" y="80" width="170" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ds_books_rag" value="D3: Book Table (Catalog)" style="shape=partialRectangle;whiteSpace=wrap;left=0;right=0;fillColor=#F8F9FA;strokeColor=#343A40;strokeWidth=2;fontStyle=1;fontSize=10;fontColor=#212529;align=center;" vertex="1" parent="sub_rag">
+          <mxGeometry x="415" y="80" width="170" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Flows inside RAG swimlane -->
+        <mxCell id="flow_c_61" value="User Chat Query" style="endArrow=block;html=1;strokeColor=#0288D1;strokeWidth=1.2;fontSize=9;fontColor=#01579B;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="sub_rag" source="ent_c_rag" target="proc_6_1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="flow_61_log" value="Write log: query string,&#xa;detected_intent='rag_query'" style="endArrow=block;html=1;strokeColor=#0288D1;strokeWidth=1.2;fontSize=9;fontColor=#01579B;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="sub_rag" source="proc_6_1" target="ds_chat_rag">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="flow_61_62" value="User Query String" style="endArrow=block;html=1;strokeColor=#0288D1;strokeWidth=1.2;fontSize=9;fontColor=#01579B;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="sub_rag" source="proc_6_1" target="proc_6_2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="flow_62_query" value="Keyword matching Q() query" style="endArrow=block;html=1;strokeColor=#0288D1;strokeWidth=1.2;fontSize=9;fontColor=#01579B;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="sub_rag" source="proc_6_2" target="ds_books_rag">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="flow_62_db_res" value="Matched Books lists (top 5)" style="endArrow=block;html=1;strokeColor=#0288D1;strokeWidth=1.2;fontSize=9;fontColor=#01579B;exitX=0.75;exitY=1;exitDx=0;exitDy=0;entryX=0.75;entryY=0;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="sub_rag" source="ds_books_rag" target="proc_6_2">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="543" y="150" />
+              <mxPoint x="520" y="150" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="flow_62_63" value="Query + Matching Books Context" style="endArrow=block;html=1;strokeColor=#0288D1;strokeWidth=1.2;fontSize=9;fontColor=#01579B;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="sub_rag" source="proc_6_2" target="proc_6_3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="flow_63_64" value="Augmented Prompt" style="endArrow=block;html=1;strokeColor=#0288D1;strokeWidth=1.2;fontSize=9;fontColor=#01579B;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="sub_rag" source="proc_6_3" target="proc_6_4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="flow_64_ai" value="Send prompt to LLM" style="endArrow=block;html=1;strokeColor=#0288D1;strokeWidth=1.2;fontSize=9;fontColor=#01579B;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="sub_rag" source="proc_6_4" target="ent_gemini_rag">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="flow_ai_64" value="Generated plain text response" style="endArrow=block;html=1;strokeColor=#0288D1;strokeWidth=1.2;fontSize=9;fontColor=#01579B;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.75;entryY=1;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="sub_rag" source="ent_gemini_rag" target="proc_6_4">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1155" y="300" />
+              <mxPoint x="960" y="300" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="flow_64_cust" value="Render Response to Customer" style="endArrow=block;html=1;strokeColor=#0288D1;strokeWidth=1.2;fontSize=9;fontColor=#01579B;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="sub_rag" source="proc_6_4" target="ent_c_rag">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="940" y="350" />
+              <mxPoint x="80" y="350" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- ========================================== -->
+        <!-- SUBSECTION C: WRITER PORTAL & TELEMETRY (PROCESS 4.0) -->
+        <!-- ========================================== -->
+        <mxCell id="sub_writer" value="Process 4.0 Detailed Breakdown: Writer Portal &amp; Telemetry Subsystem" style="swimlane;whiteSpace=wrap;html=1;fontSize=14;fontStyle=1;fillColor=#FFFDE7;strokeColor=#FBC02D;strokeWidth=2;fontColor=#F57F17;" vertex="1" parent="1">
+          <mxGeometry x="30" y="1080" width="1240" height="480" as="geometry" />
+        </mxCell>
+
+        <!-- Entities inside Writer swimlane -->
+        <mxCell id="ent_writer_dfd2" value="Writer" style="html=1;whiteSpace=wrap;fillColor=#FFFDE7;strokeColor=#FBC02D;strokeWidth=2;fontStyle=1;fontSize=11;fontColor=#F57F17;align=center;" vertex="1" parent="sub_writer">
+          <mxGeometry x="30" y="190" width="100" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Processes inside Writer swimlane -->
+        <mxCell id="proc_4_1" value="4.1&#xa;Register Writer&#xa;&amp; Pen Name" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#FFFDE7;strokeColor=#FBC02D;strokeWidth=2;fontStyle=1;fontSize=10;fontColor=#F57F17;align=center;" vertex="1" parent="sub_writer">
+          <mxGeometry x="240" y="60" width="80" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="proc_4_2" value="4.2&#xa;Upload Manuscript&#xa;&amp; Set Specs" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#FFFDE7;strokeColor=#FBC02D;strokeWidth=2;fontStyle=1;fontSize=10;fontColor=#F57F17;align=center;" vertex="1" parent="sub_writer">
+          <mxGeometry x="240" y="180" width="80" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="proc_4_3" value="4.3&#xa;Compile Sales&#xa;&amp; Storage&#xa;Telemetry" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#FFFDE7;strokeColor=#FBC02D;strokeWidth=2;fontStyle=1;fontSize=10;fontColor=#F57F17;align=center;" vertex="1" parent="sub_writer">
+          <mxGeometry x="540" y="320" width="90" height="90" as="geometry" />
+        </mxCell>
+
+        <!-- Data Stores inside Writer swimlane -->
+        <mxCell id="ds_writer_d2" value="D2: WriterProfile Table" style="shape=partialRectangle;whiteSpace=wrap;left=0;right=0;fillColor=#FFFDE7;strokeColor=#FBC02D;strokeWidth=2;fontStyle=1;fontSize=10;fontColor=#F57F17;align=center;" vertex="1" parent="sub_writer">
+          <mxGeometry x="510" y="85" width="150" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ds_books_writer" value="D3: Book Table (Catalog)" style="shape=partialRectangle;whiteSpace=wrap;left=0;right=0;fillColor=#F8F9FA;strokeColor=#343A40;strokeWidth=2;fontStyle=1;fontSize=10;fontColor=#212529;align=center;" vertex="1" parent="sub_writer">
+          <mxGeometry x="510" y="205" width="150" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ds_orders_writer" value="D7: Order &amp; Items Table" style="shape=partialRectangle;whiteSpace=wrap;left=0;right=0;fillColor=#F8F9FA;strokeColor=#343A40;strokeWidth=2;fontStyle=1;fontSize=10;fontColor=#212529;align=center;" vertex="1" parent="sub_writer">
+          <mxGeometry x="900" y="205" width="150" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ds_reviews_writer" value="D5: Review Table" style="shape=partialRectangle;whiteSpace=wrap;left=0;right=0;fillColor=#F8F9FA;strokeColor=#343A40;strokeWidth=2;fontStyle=1;fontSize=10;fontColor=#212529;align=center;" vertex="1" parent="sub_writer">
+          <mxGeometry x="900" y="85" width="150" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Flows inside Writer swimlane -->
+        <mxCell id="flow_w_41" value="Register Details" style="endArrow=block;html=1;strokeColor=#F57F17;strokeWidth=1.2;fontSize=9;fontColor=#F57F17;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="sub_writer" source="ent_writer_dfd2" target="proc_4_1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="flow_41_d2" value="Create WriterProfile" style="endArrow=block;html=1;strokeColor=#F57F17;strokeWidth=1.2;fontSize=9;fontColor=#F57F17;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="sub_writer" source="proc_4_1" target="ds_writer_d2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="flow_w_42" value="Manuscript PDF &amp; info" style="endArrow=block;html=1;strokeColor=#F57F17;strokeWidth=1.2;fontSize=9;fontColor=#F57F17;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="sub_writer" source="ent_writer_dfd2" target="proc_4_2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="flow_42_d3" value="Save PDF path, set is_digital=True" style="endArrow=block;html=1;strokeColor=#F57F17;strokeWidth=1.2;fontSize=9;fontColor=#F57F17;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="sub_writer" source="proc_4_2" target="ds_books_writer">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="flow_w_43" value="Request Analytics Dashboard" style="endArrow=block;html=1;strokeColor=#F57F17;strokeWidth=1.2;fontSize=9;fontColor=#F57F17;exitX=0.25;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="sub_writer" source="ent_writer_dfd2" target="proc_4_3">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="55" y="365" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="flow_43_books" value="Query books lists" style="endArrow=block;html=1;strokeColor=#F57F17;strokeWidth=1.2;fontSize=9;fontColor=#F57F17;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="sub_writer" source="proc_4_3" target="ds_books_writer">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="flow_43_orders" value="Aggregate orders metrics" style="endArrow=block;html=1;strokeColor=#F57F17;strokeWidth=1.2;fontSize=9;fontColor=#F57F17;exitX=1;exitY=0;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="sub_writer" source="proc_4_3" target="ds_orders_writer">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="617" y="270" />
+              <mxPoint x="780" y="270" />
+              <mxPoint x="780" y="220" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="flow_43_reviews" value="Calculate average rating" style="endArrow=block;html=1;strokeColor=#F57F17;strokeWidth=1.2;fontSize=9;fontColor=#F57F17;exitX=1;exitY=0.25;exitDx=0;exitDy=0;entryX=0;entryY=0.75;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="sub_writer" source="proc_4_3" target="ds_reviews_writer">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="780" y="343" />
+              <mxPoint x="780" y="108" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="flow_43_writer" value="Render Telemetry Dashboard Charts&#xa;(unique readers, rating count, storage caps)" style="endArrow=block;html=1;strokeColor=#F57F17;strokeWidth=1.2;fontSize=9;fontColor=#F57F17;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.75;entryY=1;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="sub_writer" source="proc_4_3" target="ent_writer_dfd2">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="585" y="440" />
+              <mxPoint x="105" y="440" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- ========================================== -->
+        <!-- SUBSECTION D: B2B SUPPLIER & WHOLESALE SYNC (PROCESS 5.0) -->
+        <!-- ========================================== -->
+        <mxCell id="sub_supplier" value="Process 5.0 Detailed Breakdown: B2B Supplier Wholesale &amp; Bulk Sync System" style="swimlane;whiteSpace=wrap;html=1;fontSize=14;fontStyle=1;fillColor=#FFF3E0;strokeColor=#FF9800;strokeWidth=2;fontColor=#E65100;" vertex="1" parent="1">
+          <mxGeometry x="30" y="1580" width="1240" height="520" as="geometry" />
+        </mxCell>
+
+        <!-- Entities inside Supplier swimlane -->
+        <mxCell id="ent_supplier_dfd2" value="B2B Supplier" style="html=1;whiteSpace=wrap;fillColor=#FFF3E0;strokeColor=#FF9800;strokeWidth=2;fontStyle=1;fontSize=11;fontColor=#E65100;align=center;" vertex="1" parent="sub_supplier">
+          <mxGeometry x="30" y="190" width="100" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ent_admin_dfd2" value="Admin / Manager" style="html=1;whiteSpace=wrap;fillColor=#F3E5F5;strokeColor=#9C27B0;strokeWidth=2;fontStyle=1;fontSize=11;fontColor=#6A1B9A;align=center;" vertex="1" parent="sub_supplier">
+          <mxGeometry x="1110" y="190" width="100" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Processes inside Supplier swimlane -->
+        <mxCell id="proc_5_1" value="5.1&#xa;Register Supplier&#xa;&amp; Setup Store" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#FFF3E0;strokeColor=#FF9800;strokeWidth=2;fontStyle=1;fontSize=10;fontColor=#E65100;align=center;" vertex="1" parent="sub_supplier">
+          <mxGeometry x="220" y="60" width="80" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="proc_5_2" value="5.2&#xa;List Wholesale&#xa;Inventory Specs" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#FFF3E0;strokeColor=#FF9800;strokeWidth=2;fontStyle=1;fontSize=10;fontColor=#E65100;align=center;" vertex="1" parent="sub_supplier">
+          <mxGeometry x="220" y="180" width="80" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="proc_5_3" value="5.3&#xa;Log Bulk B2B Order&#xa;&amp; Invoice Details" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#FFF3E0;strokeColor=#FF9800;strokeWidth=2;fontStyle=1;fontSize=10;fontColor=#E65100;align=center;" vertex="1" parent="sub_supplier">
+          <mxGeometry x="540" y="320" width="90" height="90" as="geometry" />
+        </mxCell>
+
+        <mxCell id="proc_5_4" value="5.4&#xa;Confirm Delivery&#xa;&amp; Sync Stock Natively" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#FFF3E0;strokeColor=#FF9800;strokeWidth=2;fontStyle=1;fontSize=10;fontColor=#E65100;align=center;" vertex="1" parent="sub_supplier">
+          <mxGeometry x="900" y="320" width="90" height="90" as="geometry" />
+        </mxCell>
+
+        <!-- Data Stores inside Supplier swimlane -->
+        <mxCell id="ds_store_owner_dfd2" value="D8: StoreOwnerProfile" style="shape=partialRectangle;whiteSpace=wrap;left=0;right=0;fillColor=#FFF3E0;strokeColor=#FF9800;strokeWidth=2;fontStyle=1;fontSize=10;fontColor=#E65100;align=center;" vertex="1" parent="sub_supplier">
+          <mxGeometry x="490" y="85" width="160" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ds_supp_books_dfd2" value="D9: SupplierBook Table" style="shape=partialRectangle;whiteSpace=wrap;left=0;right=0;fillColor=#FFF3E0;strokeColor=#FF9800;strokeWidth=2;fontStyle=1;fontSize=10;fontColor=#E65100;align=center;" vertex="1" parent="sub_supplier">
+          <mxGeometry x="490" y="205" width="160" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ds_bulk_orders_dfd2" value="D10: BulkOrder &amp; Items Table" style="shape=partialRectangle;whiteSpace=wrap;left=0;right=0;fillColor=#FFF3E0;strokeColor=#FF9800;strokeWidth=2;fontStyle=1;fontSize=10;fontColor=#E65100;align=center;" vertex="1" parent="sub_supplier">
+          <mxGeometry x="850" y="205" width="190" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ds_retail_books_dfd2" value="D3: Book Table (Retail Catalog)" style="shape=partialRectangle;whiteSpace=wrap;left=0;right=0;fillColor=#F8F9FA;strokeColor=#343A40;strokeWidth=2;fontStyle=1;fontSize=10;fontColor=#212529;align=center;" vertex="1" parent="sub_supplier">
+          <mxGeometry x="850" y="85" width="190" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Flows inside Supplier swimlane -->
+        <mxCell id="flow_s_51" value="Supplier Registration Details" style="endArrow=block;html=1;strokeColor=#E65100;strokeWidth=1.2;fontSize=9;fontColor=#E65100;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="sub_supplier" source="ent_supplier_dfd2" target="proc_5_1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="flow_51_d8" value="Save store owner profile" style="endArrow=block;html=1;strokeColor=#E65100;strokeWidth=1.2;fontSize=9;fontColor=#E65100;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="sub_supplier" source="proc_5_1" target="ds_store_owner_dfd2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="flow_s_52" value="Wholesale catalog listing" style="endArrow=block;html=1;strokeColor=#E65100;strokeWidth=1.2;fontSize=9;fontColor=#E65100;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="sub_supplier" source="ent_supplier_dfd2" target="proc_5_2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="flow_52_d9" value="Write SupplierBook record" style="endArrow=block;html=1;strokeColor=#E65100;strokeWidth=1.2;fontSize=9;fontColor=#E65100;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="sub_supplier" source="proc_5_2" target="ds_supp_books_dfd2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Admin bulk order flows -->
+        <mxCell id="flow_a_53" value="Dispatch wholesale bulk checkout" style="endArrow=block;html=1;strokeColor=#6A1B9A;strokeWidth=1.2;fontSize=9;fontColor=#6A1B9A;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="sub_supplier" source="ent_admin_dfd2" target="proc_5_3">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1160" y="365" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="flow_53_read_sb" value="Read SupplierBook wholesale price" style="endArrow=block;html=1;strokeColor=#E65100;strokeWidth=1.2;fontSize=9;fontColor=#E65100;exitX=0.25;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="sub_supplier" source="proc_5_3" target="ds_supp_books_dfd2">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="562" y="270" />
+              <mxPoint x="570" y="270" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="flow_53_write_bulk" value="Create BulkOrder (Pending)" style="endArrow=block;html=1;strokeColor=#E65100;strokeWidth=1.2;fontSize=9;fontColor=#E65100;exitX=1;exitY=0.25;exitDx=0;exitDy=0;entryX=0;entryY=0.75;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="sub_supplier" source="proc_5_3" target="ds_bulk_orders_dfd2">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="750" y="343" />
+              <mxPoint x="750" y="228" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Delivery & Inventory Sync -->
+        <mxCell id="flow_s_54" value="Accept bulk request &amp; confirm dispatch" style="endArrow=block;html=1;strokeColor=#E65100;strokeWidth=1.2;fontSize=9;fontColor=#E65100;exitX=0.25;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="sub_supplier" source="ent_supplier_dfd2" target="proc_5_4">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="55" y="440" />
+              <mxPoint x="840" y="440" />
+              <mxPoint x="840" y="365" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="flow_54_delivered_patch" value="PATCH status='Delivered'" style="endArrow=block;html=1;strokeColor=#E65100;strokeWidth=1.2;fontSize=9;fontColor=#E65100;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="sub_supplier" source="proc_5_4" target="ds_bulk_orders_dfd2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="flow_54_deduct_wholesale" value="Deduct supplier internal stock quantity" style="endArrow=block;html=1;strokeColor=#E65100;strokeWidth=1.2;fontSize=9;fontColor=#E65100;exitX=0.111;exitY=0.111;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.75;entryY=1;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="sub_supplier" source="proc_5_4" target="ds_supp_books_dfd2">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="910" y="270" />
+              <mxPoint x="610" y="270" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="flow_54_retail_sync" value="Create / Merge stock into retail catalog&#xa;(Book model) with a 50% wholesale markup" style="endArrow=block;html=1;strokeColor=#E65100;strokeWidth=1.2;fontSize=9;fontColor=#E65100;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="sub_supplier" source="proc_5_4" target="ds_retail_books_dfd2">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="945" y="150" />
+              <mxPoint x="945" y="150" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="flow_54_a" value="Show wholesale invoice total &amp;&#xa;completed delivery confirmation status" style="endArrow=block;html=1;strokeColor=#6A1B9A;strokeWidth=1.2;fontSize=9;fontColor=#6A1B9A;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.75;entryY=1;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="sub_supplier" source="proc_5_4" target="ent_admin_dfd2">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1050" y="365" />
+              <mxPoint x="1050" y="280" />
+              <mxPoint x="1185" y="280" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- ========================================== -->
+        <!-- SUBSECTION E: ADMIN MANAGEMENT & ANALYTICS (PROCESS 7.0) -->
+        <!-- ========================================== -->
+        <mxCell id="sub_admin" value="Process 7.0 Detailed Breakdown: Admin Management &amp; Analytics Subsystem" style="swimlane;whiteSpace=wrap;html=1;fontSize=14;fontStyle=1;fillColor=#F3E5F5;strokeColor=#9C27B0;strokeWidth=2;fontColor=#6A1B9A;" vertex="1" parent="1">
+          <mxGeometry x="30" y="2120" width="1240" height="480" as="geometry" />
+        </mxCell>
+
+        <!-- Entities inside Admin swimlane -->
+        <mxCell id="ent_admin_dfd2_sec" value="Admin / Manager" style="html=1;whiteSpace=wrap;fillColor=#F3E5F5;strokeColor=#9C27B0;strokeWidth=2;fontStyle=1;fontSize=11;fontColor=#6A1B9A;align=center;" vertex="1" parent="sub_admin">
+          <mxGeometry x="30" y="190" width="110" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- Processes inside Admin swimlane -->
+        <mxCell id="proc_7_1" value="7.1&#xa;Query Store&#xa;KPIs &amp; Revenue" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#F3E5F5;strokeColor=#9C27B0;strokeWidth=2;fontStyle=1;fontSize=10;fontColor=#6A1B9A;align=center;" vertex="1" parent="sub_admin">
+          <mxGeometry x="240" y="60" width="80" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="proc_7_2" value="7.2&#xa;Analyze Chat Intents&#xa;&amp; Book Mentions" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#F3E5F5;strokeColor=#9C27B0;strokeWidth=2;fontStyle=1;fontSize=10;fontColor=#6A1B9A;align=center;" vertex="1" parent="sub_admin">
+          <mxGeometry x="240" y="180" width="80" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="proc_7_3" value="7.3&#xa;Execute Book&#xa;Catalog CRUD" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#F3E5F5;strokeColor=#9C27B0;strokeWidth=2;fontStyle=1;fontSize=10;fontColor=#6A1B9A;align=center;" vertex="1" parent="sub_admin">
+          <mxGeometry x="540" y="320" width="90" height="90" as="geometry" />
+        </mxCell>
+
+        <!-- Data Stores inside Admin swimlane -->
+        <mxCell id="ds_users_admin" value="D1: Users Table (auth_user)" style="shape=partialRectangle;whiteSpace=wrap;left=0;right=0;fillColor=#F8F9FA;strokeColor=#343A40;strokeWidth=2;fontStyle=1;fontSize=10;fontColor=#212529;align=center;" vertex="1" parent="sub_admin">
+          <mxGeometry x="510" y="85" width="180" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ds_books_admin" value="D3: Book Table (Retail Catalog)" style="shape=partialRectangle;whiteSpace=wrap;left=0;right=0;fillColor=#F8F9FA;strokeColor=#343A40;strokeWidth=2;fontStyle=1;fontSize=10;fontColor=#212529;align=center;" vertex="1" parent="sub_admin">
+          <mxGeometry x="510" y="205" width="180" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ds_orders_admin" value="D7: Order &amp; Items Table" style="shape=partialRectangle;whiteSpace=wrap;left=0;right=0;fillColor=#F8F9FA;strokeColor=#343A40;strokeWidth=2;fontStyle=1;fontSize=10;fontColor=#212529;align=center;" vertex="1" parent="sub_admin">
+          <mxGeometry x="900" y="205" width="180" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ds_chats_admin" value="D6: ChatInteraction Table" style="shape=partialRectangle;whiteSpace=wrap;left=0;right=0;fillColor=#E1F5FE;strokeColor=#0288D1;strokeWidth=2;fontStyle=1;fontSize=10;fontColor=#01579B;align=center;" vertex="1" parent="sub_admin">
+          <mxGeometry x="900" y="85" width="180" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Flows inside Admin swimlane -->
+        <mxCell id="flow_a_71" value="Request performance reports" style="endArrow=block;html=1;strokeColor=#6A1B9A;strokeWidth=1.2;fontSize=9;fontColor=#6A1B9A;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="sub_admin" source="ent_admin_dfd2_sec" target="proc_7_1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="flow_71_users" value="Read users count" style="endArrow=block;html=1;strokeColor=#6A1B9A;strokeWidth=1.2;fontSize=9;fontColor=#6A1B9A;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="sub_admin" source="proc_7_1" target="ds_users_admin">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="flow_71_orders" value="Aggregate completed order amounts" style="endArrow=block;html=1;strokeColor=#6A1B9A;strokeWidth=1.2;fontSize=9;fontColor=#6A1B9A;exitX=1;exitY=0.25;exitDx=0;exitDy=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="sub_admin" source="proc_7_1" target="ds_orders_admin">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="430" y="80" />
+              <mxPoint x="430" y="40" />
+              <mxPoint x="945" y="40" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="flow_71_chats" value="Count total bot chats" style="endArrow=block;html=1;strokeColor=#6A1B9A;strokeWidth=1.2;fontSize=9;fontColor=#6A1B9A;exitX=1;exitY=0;exitDx=0;exitDy=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="sub_admin" source="proc_7_1" target="ds_chats_admin">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="310" y="20" />
+              <mxPoint x="945" y="20" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="flow_a_72" value="Request chatbot intent logs" style="endArrow=block;html=1;strokeColor=#6A1B9A;strokeWidth=1.2;fontSize=9;fontColor=#6A1B9A;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="sub_admin" source="ent_admin_dfd2_sec" target="proc_7_2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="flow_72_chats" value="Retrieve detected intents list" style="endArrow=block;html=1;strokeColor=#6A1B9A;strokeWidth=1.2;fontSize=9;fontColor=#6A1B9A;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="sub_admin" source="proc_7_2" target="ds_chats_admin">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="flow_72_orders" value="Get top books sold" style="endArrow=block;html=1;strokeColor=#6A1B9A;strokeWidth=1.2;fontSize=9;fontColor=#6A1B9A;exitX=1;exitY=0.75;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="sub_admin" source="proc_7_2" target="ds_orders_admin">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="430" y="240" />
+              <mxPoint x="430" y="280" />
+              <mxPoint x="830" y="280" />
+              <mxPoint x="830" y="220" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="flow_a_73" value="Perform Book CRUD specs" style="endArrow=block;html=1;strokeColor=#6A1B9A;strokeWidth=1.2;fontSize=9;fontColor=#6A1B9A;exitX=0.25;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="sub_admin" source="ent_admin_dfd2_sec" target="proc_7_3">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="58" y="365" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="flow_73_books" value="Update retail items description/price/stock" style="endArrow=block;html=1;strokeColor=#6A1B9A;strokeWidth=1.2;fontSize=9;fontColor=#6A1B9A;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="sub_admin" source="proc_7_3" target="ds_books_admin">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="flow_analytics_out" value="Render Dashboard KPI charts,&#xa;top books list, user stats, and bot logs" style="endArrow=block;html=1;strokeColor=#6A1B9A;strokeWidth=1.2;fontSize=9;fontColor=#6A1B9A;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.75;entryY=1;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="sub_admin" source="proc_7_3" target="ent_admin_dfd2_sec">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="585" y="440" />
+              <mxPoint x="112" y="440" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

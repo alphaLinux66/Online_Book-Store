@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mxfile host="app.diagrams.net" modified="2026-06-01T13:13:00.000Z" agent="Mozilla/5.0" version="21.0.0" type="device">
+  <diagram id="PapyrusPlazaDFDLevel1" name="DFD Level 1 - Subsystem Diagram">
+    <mxGraphModel dx="1600" dy="1100" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1300" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Title -->
+        <mxCell id="title" value="Data Flow Diagram (Level 1 - Subsystems) - Papyrus Plaza Bookstore" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=18;fontStyle=1;fontColor=#1E1E1C;" vertex="1" parent="1">
+          <mxGeometry x="350" y="20" width="600" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- EXTERNAL ENTITIES -->
+        <!-- Customer -->
+        <mxCell id="ent_customer" value="&lt;&lt;entity&gt;&gt;&#xa;Customer" style="html=1;whiteSpace=wrap;fillColor=#ECEFF1;strokeColor=#455A64;strokeWidth=2;fontStyle=1;fontSize=11;fontColor=#263238;align=center;" vertex="1" parent="1">
+          <mxGeometry x="40" y="280" width="110" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Writer -->
+        <mxCell id="ent_writer" value="&lt;&lt;entity&gt;&gt;&#xa;Writer" style="html=1;whiteSpace=wrap;fillColor=#FFFDE7;strokeColor=#FBC02D;strokeWidth=2;fontStyle=1;fontSize=11;fontColor=#F57F17;align=center;" vertex="1" parent="1">
+          <mxGeometry x="40" y="580" width="110" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- B2B Supplier (Store Owner) -->
+        <mxCell id="ent_supplier" value="&lt;&lt;entity&gt;&gt;&#xa;B2B Supplier" style="html=1;whiteSpace=wrap;fillColor=#FFF3E0;strokeColor=#FF9800;strokeWidth=2;fontStyle=1;fontSize=11;fontColor=#E65100;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1140" y="580" width="110" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Admin -->
+        <mxCell id="ent_admin" value="&lt;&lt;entity&gt;&gt;&#xa;Admin / Manager" style="html=1;whiteSpace=wrap;fillColor=#F3E5F5;strokeColor=#9C27B0;strokeWidth=2;fontStyle=1;fontSize=11;fontColor=#6A1B9A;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1140" y="280" width="110" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Gemini AI -->
+        <mxCell id="ent_gemini" value="&lt;&lt;external system&gt;&gt;&#xa;Google Gemini AI" style="html=1;whiteSpace=wrap;fillColor=#E1F5FE;strokeColor=#0288D1;strokeWidth=2;fontStyle=1;fontSize=11;fontColor=#01579B;align=center;" vertex="1" parent="1">
+          <mxGeometry x="870" y="80" width="120" height="60" as="geometry" />
+        </mxCell>
+
+
+        <!-- PROCESSES (Circles / Ellipses) -->
+        <!-- 1.0 User Authentication & RBAC -->
+        <mxCell id="proc_auth" value="1.0&#xa;Authenticate&#xa;&amp; Manage&#xa;Profiles" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#E3F2FD;strokeColor=#1565C0;strokeWidth=2;fontStyle=1;fontSize=11;fontColor=#0D47A1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="270" y="110" width="100" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- 2.0 Catalog & Search Management -->
+        <mxCell id="proc_catalog" value="2.0&#xa;Manage&#xa;Catalog &amp;&#xa;Reviews" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#E3F2FD;strokeColor=#1565C0;strokeWidth=2;fontStyle=1;fontSize=11;fontColor=#0D47A1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="270" y="260" width="100" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- 3.0 Cart & Retail Checkout -->
+        <mxCell id="proc_checkout" value="3.0&#xa;Manage Cart&#xa;&amp; Process&#xa;Retail Orders" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#E3F2FD;strokeColor=#1565C0;strokeWidth=2;fontStyle=1;fontSize=11;fontColor=#0D47A1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="270" y="410" width="100" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- 4.0 Writer Portal & Analytics -->
+        <mxCell id="proc_writer" value="4.0&#xa;Writer Portal&#xa;&amp; Manuscript&#xa;Telemetry" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#FFFDE7;strokeColor=#FBC02D;strokeWidth=2;fontStyle=1;fontSize=11;fontColor=#F57F17;align=center;" vertex="1" parent="1">
+          <mxGeometry x="270" y="560" width="100" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- 5.0 B2B Supplier Wholesale & Bulk Orders -->
+        <mxCell id="proc_b2b" value="5.0&#xa;Manage B2B&#xa;Suppliers &amp;&#xa;Bulk Checkout" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#FFF3E0;strokeColor=#FF9800;strokeWidth=2;fontStyle=1;fontSize=11;fontColor=#E65100;align=center;" vertex="1" parent="1">
+          <mxGeometry x="880" y="560" width="100" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- 6.0 RAG Recommendation Engine -->
+        <mxCell id="proc_rag" value="6.0&#xa;RAG Chat&#xa;AI Book&#xa;Suggestions" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#E1F5FE;strokeColor=#0288D1;strokeWidth=2;fontStyle=1;fontSize=11;fontColor=#01579B;align=center;" vertex="1" parent="1">
+          <mxGeometry x="880" y="260" width="100" height="100" as="geometry" />
+        </mxCell>
+
+
+        <!-- DATA STORES -->
+        <!-- D1: Users (auth_user) -->
+        <mxCell id="ds_users" value="D1: Users (auth_user)" style="shape=partialRectangle;whiteSpace=wrap;left=0;right=0;fillColor=#F8F9FA;strokeColor=#343A40;strokeWidth=2;fontStyle=1;fontSize=10;fontColor=#212529;align=center;" vertex="1" parent="1">
+          <mxGeometry x="540" y="130" width="180" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- D2: WriterProfile -->
+        <mxCell id="ds_writer_profile" value="D2: WriterProfile" style="shape=partialRectangle;whiteSpace=wrap;left=0;right=0;fillColor=#FFFDE7;strokeColor=#FBC02D;strokeWidth=2;fontStyle=1;fontSize=10;fontColor=#F57F17;align=center;" vertex="1" parent="1">
+          <mxGeometry x="500" y="690" width="180" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- D3: Book (Retail Catalog) -->
+        <mxCell id="ds_books" value="D3: Book (Retail Catalog)" style="shape=partialRectangle;whiteSpace=wrap;left=0;right=0;fillColor=#F8F9FA;strokeColor=#343A40;strokeWidth=2;fontStyle=1;fontSize=10;fontColor=#212529;align=center;" vertex="1" parent="1">
+          <mxGeometry x="540" y="320" width="180" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- D4: CartItem -->
+        <mxCell id="ds_cart" value="D4: CartItem" style="shape=partialRectangle;whiteSpace=wrap;left=0;right=0;fillColor=#F8F9FA;strokeColor=#343A40;strokeWidth=2;fontStyle=1;fontSize=10;fontColor=#212529;align=center;" vertex="1" parent="1">
+          <mxGeometry x="60" y="445" width="130" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- D5: Review -->
+        <mxCell id="ds_reviews" value="D5: Review" style="shape=partialRectangle;whiteSpace=wrap;left=0;right=0;fillColor=#F8F9FA;strokeColor=#343A40;strokeWidth=2;fontStyle=1;fontSize=10;fontColor=#212529;align=center;" vertex="1" parent="1">
+          <mxGeometry x="540" y="240" width="180" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- D6: ChatInteraction -->
+        <mxCell id="ds_chat" value="D6: ChatInteraction Logs" style="shape=partialRectangle;whiteSpace=wrap;left=0;right=0;fillColor=#E1F5FE;strokeColor=#0288D1;strokeWidth=2;fontStyle=1;fontSize=10;fontColor=#01579B;align=center;" vertex="1" parent="1">
+          <mxGeometry x="990" y="200" width="180" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- D7: Order & OrderItem -->
+        <mxCell id="ds_orders" value="D7: Order &amp; OrderItem" style="shape=partialRectangle;whiteSpace=wrap;left=0;right=0;fillColor=#F8F9FA;strokeColor=#343A40;strokeWidth=2;fontStyle=1;fontSize=10;fontColor=#212529;align=center;" vertex="1" parent="1">
+          <mxGeometry x="540" y="445" width="180" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- D8: StoreOwnerProfile -->
+        <mxCell id="ds_store_owner" value="D8: StoreOwnerProfile" style="shape=partialRectangle;whiteSpace=wrap;left=0;right=0;fillColor=#FFF3E0;strokeColor=#FF9800;strokeWidth=2;fontStyle=1;fontSize=10;fontColor=#E65100;align=center;" vertex="1" parent="1">
+          <mxGeometry x="990" y="500" width="180" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- D9: SupplierBook (Wholesale Catalog) -->
+        <mxCell id="ds_supplier_book" value="D9: SupplierBook" style="shape=partialRectangle;whiteSpace=wrap;left=0;right=0;fillColor=#FFF3E0;strokeColor=#FF9800;strokeWidth=2;fontStyle=1;fontSize=10;fontColor=#E65100;align=center;" vertex="1" parent="1">
+          <mxGeometry x="840" y="750" width="180" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- D10: BulkOrder & BulkOrderItem -->
+        <mxCell id="ds_bulk_orders" value="D10: BulkOrder &amp; Items" style="shape=partialRectangle;whiteSpace=wrap;left=0;right=0;fillColor=#FFF3E0;strokeColor=#FF9800;strokeWidth=2;fontStyle=1;fontSize=10;fontColor=#E65100;align=center;" vertex="1" parent="1">
+          <mxGeometry x="840" y="445" width="180" height="30" as="geometry" />
+        </mxCell>
+
+
+        <!-- DATA FLOWS (CONNECTIONS) -->
+        <!-- Process 1.0 Flows -->
+        <mxCell id="edge_cust_auth" value="Login credentials,&#xa;Registration details" style="endArrow=block;html=1;strokeColor=#1565C0;strokeWidth=1.2;fontSize=9;fontColor=#0D47A1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="ent_customer" target="proc_auth">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="95" y="160" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="edge_auth_users_write" value="Create / Update User" style="endArrow=block;html=1;strokeColor=#1565C0;strokeWidth=1.2;fontSize=9;fontColor=#0D47A1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="proc_auth" target="ds_users">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="edge_auth_users_read" value="Verify Credentials / JWT token" style="endArrow=block;html=1;strokeColor=#1565C0;strokeWidth=1.2;fontSize=9;fontColor=#0D47A1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="ds_users" target="proc_auth">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="630" y="190" />
+              <mxPoint x="320" y="190" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="edge_auth_cust_response" value="JWT Session Token,&#xa;User details" style="endArrow=block;html=1;strokeColor=#1565C0;strokeWidth=1.2;fontSize=9;fontColor=#0D47A1;exitX=0.25;exitY=1;exitDx=0;exitDy=0;entryX=0.75;entryY=0;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="proc_auth" target="ent_customer">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="295" y="240" />
+              <mxPoint x="122" y="240" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Process 2.0 Flows -->
+        <mxCell id="edge_cust_catalog_read" value="Browse catalog,&#xa;Search keyword" style="endArrow=block;html=1;strokeColor=#1565C0;strokeWidth=1.2;fontSize=9;fontColor=#0D47A1;exitX=1;exitY=0.25;exitDx=0;exitDy=0;entryX=0;entryY=0.25;entryDx=0;entryDy=0;" edge="1" parent="1" source="ent_customer" target="proc_catalog">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="edge_catalog_books_read" value="Read Book specs" style="endArrow=block;html=1;strokeColor=#1565C0;strokeWidth=1.2;fontSize=9;fontColor=#0D47A1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="ds_books" target="proc_catalog">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="630" y="310" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="edge_catalog_cust_out" value="Show books lists,&#xa;Ratings / reviews" style="endArrow=block;html=1;strokeColor=#1565C0;strokeWidth=1.2;fontSize=9;fontColor=#0D47A1;exitX=0;exitY=0.75;exitDx=0;exitDy=0;entryX=1;entryY=0.75;entryDx=0;entryDy=0;" edge="1" parent="1" source="proc_catalog" target="ent_customer">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="edge_cust_reviews_in" value="Submit review / rating" style="endArrow=block;html=1;strokeColor=#1565C0;strokeWidth=1.2;fontSize=9;fontColor=#0D47A1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="ent_customer" target="proc_catalog">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="edge_catalog_reviews_write" value="Save review" style="endArrow=block;html=1;strokeColor=#1565C0;strokeWidth=1.2;fontSize=9;fontColor=#0D47A1;exitX=1;exitY=0.25;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="proc_catalog" target="ds_reviews">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="460" y="285" />
+              <mxPoint x="460" y="255" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Process 3.0 Flows -->
+        <mxCell id="edge_cust_cart" value="Add / Update / Clear items" style="endArrow=block;html=1;strokeColor=#1565C0;strokeWidth=1.2;fontSize=9;fontColor=#0D47A1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.25;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="ent_customer" target="proc_checkout">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="95" y="435" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="edge_checkout_cart_io" value="CRUD Cart details" style="endArrow=classic;html=1;strokeColor=#1565C0;strokeWidth=1.2;fontSize=9;fontColor=#0D47A1;exitX=0.25;exitY=0;exitDx=0;exitDy=0;entryX=0.615;entryY=1;entryDx=0;entryDy=0;entryPerimeter=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="proc_checkout" target="ds_cart">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="295" y="390" />
+              <mxPoint x="140" y="390" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="edge_checkout_orders" value="Create order invoice,&#xa;Log order items" style="endArrow=block;html=1;strokeColor=#1565C0;strokeWidth=1.2;fontSize=9;fontColor=#0D47A1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="proc_checkout" target="ds_orders">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="edge_checkout_books_drain" value="Deduct stock quantities" style="endArrow=block;html=1;strokeColor=#1565C0;strokeWidth=1.2;fontSize=9;fontColor=#0D47A1;exitX=1;exitY=0.25;exitDx=0;exitDy=0;entryX=0.089;entryY=1.033;entryDx=0;entryDy=0;entryPerimeter=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="proc_checkout" target="ds_books">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="430" y="435" />
+              <mxPoint x="430" y="370" />
+              <mxPoint x="556" y="370" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Process 4.0 Flows (Writer) -->
+        <mxCell id="edge_writer_reg" value="Register &amp; Profile Metadata" style="endArrow=block;html=1;strokeColor=#F57F17;strokeWidth=1.2;fontSize=9;fontColor=#F57F17;exitX=1;exitY=0.25;exitDx=0;exitDy=0;entryX=0;entryY=0.25;entryDx=0;entryDy=0;" edge="1" parent="1" source="ent_writer" target="proc_writer">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="edge_writer_save_profile" value="Save profile" style="endArrow=block;html=1;strokeColor=#F57F17;strokeWidth=1.2;fontSize=9;fontColor=#F57F17;exitX=1;exitY=0.75;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="proc_writer" target="ds_writer_profile">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="430" y="635" />
+              <mxPoint x="430" y="705" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="edge_writer_upload" value="Upload manuscript PDF,&#xa;Title / Author" style="endArrow=block;html=1;strokeColor=#F57F17;strokeWidth=1.2;fontSize=9;fontColor=#F57F17;exitX=1;exitY=0.75;exitDx=0;exitDy=0;entryX=0;entryY=0.75;entryDx=0;entryDy=0;" edge="1" parent="1" source="ent_writer" target="proc_writer">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="edge_writer_save_book" value="Save book digital reference" style="endArrow=block;html=1;strokeColor=#F57F17;strokeWidth=1.2;fontSize=9;fontColor=#F57F17;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.083;entryY=1.033;entryDx=0;entryDy=0;entryPerimeter=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="proc_writer" target="ds_books">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="320" y="530" />
+              <mxPoint x="555" y="530" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="edge_writer_read_sales" value="Query analytics (readers, reviews)" style="endArrow=block;html=1;strokeColor=#F57F17;strokeWidth=1.2;fontSize=9;fontColor=#F57F17;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.75;entryY=1;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="ds_orders" target="proc_writer">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="675" y="500" />
+              <mxPoint x="345" y="500" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="edge_writer_telemetry_out" value="Show dashboard stats" style="endArrow=block;html=1;strokeColor=#F57F17;strokeWidth=1.2;fontSize=9;fontColor=#F57F17;exitX=0.25;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="proc_writer" target="ent_writer">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="295" y="680" />
+              <mxPoint x="95" y="680" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Process 5.0 Flows (B2B Supplier) -->
+        <mxCell id="edge_supplier_reg" value="Register supplier" style="endArrow=block;html=1;strokeColor=#E65100;strokeWidth=1.2;fontSize=9;fontColor=#E65100;exitX=0;exitY=0.25;exitDx=0;exitDy=0;entryX=1;entryY=0.25;entryDx=0;entryDy=0;" edge="1" parent="1" source="ent_supplier" target="proc_b2b">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="edge_supplier_save_profile" value="Save Profile info" style="endArrow=block;html=1;strokeColor=#E65100;strokeWidth=1.2;fontSize=9;fontColor=#E65100;exitX=1;exitY=0.25;exitDx=0;exitDy=0;entryX=0.25;entryY=1;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="proc_b2b" target="ds_store_owner">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1000" y="585" />
+              <mxPoint x="1000" y="540" />
+              <mxPoint x="1035" y="540" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="edge_supplier_books_in" value="List wholesale inventory,&#xa;Wholesale pricing" style="endArrow=block;html=1;strokeColor=#E65100;strokeWidth=1.2;fontSize=9;fontColor=#E65100;exitX=0;exitY=0.75;exitDx=0;exitDy=0;entryX=1;entryY=0.75;entryDx=0;entryDy=0;" edge="1" parent="1" source="ent_supplier" target="proc_b2b">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="edge_supplier_books_write" value="Update SupplierBook" style="endArrow=block;html=1;strokeColor=#E65100;strokeWidth=1.2;fontSize=9;fontColor=#E65100;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="proc_b2b" target="ds_supplier_book">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="930" y="710" />
+              <mxPoint x="930" y="710" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Admin interactions with B2B Process 5.0 -->
+        <mxCell id="edge_admin_bulk_req" value="Dispatch bulk order checkout" style="endArrow=block;html=1;strokeColor=#6A1B9A;strokeWidth=1.2;fontSize=9;fontColor=#6A1B9A;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="ent_admin" target="proc_b2b">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1195" y="470" />
+              <mxPoint x="930" y="470" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="edge_bulk_orders_write" value="Log BulkOrder &amp; items" style="endArrow=block;html=1;strokeColor=#E65100;strokeWidth=1.2;fontSize=9;fontColor=#E65100;exitX=0.25;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="proc_b2b" target="ds_bulk_orders">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="905" y="520" />
+              <mxPoint x="930" y="520" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="edge_supplier_ship" value="Accept &amp; ship bulk order" style="endArrow=block;html=1;strokeColor=#E65100;strokeWidth=1.2;fontSize=9;fontColor=#E65100;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=1;entryY=0.9;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="ent_supplier" target="proc_b2b">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1195" y="650" />
+              <mxPoint x="970" y="650" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="edge_supplier_delivered_sync" value="Sync inventory: Deduct wholesale,&#xa;Add items to Retail Catalog (Book)" style="endArrow=block;html=1;strokeColor=#E65100;strokeWidth=1.2;fontSize=9;fontColor=#E65100;exitX=0.25;exitY=0;exitDx=0;exitDy=0;entryX=0.917;entryY=1.033;entryDx=0;entryDy=0;entryPerimeter=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="proc_b2b" target="ds_books">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="905" y="500" />
+              <mxPoint x="705" y="500" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Process 6.0 Flows (RAG Chat) -->
+        <mxCell id="edge_cust_query_rag" value="Ask book query" style="endArrow=block;html=1;strokeColor=#0288D1;strokeWidth=1.2;fontSize=9;fontColor=#01579B;exitX=0.75;exitY=0;exitDx=0;exitDy=0;entryX=0.25;entryY=1;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="ent_customer" target="proc_rag">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="123" y="380" />
+              <mxPoint x="905" y="380" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="edge_rag_logs" value="Write ChatInteraction log" style="endArrow=block;html=1;strokeColor=#0288D1;strokeWidth=1.2;fontSize=9;fontColor=#01579B;exitX=1;exitY=0.25;exitDx=0;exitDy=0;entryX=0.25;entryY=1;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="proc_rag" target="ds_chat">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1035" y="285" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="edge_rag_context_read" value="Keyword-based retrieval" style="endArrow=block;html=1;strokeColor=#0288D1;strokeWidth=1.2;fontSize=9;fontColor=#01579B;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.75;entryY=0;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="ds_books" target="proc_rag">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="630" y="370" />
+              <mxPoint x="955" y="370" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="edge_rag_gemini_call" value="Augmented context &amp; prompt" style="endArrow=block;html=1;strokeColor=#0288D1;strokeWidth=1.2;fontSize=9;fontColor=#01579B;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.25;entryY=1;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="proc_rag" target="ent_gemini">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="930" y="220" />
+              <mxPoint x="900" y="220" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="edge_rag_gemini_ret" value="Text response" style="endArrow=block;html=1;strokeColor=#0288D1;strokeWidth=1.2;fontSize=9;fontColor=#01579B;exitX=0.75;exitY=1;exitDx=0;exitDy=0;entryX=0.75;entryY=0;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="ent_gemini" target="proc_rag">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="960" y="220" />
+              <mxPoint x="955" y="220" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="edge_rag_response_cust" value="AI Answer" style="endArrow=block;html=1;strokeColor=#0288D1;strokeWidth=1.2;fontSize=9;fontColor=#01579B;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.75;entryY=0;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="proc_rag" target="ent_customer">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="930" y="390" />
+              <mxPoint x="123" y="390" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Admin View analytics -->
+        <mxCell id="edge_admin_analytics" value="Query KPI dashboard &amp; logs" style="endArrow=block;html=1;strokeColor=#6A1B9A;strokeWidth=1.2;fontSize=9;fontColor=#6A1B9A;exitX=0.25;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="ent_admin" target="proc_rag">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1168" y="360" />
+              <mxPoint x="1040" y="360" />
+              <mxPoint x="1040" y="310" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

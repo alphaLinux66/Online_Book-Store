@@ -34,6 +34,13 @@ const ProtectedRoute = ({ children }) => {
 
 import WriterJournal from './pages/WriterJournal';
 
+const ClientRoute = ({ children }) => {
+  const { user } = useAuth();
+  if (user?.isStoreOwner) return <Navigate to="/supplier" replace />;
+  if (user?.isWriter) return <Navigate to="/writer" replace />;
+  return children;
+};
+
 const AdminRoute = ({ children }) => {
   const { user } = useAuth();
   if (!user || !user.isAdmin) return <Navigate to="/" replace />;
@@ -63,14 +70,14 @@ const AppLayout = () => {
       <div className="app-bg" />
       <Navbar />
       <main className="main-content">
-        <Routes>
-          <Route path="/" element={<Home />} />
+         <Routes>
+          <Route path="/" element={<ClientRoute><Home /></ClientRoute>} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/reset-password" element={<ResetPassword />} />
           
-          <Route path="/catalog" element={<Catalog />} />
-          <Route path="/book/:id" element={<BookDetail />} />
+          <Route path="/catalog" element={<ClientRoute><Catalog /></ClientRoute>} />
+          <Route path="/book/:id" element={<ClientRoute><BookDetail /></ClientRoute>} />
           <Route path="/cart" element={<ProtectedRoute><Cart /></ProtectedRoute>} />
           <Route path="/checkout" element={<ProtectedRoute><Checkout /></ProtectedRoute>} />
           <Route path="/tracking" element={<ProtectedRoute><OrderTracking /></ProtectedRoute>} />

@@ -29,7 +29,7 @@ export default function Navbar() {
         </Link>
         
         <div className="nav-links" style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
-          {!user?.isAdmin && (
+          {!user?.isAdmin && !user?.isStoreOwner && !user?.isWriter && (
             <Link to="/" className={`nav-link ${location.pathname === '/' ? 'active' : ''}`}>
               Home
             </Link>

@@ -1,0 +1,191 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="app.diagrams.net" modified="2026-05-23T12:40:00.000Z" agent="Mozilla/5.0" version="21.0.0" type="device">
+  <diagram id="PapyrusPlazaUseCaseDiagram" name="UML Use Case Diagram">
+    <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="1400" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="system_boundary" value="Papyrus Plaza System" style="swimlane;whiteSpace=wrap;html=1;collapsible=0;recursiveResize=0;fontSize=16;fontStyle=1;align=center;fillColor=#F5F5F5;strokeColor=#CCCCCC;strokeWidth=2;fontColor=#333333;" parent="1" vertex="1">
+          <mxGeometry x="200" y="50" width="800" height="1220" as="geometry" />
+        </mxCell>
+        <mxCell id="act_cust" parent="1" value="Customer" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#FFF2CC;strokeColor=#D6B656;strokeWidth=1.5;fontSize=12;fontStyle=1;fontColor=#333333;" vertex="1">
+          <mxGeometry x="60" y="280" width="40" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="act_writer" parent="1" value="Writer" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#FFF2CC;strokeColor=#D6B656;strokeWidth=1.5;fontSize=12;fontStyle=1;fontColor=#333333;" vertex="1">
+          <mxGeometry x="60" y="780" width="40" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="act_owner" parent="1" value="B2B Supplier" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#FFF2CC;strokeColor=#D6B656;strokeWidth=1.5;fontSize=12;fontStyle=1;fontColor=#333333;" vertex="1">
+          <mxGeometry x="60" y="1040" width="40" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="act_admin" parent="1" value="Admin / Manager" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#FFF2CC;strokeColor=#D6B656;strokeWidth=1.5;fontSize=12;fontStyle=1;fontColor=#333333;" vertex="1">
+          <mxGeometry x="1080" y="850" width="40" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="act_gemini" parent="1" value="Google Gemini AI" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#E1F5FE;strokeColor=#0288D1;strokeWidth=1.5;fontSize=12;fontStyle=1;fontColor=#01579B;" vertex="1">
+          <mxGeometry x="1080" y="600" width="40" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_register" parent="system_boundary" value="Register Account" style="ellipse;whiteSpace=wrap;html=1;fillColor=#E8F5E9;strokeColor=#4CAF50;strokeWidth=1.5;fontStyle=1;fontColor=#2E7D32;fontSize=11;" vertex="1">
+          <mxGeometry x="70" y="90" width="220" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_login" parent="system_boundary" value="Login" style="ellipse;whiteSpace=wrap;html=1;fillColor=#E8F5E9;strokeColor=#4CAF50;strokeWidth=1.5;fontStyle=1;fontColor=#2E7D32;fontSize=11;" vertex="1">
+          <mxGeometry x="70" y="150" width="220" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_browse" parent="system_boundary" value="Browse Book Catalog" style="ellipse;whiteSpace=wrap;html=1;fillColor=#E8F5E9;strokeColor=#4CAF50;strokeWidth=1.5;fontStyle=1;fontColor=#2E7D32;fontSize=11;" vertex="1">
+          <mxGeometry x="70" y="210" width="220" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_search" parent="system_boundary" value="Search Books" style="ellipse;whiteSpace=wrap;html=1;fillColor=#E8F5E9;strokeColor=#4CAF50;strokeWidth=1.5;fontStyle=1;fontColor=#2E7D32;fontSize=11;" vertex="1">
+          <mxGeometry x="70" y="270" width="220" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_view_details" parent="system_boundary" value="View Book Details" style="ellipse;whiteSpace=wrap;html=1;fillColor=#E8F5E9;strokeColor=#4CAF50;strokeWidth=1.5;fontStyle=1;fontColor=#2E7D32;fontSize=11;" vertex="1">
+          <mxGeometry x="70" y="330" width="220" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_add_cart" parent="system_boundary" value="Add to Cart" style="ellipse;whiteSpace=wrap;html=1;fillColor=#E8F5E9;strokeColor=#4CAF50;strokeWidth=1.5;fontStyle=1;fontColor=#2E7D32;fontSize=11;" vertex="1">
+          <mxGeometry x="70" y="390" width="220" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_place_order" parent="system_boundary" value="Place Order" style="ellipse;whiteSpace=wrap;html=1;fillColor=#E8F5E9;strokeColor=#4CAF50;strokeWidth=1.5;fontStyle=1;fontColor=#2E7D32;fontSize=11;" vertex="1">
+          <mxGeometry x="70" y="450" width="220" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_write_review" parent="system_boundary" value="Write Review" style="ellipse;whiteSpace=wrap;html=1;fillColor=#E8F5E9;strokeColor=#4CAF50;strokeWidth=1.5;fontStyle=1;fontColor=#2E7D32;fontSize=11;" vertex="1">
+          <mxGeometry x="70" y="510" width="220" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_chat_ai" parent="system_boundary" value="Chat with AI Assistant" style="ellipse;whiteSpace=wrap;html=1;fillColor=#E1F5FE;strokeColor=#0288D1;strokeWidth=1.5;fontStyle=1;fontColor=#01579B;fontSize=11;" vertex="1">
+          <mxGeometry x="70" y="570" width="220" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_view_profile" parent="system_boundary" value="View Profile &amp; Order History" style="ellipse;whiteSpace=wrap;html=1;fillColor=#E8F5E9;strokeColor=#4CAF50;strokeWidth=1.5;fontStyle=1;fontColor=#2E7D32;fontSize=11;" vertex="1">
+          <mxGeometry x="70" y="630" width="220" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_reg_writer" parent="system_boundary" value="Register as Writer" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFFDE7;strokeColor=#FBC02D;strokeWidth=1.5;fontStyle=1;fontColor=#F57F17;fontSize=11;" vertex="1">
+          <mxGeometry x="70" y="710" width="220" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_upload_book" parent="system_boundary" value="Upload Digital Book (PDF)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFFDE7;strokeColor=#FBC02D;strokeWidth=1.5;fontStyle=1;fontColor=#F57F17;fontSize=11;" vertex="1">
+          <mxGeometry x="70" y="770" width="220" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_view_sales" parent="system_boundary" value="View Sales Analytics" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFFDE7;strokeColor=#FBC02D;strokeWidth=1.5;fontStyle=1;fontColor=#F57F17;fontSize=11;" vertex="1">
+          <mxGeometry x="70" y="830" width="220" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_manage_pub" parent="system_boundary" value="Manage Published Books" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFFDE7;strokeColor=#FBC02D;strokeWidth=1.5;fontStyle=1;fontColor=#F57F17;fontSize=11;" vertex="1">
+          <mxGeometry x="70" y="890" width="220" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_reg_supplier" parent="system_boundary" value="Register as Supplier" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFF3E0;strokeColor=#FF9800;strokeWidth=1.5;fontStyle=1;fontColor=#E65100;fontSize=11;" vertex="1">
+          <mxGeometry x="70" y="970" width="220" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_list_wholesale" parent="system_boundary" value="List Wholesale Books" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFF3E0;strokeColor=#FF9800;strokeWidth=1.5;fontStyle=1;fontColor=#E65100;fontSize=11;" vertex="1">
+          <mxGeometry x="70" y="1030" width="220" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_update_pricing" parent="system_boundary" value="Update Stock &amp; Pricing" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFF3E0;strokeColor=#FF9800;strokeWidth=1.5;fontStyle=1;fontColor=#E65100;fontSize=11;" vertex="1">
+          <mxGeometry x="70" y="1090" width="220" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_fulfill_bulk" parent="system_boundary" value="View &amp; Fulfill Bulk Orders" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFF3E0;strokeColor=#FF9800;strokeWidth=1.5;fontStyle=1;fontColor=#E65100;fontSize=11;" vertex="1">
+          <mxGeometry x="70" y="1150" width="220" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_reset_pwd" parent="system_boundary" value="Reset Password" style="ellipse;whiteSpace=wrap;html=1;fillColor=#E8F5E9;strokeColor=#4CAF50;strokeWidth=1.5;fontStyle=1;fontColor=#2E7D32;fontSize=11;" vertex="1">
+          <mxGeometry x="510" y="150" width="220" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_track_order" parent="system_boundary" value="Track Order" style="ellipse;whiteSpace=wrap;html=1;fillColor=#E8F5E9;strokeColor=#4CAF50;strokeWidth=1.5;fontStyle=1;fontColor=#2E7D32;fontSize=11;" vertex="1">
+          <mxGeometry x="510" y="450" width="220" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_manage_books" parent="system_boundary" value="Manage Books (CRUD)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#F3E5F5;strokeColor=#9C27B0;strokeWidth=1.5;fontStyle=1;fontColor=#6A1B9A;fontSize=11;" vertex="1">
+          <mxGeometry x="510" y="710" width="220" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_manage_users" parent="system_boundary" value="Manage Users" style="ellipse;whiteSpace=wrap;html=1;fillColor=#F3E5F5;strokeColor=#9C27B0;strokeWidth=1.5;fontStyle=1;fontColor=#6A1B9A;fontSize=11;" vertex="1">
+          <mxGeometry x="510" y="770" width="220" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_place_bulk_b2b" parent="system_boundary" value="Place Bulk B2B Order" style="ellipse;whiteSpace=wrap;html=1;fillColor=#F3E5F5;strokeColor=#9C27B0;strokeWidth=1.5;fontStyle=1;fontColor=#6A1B9A;fontSize=11;" vertex="1">
+          <mxGeometry x="510" y="830" width="220" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_view_analytics" parent="system_boundary" value="View Analytics Dashboard" style="ellipse;whiteSpace=wrap;html=1;fillColor=#F3E5F5;strokeColor=#9C27B0;strokeWidth=1.5;fontStyle=1;fontColor=#6A1B9A;fontSize=11;" vertex="1">
+          <mxGeometry x="510" y="890" width="220" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_view_logs" parent="system_boundary" value="View Chatbot Logs" style="ellipse;whiteSpace=wrap;html=1;fillColor=#F3E5F5;strokeColor=#9C27B0;strokeWidth=1.5;fontStyle=1;fontColor=#6A1B9A;fontSize=11;" vertex="1">
+          <mxGeometry x="510" y="950" width="220" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="uc_manage_system" parent="system_boundary" value="Manage System" style="ellipse;whiteSpace=wrap;html=1;fillColor=#F3E5F5;strokeColor=#9C27B0;strokeWidth=1.5;fontStyle=1;fontColor=#6A1B9A;fontSize=11;" vertex="1">
+          <mxGeometry x="510" y="1010" width="220" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="title" parent="1" value="Use Case Diagram - Papyrus Plaza Online Book Store" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=16;fontStyle=1;fontColor=#1E1E1C;" vertex="1">
+          <mxGeometry x="300" y="1290" width="540" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="c1" parent="1" source="act_cust" target="uc_register" style="endArrow=none;html=1;strokeColor=#404040;strokeWidth=1.2;" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c2" parent="1" source="act_cust" target="uc_login" style="endArrow=none;html=1;strokeColor=#404040;strokeWidth=1.2;" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c3" parent="1" source="act_cust" target="uc_browse" style="endArrow=none;html=1;strokeColor=#404040;strokeWidth=1.2;" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c4" parent="1" source="act_cust" target="uc_search" style="endArrow=none;html=1;strokeColor=#404040;strokeWidth=1.2;" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c5" parent="1" source="act_cust" target="uc_view_details" style="endArrow=none;html=1;strokeColor=#404040;strokeWidth=1.2;" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c6" parent="1" source="act_cust" target="uc_add_cart" style="endArrow=none;html=1;strokeColor=#404040;strokeWidth=1.2;" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c7" parent="1" source="act_cust" target="uc_place_order" style="endArrow=none;html=1;strokeColor=#404040;strokeWidth=1.2;" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c8" parent="1" source="act_cust" target="uc_write_review" style="endArrow=none;html=1;strokeColor=#404040;strokeWidth=1.2;" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c9" parent="1" source="act_cust" target="uc_chat_ai" style="endArrow=none;html=1;strokeColor=#404040;strokeWidth=1.2;" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c10" parent="1" source="act_cust" target="uc_view_profile" style="endArrow=none;html=1;strokeColor=#404040;strokeWidth=1.2;" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="w1" parent="1" source="act_writer" target="uc_reg_writer" style="endArrow=none;html=1;strokeColor=#404040;strokeWidth=1.2;" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="w2" parent="1" source="act_writer" target="uc_upload_book" style="endArrow=none;html=1;strokeColor=#404040;strokeWidth=1.2;" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="w3" parent="1" source="act_writer" target="uc_view_sales" style="endArrow=none;html=1;strokeColor=#404040;strokeWidth=1.2;" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="w4" parent="1" source="act_writer" target="uc_manage_pub" style="endArrow=none;html=1;strokeColor=#404040;strokeWidth=1.2;" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="o1" parent="1" source="act_owner" target="uc_reg_supplier" style="endArrow=none;html=1;strokeColor=#404040;strokeWidth=1.2;" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="o2" parent="1" source="act_owner" target="uc_list_wholesale" style="endArrow=none;html=1;strokeColor=#404040;strokeWidth=1.2;" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="o3" parent="1" source="act_owner" target="uc_update_pricing" style="endArrow=none;html=1;strokeColor=#404040;strokeWidth=1.2;" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="o4" parent="1" source="act_owner" target="uc_fulfill_bulk" style="endArrow=none;html=1;strokeColor=#404040;strokeWidth=1.2;" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a1" parent="1" source="act_admin" target="uc_manage_books" style="endArrow=none;html=1;strokeColor=#404040;strokeWidth=1.2;" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a2" parent="1" source="act_admin" target="uc_manage_users" style="endArrow=none;html=1;strokeColor=#404040;strokeWidth=1.2;" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a3" parent="1" source="act_admin" target="uc_place_bulk_b2b" style="endArrow=none;html=1;strokeColor=#404040;strokeWidth=1.2;" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a4" parent="1" source="act_admin" target="uc_view_analytics" style="endArrow=none;html=1;strokeColor=#404040;strokeWidth=1.2;" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a5" parent="1" source="act_admin" target="uc_view_logs" style="endArrow=none;html=1;strokeColor=#404040;strokeWidth=1.2;" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a6" parent="1" source="act_admin" target="uc_manage_system" style="endArrow=none;html=1;strokeColor=#404040;strokeWidth=1.2;" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="g_ai" parent="1" source="act_gemini" target="uc_chat_ai" style="endArrow=none;html=1;strokeColor=#404040;strokeWidth=1.2;" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rel_login_reset" parent="system_boundary" source="uc_login" target="uc_reset_pwd" value="&lt;&lt;include&gt;&gt;" style="endArrow=open;endSize=8;dashed=1;html=1;strokeColor=#666666;strokeWidth=1.2;fontSize=10;fontColor=#7F7F7F;labelBackgroundColor=#FFFFFF;" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rel_track_place" parent="system_boundary" source="uc_track_order" target="uc_place_order" value="&lt;&lt;extend&gt;&gt;" style="endArrow=open;endSize=8;dashed=1;html=1;strokeColor=#666666;strokeWidth=1.2;fontSize=10;fontColor=#7F7F7F;labelBackgroundColor=#FFFFFF;" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
